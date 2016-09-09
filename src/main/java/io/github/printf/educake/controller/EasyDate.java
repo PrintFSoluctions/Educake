@@ -5,17 +5,10 @@ import java.util.GregorianCalendar;
 
 public class EasyDate {
 
-  int day, month, year;
+  static int day, month, year;
 
-  public EasyDate(int day, int month, int year) {
-    this.day = day;
-    this.month = month;
-    this.year = year;
-  }
-
-  public Date toDate(){
+  public static Date toDate(int day, int month, int year){
     GregorianCalendar fullDate = new GregorianCalendar(year, month, day);
-    Date date = new Date(fullDate.getTimeInMillis());
-    return date;
+    return new Date(fullDate.getTimeInMillis());
   }
 }
