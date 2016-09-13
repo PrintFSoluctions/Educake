@@ -1,5 +1,7 @@
 package io.github.printf.educake.model.dao;
 
+import io.github.printf.educake.model.Person;
+
 import java.util.List;
 
 /**
@@ -14,8 +16,9 @@ public class PersonDAO extends DataAccessObject{
   }
 
   @Override
-  public Object getById(Long id) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Person getById(Long id) {
+    return entityManager.find(Person.class, id);
+
   }
 
   @Override

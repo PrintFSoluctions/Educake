@@ -14,19 +14,22 @@ import javax.persistence.Table;
 public class BillType implements Serializable {
   @Id
   @GeneratedValue
-  @Column private int idBillType;
+  @Column private long idBillType;
   
   @Column(name = "name") private String typeName;
+
+  public BillType() {
+  }
 
   public BillType(String type) {
     this.typeName = type;
   }
 
-  public int getIdBillType() {
+  public long getIdBillType() {
     return idBillType;
   }
 
-  public void setIdBillType(int idBillType) {
+  public void setIdBillType(long idBillType) {
     this.idBillType = idBillType;
   }
 

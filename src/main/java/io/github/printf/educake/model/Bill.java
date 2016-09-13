@@ -34,7 +34,7 @@ public class Bill implements Serializable {
 
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "idBillType", nullable = false)
-  private BillType bill;
+  private BillType billType;
 
   @Column
   private float value;
@@ -49,6 +49,9 @@ public class Bill implements Serializable {
   @Column
   @Temporal(TemporalType.DATE)
   private Date due;
+
+  public Bill() {
+  }
 
   public Long getIdBill() {
     return idBill;
@@ -66,12 +69,12 @@ public class Bill implements Serializable {
     this.person = person;
   }
 
-  public BillType getBill() {
-    return bill;
+  public BillType getBillType() {
+    return billType;
   }
 
-  public void setBill(BillType bill) {
-    this.bill = bill;
+  public void setBillType(BillType billType) {
+    this.billType = billType;
   }
 
   public float getValue() {

@@ -23,7 +23,7 @@ public class Payment implements Serializable {
   @Id
   @GeneratedValue
   @Column
-  private int idPayment;
+  private long idPayment;
 
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "idBill", nullable = false)
@@ -36,11 +36,14 @@ public class Payment implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date paymentDate;
 
-  public int getIdPayment() {
+  public Payment() {
+  }
+
+  public long getIdPayment() {
     return idPayment;
   }
 
-  public void setIdPayment(int idPayment) {
+  public void setIdPayment(long idPayment) {
     this.idPayment = idPayment;
   }
 

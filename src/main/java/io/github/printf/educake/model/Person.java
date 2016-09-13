@@ -31,6 +31,9 @@ public class Person implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date birthdate;
 
+  public Person() {
+  }
+
   public int getIdPerson() {
     return idPerson;
   }

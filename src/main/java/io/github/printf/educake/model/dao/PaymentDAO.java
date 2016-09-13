@@ -1,5 +1,7 @@
 package io.github.printf.educake.model.dao;
 
+import io.github.printf.educake.model.Payment;
+
 import java.util.List;
 
 /**
@@ -14,8 +16,8 @@ public class PaymentDAO extends DataAccessObject{
   }
 
   @Override
-  public Object getById(Long id) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Payment getById(Long id) {
+    return entityManager.find(Payment.class, id);
   }
 
   @Override
