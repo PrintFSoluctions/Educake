@@ -1,10 +1,14 @@
 package io.github.printf.educake;
 
 import io.github.printf.educake.controller.EasyDate;
+import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Student;
+import io.github.printf.educake.model.Teacher;
+import io.github.printf.educake.model.dao.AddressDAO;
 import io.github.printf.educake.model.dao.PersonDAO;
 import io.github.printf.educake.model.dao.StudentDAO;
+import io.github.printf.educake.model.dao.TeacherDAO;
 
 public class Educake {
 
@@ -13,6 +17,10 @@ public class Educake {
       StudentDAO studantDAO = new StudentDAO();
       Student student = new Student();
       PersonDAO personDAO = new PersonDAO();
+      Teacher teacher = new Teacher();
+      TeacherDAO teacherDAO = new TeacherDAO();
+      Address address = new Address();
+      AddressDAO addressDAO = new AddressDAO();
       
       Person person = new Person();
       person.setName("Joaquim");
@@ -30,12 +38,25 @@ public class Educake {
       person3.setBirthdate(EasyDate.toDate(25, 9, 1988));
       personDAO.persist(person3);
       
-      student.setIdResponsible(person2);
-      student.setPerson(person);
-      student.setRm("1552031");
+      
+      address.setIdPerson(person);
+      address.setCep("11223344");
+      address.setCity("N.Y");
+      address.setHouseNumber(1234);
+      address.setState("N.Y");
+      address.setStreet("122nd");
+      address.setComplement("none");
+      
+      addressDAO.persist(address);
+  
+      //student.setIdResponsible(person2);
+      //student.setPerson(person);
+      //student.setRm("1552031");
+      
+  
       
       
-      studantDAO.persist(student);
+      //studantDAO.persist(student);
      
       
 //    PaymentDAO paydao = new PaymentDAO();
