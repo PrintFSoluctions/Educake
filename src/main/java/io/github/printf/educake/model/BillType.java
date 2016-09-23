@@ -1,11 +1,9 @@
 package io.github.printf.educake.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 
 /** @author Vitor "Pliavi" Silvério */
 
@@ -17,6 +15,13 @@ public class BillType implements Serializable {
   @Column private long idBillType;
   
   @Column(name = "name") private String typeName;
+
+  @OneToMany(
+      mappedBy = "billType",
+      targetEntity = Bill.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL)
+  private List<Bill> bills = new ArrayList<Bill>();
 
   public BillType() {
   }
@@ -33,13 +38,20 @@ public class BillType implements Serializable {
     this.idBillType = idBillType;
   }
 
-  public String getName() {
+  public String getTypeName() {
     return typeName;
   }
 
-  public void setName(String name) {
-    this.typeName = name;
+  public void setTypeName(String typeName) {
+    this.typeName = typeName;
   }
-  
-  
+
+  public void addBill(Bill bill){
+    bill.setBillType(this);
+    this.bills.add(bill);
+  }
+
+  public List<Bill> getBills() {
+    return bills;
+  }
 }

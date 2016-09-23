@@ -1,6 +1,6 @@
 package io.github.printf.educake.model.dao;
 
-import io.github.printf.educake.model.Payment;
+import io.github.printf.educake.model.Installment;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class PaymentDAO extends DataAccessObject{
   }
 
   @Override
-  public Payment getById(Long id) {
-    return entityManager.find(Payment.class, id);
+  public Installment getById(Long id) {
+    return entityManager.find(Installment.class, id);
   }
 
   @Override

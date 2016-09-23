@@ -1,20 +1,10 @@
 package io.github.printf.educake.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  * @author Vitor "Pliavi" Silvério
@@ -26,7 +16,7 @@ public class Bill implements Serializable {
   @Id
   @GeneratedValue
   @Column
-  private Long idBill;
+  private long idBill;
 
   @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "idPerson", nullable = false)
@@ -37,20 +27,37 @@ public class Bill implements Serializable {
   private BillType billType;
 
   @Column
-  private float value;
-
-  @Column
   @Temporal(TemporalType.DATE)
-  private Date firstInstallment;
+  private Date openingDate;
 
-  @Column
-  private int installments = 1;
-
-  @Column
-  @Temporal(TemporalType.DATE)
-  private Date due;
+  @OneToMany(
+      mappedBy = "bill",
+      targetEntity = Installment.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL)
+  private List<Installment> installments = new ArrayList<Installment>();
 
   public Bill() {
+  }
+
+  public Bill(Person person, BillType billType, ArrayList<Installment> installments) {
+    this.person = person;
+    this.billType = billType;
+    this.openingDate = new Date();
+    this.installments = installments;
+  }
+
+  public List<Installment> getInstallments() {
+    return installments;
+  }
+
+  public void setInstallments(ArrayList<Installment> installments) {
+    this.installments = installments;
+  }
+
+  public void addInstallment(Installment installment){
+    installment.setBill(this);
+    this.installments.add(installment);
   }
 
   public Long getIdBill() {
@@ -77,36 +84,12 @@ public class Bill implements Serializable {
     this.billType = billType;
   }
 
-  public float getValue() {
-    return value;
+  public Date getOpeningDate() {
+    return openingDate;
   }
 
-  public void setValue(float value) {
-    this.value = value;
-  }
-
-  public Date getFirstInstallment() {
-    return firstInstallment;
-  }
-
-  public void setFirstInstallment(Date firstInstallment) {
-    this.firstInstallment = firstInstallment;
-  }
-
-  public int getInstallments() {
-    return installments;
-  }
-
-  public void setInstallments(int installments) {
-    this.installments = installments;
-  }
-
-  public Date getDue() {
-    return due;
-  }
-
-  public void setDue(Date due) {
-    this.due = due;
+  public void setOpeningDate(Date openingDate) {
+    this.openingDate = openingDate;
   }
 
 }
