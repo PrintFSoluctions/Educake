@@ -1,6 +1,5 @@
 package io.github.printf.educake;
 
-import io.github.printf.educake.controller.EasyDate;
 import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Student;
@@ -9,6 +8,7 @@ import io.github.printf.educake.model.dao.AddressDAO;
 import io.github.printf.educake.model.dao.PersonDAO;
 import io.github.printf.educake.model.dao.StudentDAO;
 import io.github.printf.educake.model.dao.TeacherDAO;
+import io.github.printf.educake.util.EasyDate;
 
 public class Educake {
 
