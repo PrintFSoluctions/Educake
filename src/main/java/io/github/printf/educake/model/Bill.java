@@ -33,18 +33,17 @@ public class Bill implements Serializable {
   @OneToMany(
       mappedBy = "bill",
       targetEntity = Installment.class,
-      fetch = FetchType.LAZY,
+      fetch = FetchType.EAGER,
       cascade = CascadeType.ALL)
   private List<Installment> installments = new ArrayList<Installment>();
 
   public Bill() {
   }
 
-  public Bill(Person person, BillType billType, ArrayList<Installment> installments) {
+  public Bill(Person person, BillType billType){
     this.person = person;
     this.billType = billType;
     this.openingDate = new Date();
-    this.installments = installments;
   }
 
   public List<Installment> getInstallments() {

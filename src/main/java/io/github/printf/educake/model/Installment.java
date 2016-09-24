@@ -2,17 +2,7 @@ package io.github.printf.educake.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /** @author Vitor "Pliavi" Silvério*/
 
@@ -23,9 +13,9 @@ public class Installment implements Serializable {
   @Id
   @Column
   @GeneratedValue
-  private long idPayment;
+  private Integer idInstallment;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "idBill", nullable = false)
   private Bill bill;
 
@@ -36,6 +26,10 @@ public class Installment implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date dueDate;
 
+  @Transient
+  @OneToOne
+  private Payment payment;
+
   public Installment() {
   }
 
@@ -45,12 +39,21 @@ public class Installment implements Serializable {
     this.dueDate = dueDate;
   }
 
-  public long getIdPayment() {
-    return idPayment;
+  public Payment getPayment() {
+    return payment;
   }
 
-  public void setIdPayment(long idPayment) {
-    this.idPayment = idPayment;
+  public void setPayment(Payment payment) {
+    this.payment = payment;
+    payment.setInstallment(this);
+  }
+
+  public Integer getIdInstallment() {
+    return idInstallment;
+  }
+
+  public void setIdInstallment(Integer idInstallment) {
+    this.idInstallment = idInstallment;
   }
 
   public Bill getBill() {
@@ -76,7 +79,4 @@ public class Installment implements Serializable {
   public void setDueDate(Date dueDate) {
     this.dueDate = dueDate;
   }
-
-  
-  
 }
