@@ -1,4 +1,4 @@
-package io.github.printf.educake.controller;
+package io.github.printf.educake.util;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
