@@ -1,5 +1,4 @@
 package io.github.printf.educake.model.dao;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,8 +15,8 @@ public abstract class DataAccessObject<E> {
 
   private EntityManager getEntityManager() {
 
-    EntityManagerFactory factory
-            = Persistence.createEntityManagerFactory("educakeMainDatabase");
+    EntityManagerFactory factory =
+        Persistence.createEntityManagerFactory("educakeMainDatabase");
 
     if (entityManager == null) {
       entityManager = factory.createEntityManager();
@@ -42,7 +41,6 @@ public abstract class DataAccessObject<E> {
       result = false;
     }
 
-    entityManager.close();
     return result;
   }
 
@@ -59,7 +57,7 @@ public abstract class DataAccessObject<E> {
       entityManager.getTransaction().rollback();
       result = false;
     }
-    entityManager.close();
+
     return result;
   }
 
@@ -76,12 +74,12 @@ public abstract class DataAccessObject<E> {
       entityManager.getTransaction().rollback();
       result = false;
     }
-    entityManager.close();
+
     return result;
   }
 
-  public abstract E getById(final Long id);
+  public abstract E getById(final Integer id);
 
-  public abstract boolean removeById(final Long id);
+  public abstract boolean removeById(final Integer id);
 
 }
