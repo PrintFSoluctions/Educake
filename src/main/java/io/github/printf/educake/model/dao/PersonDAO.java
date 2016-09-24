@@ -12,18 +12,16 @@ public class PersonDAO extends DataAccessObject{
 
   @Override
   public List findAll() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return null;
   }
 
   @Override
-  public Person getById(Long id) {
-    return entityManager.find(Person.class, id);
-
+  public Object getById(Integer id) {
+    return null;
   }
 
   @Override
-  public boolean removeById(Long id) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public boolean removeById(Integer id) {
+    return false;
   }
-  
 }

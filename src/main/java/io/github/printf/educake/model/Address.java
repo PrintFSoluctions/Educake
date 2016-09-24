@@ -27,7 +27,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue
     @Column
-    private Long idAddress;
+    private Integer idAddress;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPerson", nullable = false)
@@ -54,14 +54,14 @@ public class Address implements Serializable {
     /**
      * @return the idAddress
      */
-    public Long getIdAddress() {
+    public Integer getIdAddress() {
         return idAddress;
     }
 
     /**
      * @param idAddress the idAddress to set
      */
-    public void setIdAddress(Long idAddress) {
+    public void setIdAddress(Integer idAddress) {
         this.idAddress = idAddress;
     }
 

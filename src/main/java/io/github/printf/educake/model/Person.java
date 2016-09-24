@@ -31,7 +31,12 @@ public class Person implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date birthdate;
 
-  public Person() {
+  public Person() {}
+
+  public Person(String name, String surname, Date birthdate) {
+    this.name = name;
+    this.surname = surname;
+    this.birthdate = birthdate;
   }
 
   public int getIdPerson() {

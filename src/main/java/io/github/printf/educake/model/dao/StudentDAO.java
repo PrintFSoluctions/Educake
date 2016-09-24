@@ -9,18 +9,17 @@ import java.util.List;
 public class StudentDAO extends DataAccessObject{
 
     @Override
-    public List<Object> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List findAll() {
+        return null;
     }
 
     @Override
-    public Object getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getById(Integer id) {
+        return null;
     }
 
     @Override
-    public boolean removeById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean removeById(Integer id) {
+        return false;
     }
-    
 }

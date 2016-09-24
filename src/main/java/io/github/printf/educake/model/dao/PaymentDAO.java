@@ -1,28 +1,26 @@
 package io.github.printf.educake.model.dao;
 
-import io.github.printf.educake.model.Installment;
+import io.github.printf.educake.model.Payment;
 
 import java.util.List;
 
 /**
- *
- * @author Vitor
+ * Created by Vitor on 24/09/2016.
  */
-public class PaymentDAO extends DataAccessObject{
+public class PaymentDAO extends DataAccessObject<Payment> {
 
   @Override
-  public List findAll() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public List<Payment> findAll() {
+    return null;
   }
 
   @Override
-  public Installment getById(Long id) {
-    return entityManager.find(Installment.class, id);
+  public Payment getById(Integer id) {
+    return null;
   }
 
   @Override
-  public boolean removeById(Long id) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public boolean removeById(Integer id) {
+    return false;
   }
-  
 }
