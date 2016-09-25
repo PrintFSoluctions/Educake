@@ -16,7 +16,7 @@ public class Payment implements Serializable{
   @Column
   private Integer idPayment;
 
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   private Date paymentDate;
 
   @OneToOne
