@@ -1,11 +1,16 @@
 package io.github.printf.educake.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +35,13 @@ public class Person implements Serializable {
   @Column
   @Temporal(TemporalType.DATE)
   private Date birthdate;
+  
+  @OneToMany(
+      mappedBy = "person",
+      targetEntity = Phone.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL)
+  private List<Phone> phones = new ArrayList<>();
 
   public Person() {}
 
@@ -69,6 +81,10 @@ public class Person implements Serializable {
 
   public void setBirthdate(Date birthdate) {
     this.birthdate = birthdate;
+  }
+  
+  public void addPhone(Phone phone){
+      phones.add(phone);
   }
   
   
