@@ -1,0 +1,3 @@
+[submodule "swing-material"]
+	path = swing-material
+	url = https://github.com/leMaik/swing-material.git
