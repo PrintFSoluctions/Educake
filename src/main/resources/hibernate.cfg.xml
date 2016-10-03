@@ -5,8 +5,8 @@
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
-    <property name="hibernate.connection.username">Pliavi</property>
-    <property name="hibernate.connection.password">Icantbelieve1</property>
+    <property name="hibernate.connection.username">EDUCAKE</property>
+    <property name="hibernate.connection.password">ROOT</property>
     <property name="show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
     <mapping class="io.github.printf.educake.model.Address"/>
