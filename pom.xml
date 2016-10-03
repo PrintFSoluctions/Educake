@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <name>Educake</name>
     <groupId>io.github.printf.educake</groupId>
     <artifactId>Educake</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <packaging>jar</packaging>
     <repositories>
         <repository>
-            <id>unknown-jars-temp-repo</id>
-            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
-            <url>file:${project.basedir}/lib</url>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -47,8 +53,8 @@
 
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -59,6 +65,11 @@
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.leMaik</groupId>
+            <artifactId>swing-material</artifactId>
+            <version>v1.0.6</version>
         </dependency>
     </dependencies>
 </project>
