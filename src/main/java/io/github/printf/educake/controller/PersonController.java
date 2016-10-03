@@ -33,8 +33,6 @@ public class PersonController {
 	}
 
 	public void start() {
-		SwingUtilities.invokeLater(() -> {
-			personView = new PersonView();
-		});
+		SwingUtilities.invokeLater(() -> personView = new PersonView());
 	}
 }
