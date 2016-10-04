@@ -33,5 +33,8 @@
     <orderEntry type="library" name="Maven: net.java.timingframework:timingframework-swing:6.1.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.timingframework:timingframework-core:6.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.surelogic:promises:4.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jiconfont:jiconfont-swing:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jiconfont:jiconfont:0.10.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jiconfont:jiconfont-google_material_design_icons:2.2.0.1" level="project" />
   </component>
 </module>
