@@ -1,14 +1,11 @@
 package io.github.printf.educake.controller;
 
 import de.craften.ui.swingmaterial.toast.TextToast;
-import io.github.printf.educake.controller.exceptions.EmptyException;
-import io.github.printf.educake.controller.exceptions.NotANameException;
 import io.github.printf.educake.controller.service.PersonService;
 import io.github.printf.educake.view.PersonView;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 /**
  * Created by Vitor on 02/10/2016.
@@ -25,7 +22,7 @@ public class PersonController {
 
 			try {
 				personService.persist(name, surname,birthDate);
-			} catch (NotANameException | ParseException | EmptyException ex) {
+			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 				PersonView.errorLog.display(new TextToast(ex.getMessage()));
 			}
