@@ -25,13 +25,14 @@ public class PersonService {
 		Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
 		name = name.trim();
 		surname = surname.trim();
-		Matcher matcher = pattern.matcher(name+" "+surname);
+		Matcher matcherName = pattern.matcher(name);
+		Matcher matcherSurname = pattern.matcher(surname);
 
-		if(name.length() == 0 || surname.length() == 0)
-			throw new RequiredFieldException(name.length() == 0 ? "Nome" : "Sobrenome");
+                if(!matcherName.find())
+			throw new Exception("Nome é inválido ou está vazio");
 
-		if(!matcher.find())
-			throw new Exception("O valor informado é inválido");
+                if(!matcherSurname.find())
+                    throw new Exception("Sobrenome é inválido ou está vazio");
 
 		return true;
 	}
