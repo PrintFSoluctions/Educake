@@ -1,7 +1,6 @@
 package io.github.printf.educake.controller.service;
 
-import io.github.printf.educake.controller.exceptions.EmptyException;
-import io.github.printf.educake.controller.exceptions.NotANameException;
+import io.github.printf.educake.controller.Exceptions.RequiredFieldException;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.dao.PersonDAO;
 import io.github.printf.educake.util.EasyDate;
@@ -21,7 +20,7 @@ public class PersonService {
 	String name, surname;
 	Date birthDate;
 
-	public boolean validateNameAndSurname(String name, String surname) throws NotANameException, EmptyException {
+	public boolean validateNameAndSurname(String name, String surname) throws Exception {
 		String regx = "^[\\p{L} .'-]+$";
 		Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
 		name = name.trim();
@@ -29,10 +28,10 @@ public class PersonService {
 		Matcher matcher = pattern.matcher(name+" "+surname);
 
 		if(name.length() == 0 || surname.length() == 0)
-			throw new EmptyException(name.length() == 0 ? "Nome" : "Sobrenome");
+			throw new RequiredFieldException(name.length() == 0 ? "Nome" : "Sobrenome");
 
 		if(!matcher.find())
-			throw new NotANameException();
+			throw new Exception("O valor informado é inválido");
 
 		return true;
 	}
@@ -53,7 +52,7 @@ public class PersonService {
 		return date;
 	}
 
-	public boolean persist(String name, String surname, String birthDate) throws EmptyException, NotANameException, ParseException {
+	public boolean persist(String name, String surname, String birthDate) throws Exception {
 		boolean result = true;
 		validateNameAndSurname(name, surname);
 		validateDate(birthDate);
