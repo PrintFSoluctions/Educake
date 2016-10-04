@@ -30,11 +30,12 @@ public class PaymentTest {
 
         bill.addInstallment(installments.get(0));
         bill.addInstallment(installments.get(1));
+        bill.addInstallment(installments.get(2));
 
         billDAO.persist(bill);
 
         paymentDAO.persist(new Payment(installments.get(0)));
-        paymentDAO.persist(new Payment(installments.get(1)));
+
         System.exit(0);
     }
 

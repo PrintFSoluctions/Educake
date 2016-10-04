@@ -1,8 +1,8 @@
 package io.github.printf.educake.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 /** @author Vitor "Pliavi" Silvério*/
 
@@ -44,8 +44,8 @@ public class Installment implements Serializable {
   }
 
   public void setPayment(Payment payment) {
+//    payment.setInstallment(this);
     this.payment = payment;
-    payment.setInstallment(this);
   }
 
   public Integer getIdInstallment() {
