@@ -1,19 +1,10 @@
 package io.github.printf.educake.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /** @author Vitor "Pliavi" Silvério */
 
@@ -39,9 +30,9 @@ public class Person implements Serializable {
   @OneToMany(
       mappedBy = "person",
       targetEntity = Phone.class,
-      fetch = FetchType.LAZY,
+      fetch = FetchType.EAGER,
       cascade = CascadeType.ALL)
-  private List<Phone> phones = new ArrayList<>();
+  private List<Phone> phones = new ArrayList<Phone>();
 
   public Person() {}
 

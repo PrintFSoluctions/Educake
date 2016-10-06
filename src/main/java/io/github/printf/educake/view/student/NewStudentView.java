@@ -2,106 +2,80 @@ package io.github.printf.educake.view.student;
 
 import de.craften.ui.swingmaterial.MaterialButton;
 import de.craften.ui.swingmaterial.MaterialColor;
+import de.craften.ui.swingmaterial.MaterialComboBox;
 import de.craften.ui.swingmaterial.MaterialTextField;
 import de.craften.ui.swingmaterial.toast.ToastBar;
 import io.github.printf.educake.controller.StudentController;
+import io.github.printf.educake.util.DefaultFormPanel;
 import io.github.printf.educake.util.EasyComponent;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static io.github.printf.educake.util.EasyComponent.Flex.*;
+import static io.github.printf.educake.util.DefaultFormPanel.Div.BODY;
+import static io.github.printf.educake.util.DefaultFormPanel.Flex.HORIZONTAL;
+import static io.github.printf.educake.util.DefaultFormPanel.Flex.NONE;
 
 
 /**
  * Created by Vitor on 02/10/2016.
  */
 public class NewStudentView extends JFrame{
-
-	MaterialButton addButton;
-
-	JLabel label;
-	public static MaterialTextField nameTextField, surnameTextField, birthDateTextField;
+	DefaultFormPanel formPanel = new DefaultFormPanel();
+	MaterialButton addButton = new MaterialButton();
+	JLabel accIcon, birthIcon;
+	public static MaterialTextField
+			nameTextField = new MaterialTextField(),
+			surnameTextField = new MaterialTextField(),
+			birthDateTextField = new MaterialTextField();
+	MaterialComboBox<String> a= new MaterialComboBox();
 	public static ToastBar errorLog;
 
-	public NewStudentView() {
-		//// RESOURCES ////
-		// Deve conter em todos os forms
-		int y = 0; // Cria o valor das linhas pros componentes
-		JPanel fieldSet; // Panel onde ficarão um grupo de textfields, CONTÉM TÍTULO
-		GridBagConstraints c = new GridBagConstraints(); // Controlador de posicionamento dos components cin Grid
-		Container mainContainer = new Container(); // Container principal
-		JScrollPane scrollPane = new JScrollPane(mainContainer); // Container com scrollbar
+	public NewStudentView(){
+		setLayout(new GridLayout()); // Frame Layout
+		add(formPanel); // Add the Panel to the Frame
 
-		// RESOURCE CONFIG
-		getContentPane().setBackground(MaterialColor.WHITE); // Fundo Branco do Frame
-		mainContainer.setLayout(new GridBagLayout()); // Modo Grid
-		scrollPane.setBorder(null); // Remove a borda que o Scroll cria
-		// Adiciona o campo com scroll no meio
-		// (poderia ser em cima, mas to pensando em colocar algum tipo de título)
-		add(scrollPane, BorderLayout.CENTER);
-		//// END RESOURCES ////
+		// Icons
+		accIcon = EasyComponent.makeIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
+		birthIcon = EasyComponent.makeIcon(GoogleMaterialDesignIcons.TODAY);
 
-		fieldSet = EasyComponent.stylizedInsidePane("Dados Pessoais");
-		c = EasyComponent.componentPosition(0, 0, HORIZONTAL);
-		mainContainer.add(fieldSet,c);
-
-		// Icone de Usuário
-		label = EasyComponent.makeIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
-		c = EasyComponent.componentPosition(0, y, NONE);
-		fieldSet.add(label, c);
-
-		// Campo nome
-		nameTextField = new MaterialTextField();
 		nameTextField.setLabel("Nome:");
-		c = EasyComponent.componentPosition(1, y, HORIZONTAL);
-		fieldSet.add(nameTextField, c);
-
-		// Campo Sobrenome
-		surnameTextField = new MaterialTextField();
 		surnameTextField.setLabel("Sobrenome:");
-		c = EasyComponent.componentPosition(2, y++, HORIZONTAL);
-		fieldSet.add(surnameTextField,c);
 
-		// Icone Data de Nascimento
-		label = EasyComponent.makeIcon(GoogleMaterialDesignIcons.TODAY);
-		c = EasyComponent.componentPosition(0, y, NONE);
-		fieldSet.add(label, c);
-
-		// Campo data de Nascimento
-		birthDateTextField = new MaterialTextField();
 		birthDateTextField.setLabel("Data de Nascimento:");
 		birthDateTextField.setHint("dd/mm/aaaa");
-		c = EasyComponent.componentPosition(1, y, HORIZONTAL);
-		c.gridwidth = 2;
-		fieldSet.add(birthDateTextField,c);
 
-
-
-		// Botão de Enviar
-		addButton = new MaterialButton();
+		addButton.setText("Adicionar");
 		addButton.setForeground(MaterialColor.WHITE);
 		addButton.setBackground(MaterialColor.TEAL_400);
-		addButton.setText("Adicionar");
-		c = EasyComponent.componentPosition(0, 1, HORIZONTAL);
-		mainContainer.add(addButton,c);
 
-		// Panel preso à borda de baixo para mostrar as notificações
-		Container fullBottomPane = new Container();
-		fullBottomPane.setLayout(new GridBagLayout());
-		// Log de Erros
-		errorLog = new ToastBar();
-		c = EasyComponent.componentPosition(0, 0, HORIZONTAL);
-		c.ipady = 45;
-		fullBottomPane.add(errorLog,c);
-		add(fullBottomPane, BorderLayout.SOUTH);
+		// Components grid
+		try {
+			formPanel.makeGrid(BODY, NONE).addComponent(accIcon);
+			formPanel.makeGrid(BODY, HORIZONTAL).addComponent(nameTextField);
+			formPanel.makeGrid(BODY, HORIZONTAL).addComponent(surnameTextField);
+			formPanel.addRow();
+			formPanel.makeGrid(BODY, NONE).addComponent(birthIcon);
+			formPanel.makeGrid(BODY, HORIZONTAL).setWidth(2).addComponent(birthDateTextField);
+			formPanel.addRow();
 
-		init();
+			a.addItem("teste1");
+			a.addItem("teste2");
+			a.addItem("teste3");
+			formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).setHeight(10).addComponent(a);
+
+			formPanel.addRow();
+			formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addComponent(addButton);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		init(); // iniatlize all
 	}
 
 	private void init(){
-		initButtons();
+//		initButtons();
 		setMinimumSize(new Dimension(600,100));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -112,3 +86,4 @@ public class NewStudentView extends JFrame{
 		addButton.addActionListener(StudentController.getAddListener());
 	}
 }
+
