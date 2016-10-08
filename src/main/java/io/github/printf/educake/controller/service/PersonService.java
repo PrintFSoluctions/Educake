@@ -1,6 +1,5 @@
 package io.github.printf.educake.controller.service;
 
-import io.github.printf.educake.controller.Exceptions.RequiredFieldException;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.dao.PersonDAO;
 import io.github.printf.educake.util.EasyDate;
@@ -15,51 +14,77 @@ import java.util.regex.Pattern;
  * Created by Vitor on 02/10/2016.
  */
 public class PersonService {
-	Person person = new Person();
-	PersonDAO personDAO = new PersonDAO();
-	String name, surname;
-	Date birthDate;
 
-	public boolean validateNameAndSurname(String name, String surname) throws Exception {
-		String regx = "^[\\p{L} .'-]+$";
-		Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
-		name = name.trim();
-		surname = surname.trim();
-		Matcher matcherName = pattern.matcher(name);
-		Matcher matcherSurname = pattern.matcher(surname);
+    Person person = new Person();
+    PersonDAO personDAO = new PersonDAO();
+    String name, surname;
 
-                if(!matcherName.find())
-			throw new Exception("Nome é inválido ou está vazio");
+    public Person getPeson() {
+        return this.person;
+    }
 
-                if(!matcherSurname.find())
-                    throw new Exception("Sobrenome é inválido ou está vazio");
+    public boolean validateNameAndSurname(String name, String surname) throws Exception {
+        String regx = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+        name = name.trim();
+        surname = surname.trim();
+        Matcher matcherName = pattern.matcher(name);
+        Matcher matcherSurname = pattern.matcher(surname);
 
-		return true;
-	}
+        if (!matcherName.find()) {
+            throw new Exception("Nome é inválido ou está vazio");
+        }
 
-	public Date validateDate(String birthDate) throws ParseException {
-		Date date;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		sdf.setLenient(false);
+        if (!matcherSurname.find()) {
+            throw new Exception("Sobrenome é inválido ou está vazio");
+        }
 
-		try{
-			date = sdf.parse(birthDate);
-		}catch (ParseException ex){
-			throw new ParseException("Data fora do padrão DD/MM/AAAA", ex.getErrorOffset());
-		}
+        this.person.setName(name);
+        this.person.setName(surname);
+        return true;
+    }
 
-		this.birthDate = EasyDate.rearrangeDate(birthDate);
+    public boolean validateDate(String birthDate) throws ParseException {
+        Date date;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
 
-		return date;
-	}
+        try {
+            date = sdf.parse(birthDate);
+        } catch (ParseException ex) {
+            throw new ParseException("Data fora do padrão DD/MM/AAAA", ex.getErrorOffset());
+        }
 
-	public boolean persist(String name, String surname, String birthDate) throws Exception {
-		boolean result = true;
-		validateNameAndSurname(name, surname);
-		validateDate(birthDate);
-		person = new Person(name, surname, this.birthDate);
-		result = personDAO.persist(person);
+        this.person.setBirthdate(EasyDate.rearrangeDate(birthDate));
+        
+        return true;
+    }
 
-		return result;
-	}
+    public boolean persist(String name, String surname, String birthDate) throws Exception {
+        boolean result = true;
+        
+        validateNameAndSurname(name, surname);
+        validateDate(birthDate);
+        
+        result = personDAO.persist(this.person);
+
+        return result;
+    }
+    
+    public boolean persist() throws Exception {
+        boolean result = true;
+        
+        result = personDAO.persist(this.person);
+
+        return result;
+    }
+    
+    public boolean persist(Person person) throws Exception {
+        boolean result = true;
+        
+        result = personDAO.persist(person);
+
+        return result;
+    }
+
 }
