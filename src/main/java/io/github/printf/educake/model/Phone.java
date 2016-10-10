@@ -1,6 +1,5 @@
 package io.github.printf.educake.model;
 
-import io.github.printf.educake.util.EnumPhone;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  *
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Phone {
+public class Phone implements Serializable{
     
     @Id
     @GeneratedValue
@@ -41,7 +41,9 @@ public class Phone {
     private String operator;
     
     @Enumerated(EnumType.STRING)
-    private EnumPhone definition;
+    private io.github.printf.educake.util.Enums.Phone definition;
+
+    public Phone() {}
 
     public Integer getIdPhone() {
         return idPhone;
@@ -83,11 +85,11 @@ public class Phone {
         this.operator = operator;
     }
 
-    public EnumPhone getDefinition() {
+    public io.github.printf.educake.util.Enums.Phone getDefinition() {
         return definition;
     }
 
-    public void setDefinition(EnumPhone definition) {
+    public void setDefinition(io.github.printf.educake.util.Enums.Phone definition) {
         this.definition = definition;
     }
     

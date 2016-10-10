@@ -1,114 +1,94 @@
 package io.github.printf.educake.view.student;
 
 import de.craften.ui.swingmaterial.MaterialButton;
-import de.craften.ui.swingmaterial.MaterialColor;
+import de.craften.ui.swingmaterial.MaterialComboBox;
 import de.craften.ui.swingmaterial.MaterialTextField;
 import de.craften.ui.swingmaterial.toast.ToastBar;
 import io.github.printf.educake.controller.StudentController;
-import io.github.printf.educake.util.EasyComponent;
+import io.github.printf.educake.util.Components.MaterialFormattedTextField;
+import io.github.printf.educake.util.DefaultFormPanel;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-import static io.github.printf.educake.util.EasyComponent.Flex.*;
+import static io.github.printf.educake.util.Enums.Division.BODY;
+import static io.github.printf.educake.util.Enums.Division.HEADER;
+import static io.github.printf.educake.util.Enums.Flex.BOTH;
+import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
+import static io.github.printf.educake.util.Enums.Flex.NONE;
 
 
 /**
  * Created by Vitor on 02/10/2016.
  */
 public class NewStudentView extends JFrame{
-
-	MaterialButton addButton;
-
-	JLabel label;
-	public static MaterialTextField nameTextField, surnameTextField, birthDateTextField;
+	DefaultFormPanel phonesPanel, formPanel;
+	MaterialButton addButton, plusButton;
+	public static MaterialTextField nameTextField, surnameTextField;
+	public static MaterialFormattedTextField birthDateTextField;
+	public static ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
+	public static ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
 	public static ToastBar errorLog;
 
-	public NewStudentView() {
-		//// RESOURCES ////
-		// Deve conter em todos os forms
-		int y = 0; // Cria o valor das linhas pros componentes
-		JPanel fieldSet; // Panel onde ficarão um grupo de textfields, CONTÉM TÍTULO
-		GridBagConstraints c = new GridBagConstraints(); // Controlador de posicionamento dos components cin Grid
-		Container mainContainer = new Container(); // Container principal
-		JScrollPane scrollPane = new JScrollPane(mainContainer); // Container com scrollbar
+	public NewStudentView() throws Exception {
+		formPanel = new DefaultFormPanel();
+		setLayout(new GridLayout()); // Frame Layout
+		add(formPanel); // Add the Panel to the Frame
 
-		// RESOURCE CONFIG
-		getContentPane().setBackground(MaterialColor.WHITE); // Fundo Branco do Frame
-		mainContainer.setLayout(new GridBagLayout()); // Modo Grid
-		scrollPane.setBorder(null); // Remove a borda que o Scroll cria
-		// Adiciona o campo com scroll no meio
-		// (poderia ser em cima, mas to pensando em colocar algum tipo de título)
-		add(scrollPane, BorderLayout.CENTER);
-		//// END RESOURCES ////
+		// Components grid
+		formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Aluno");
+		addButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
 
-		fieldSet = EasyComponent.stylizedInsidePane("Dados Pessoais");
-		c = EasyComponent.componentPosition(0, 0, HORIZONTAL);
-		mainContainer.add(fieldSet,c);
+		formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
+		nameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Nome:");
+		surnameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Sobrenome:");
+		formPanel.addRow();
+		formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.TODAY);
+		birthDateTextField = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(2)
+				.addFormattedTextField("Data de Nascimento", "00/00/0000", "##/##/####");
+		formPanel.addRow();
+		phonesPanel = formPanel.makeGrid(BODY, BOTH).setWidth(3).addInnerPanel();
+		phoneTextField.add(phonesPanel.makeGrid(BODY,HORIZONTAL).setGridWidth(6)
+				.addFormattedTextField("Telefone:","(00)000000000","(##)#########"));
+		phoneTypeCombo.add(phonesPanel.makeGrid(BODY,HORIZONTAL)
+				.addComboBox("Fixo", "Celular"));
+		formPanel.addRow();
+		plusButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
 
-		// Icone de Usuário
-		label = EasyComponent.makeIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
-		c = EasyComponent.componentPosition(0, y, NONE);
-		fieldSet.add(label, c);
-
-		// Campo nome
-		nameTextField = new MaterialTextField();
-		nameTextField.setLabel("Nome:");
-		c = EasyComponent.componentPosition(1, y, HORIZONTAL);
-		fieldSet.add(nameTextField, c);
-
-		// Campo Sobrenome
-		surnameTextField = new MaterialTextField();
-		surnameTextField.setLabel("Sobrenome:");
-		c = EasyComponent.componentPosition(2, y++, HORIZONTAL);
-		fieldSet.add(surnameTextField,c);
-
-		// Icone Data de Nascimento
-		label = EasyComponent.makeIcon(GoogleMaterialDesignIcons.TODAY);
-		c = EasyComponent.componentPosition(0, y, NONE);
-		fieldSet.add(label, c);
-
-		// Campo data de Nascimento
-		birthDateTextField = new MaterialTextField();
-		birthDateTextField.setLabel("Data de Nascimento:");
-		birthDateTextField.setHint("dd/mm/aaaa");
-		c = EasyComponent.componentPosition(1, y, HORIZONTAL);
-		c.gridwidth = 2;
-		fieldSet.add(birthDateTextField,c);
-
-
-
-		// Botão de Enviar
-		addButton = new MaterialButton();
-		addButton.setForeground(MaterialColor.WHITE);
-		addButton.setBackground(MaterialColor.TEAL_400);
-		addButton.setText("Adicionar");
-		c = EasyComponent.componentPosition(0, 1, HORIZONTAL);
-		mainContainer.add(addButton,c);
-
-		// Panel preso à borda de baixo para mostrar as notificações
-		Container fullBottomPane = new Container();
-		fullBottomPane.setLayout(new GridBagLayout());
-		// Log de Erros
-		errorLog = new ToastBar();
-		c = EasyComponent.componentPosition(0, 0, HORIZONTAL);
-		c.ipady = 45;
-		fullBottomPane.add(errorLog,c);
-		add(fullBottomPane, BorderLayout.SOUTH);
-
-		init();
+		init(); // iniatlize all
 	}
 
 	private void init(){
 		initButtons();
-		setMinimumSize(new Dimension(600,100));
+		setMinimumSize(new Dimension(600,400));
+		setMaximumSize(new Dimension(600,400));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		pack();
 		setVisible(true);
 	}
+
 	private void initButtons(){
 		addButton.addActionListener(StudentController.getAddListener());
+		plusButton.addActionListener(e -> {
+			System.out.println("b");
+			try {
+				System.out.println("a");
+				phonesPanel.addRow();
+				phoneTextField.add(phonesPanel.makeGrid(BODY,HORIZONTAL).setGridWidth(6)
+						.addFormattedTextField("Telefone:","(00)000000000","(##)#########"));
+				phoneTypeCombo.add(phonesPanel.makeGrid(BODY,HORIZONTAL)
+						.addComboBox("Fixo", "Celular"));
+				phonesPanel.updateUI();
+				phonesPanel.getBody().updateUI();
+				formPanel.updateUI();
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
 }
+

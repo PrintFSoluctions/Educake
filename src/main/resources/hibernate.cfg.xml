@@ -16,6 +16,7 @@
     <mapping class="io.github.printf.educake.model.Installment"/>
     <mapping class="io.github.printf.educake.model.Payment"/>
     <mapping class="io.github.printf.educake.model.Person"/>
+    <mapping class="io.github.printf.educake.model.Phone"/>
     <mapping class="io.github.printf.educake.model.Student"/>
     <mapping class="io.github.printf.educake.model.Teacher"/>
   </session-factory>
