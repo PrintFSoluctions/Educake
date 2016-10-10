@@ -1,6 +1,5 @@
 package io.github.printf.educake.model;
 
-import io.github.printf.educake.util.EnumPhone;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +41,7 @@ public class Phone implements Serializable{
     private String operator;
     
     @Enumerated(EnumType.STRING)
-    private EnumPhone definition;
+    private io.github.printf.educake.util.Enums.Phone definition;
 
     public Phone() {}
 
@@ -86,11 +85,11 @@ public class Phone implements Serializable{
         this.operator = operator;
     }
 
-    public EnumPhone getDefinition() {
+    public io.github.printf.educake.util.Enums.Phone getDefinition() {
         return definition;
     }
 
-    public void setDefinition(EnumPhone definition) {
+    public void setDefinition(io.github.printf.educake.util.Enums.Phone definition) {
         this.definition = definition;
     }
     

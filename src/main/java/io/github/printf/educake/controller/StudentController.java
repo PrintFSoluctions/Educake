@@ -30,6 +30,12 @@ public class StudentController {
 	}
 
 	public void start() {
-		SwingUtilities.invokeLater(() -> newStudentView = new NewStudentView());
+		SwingUtilities.invokeLater(() -> {
+			try {
+				newStudentView = new NewStudentView();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }
