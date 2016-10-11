@@ -1,11 +1,13 @@
 package io.github.printf.educake.controller.service;
 
 import io.github.printf.educake.model.Person;
+import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.dao.PersonDAO;
 import io.github.printf.educake.util.EasyDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,8 +21,20 @@ public class PersonService {
     PersonDAO personDAO = new PersonDAO();
     String name, surname;
 
+    
+    
     public Person getPeson() {
         return this.person;
+    }
+    
+    public void addPhone(Phone phone){
+        this.person.addPhone(phone);
+    }
+    
+    public void addPhones(ArrayList<Phone> phones){
+        for(Phone phone : phones){
+            this.person.addPhone(phone);
+        }
     }
 
     public boolean validateNameAndSurname(String name, String surname) throws Exception {
