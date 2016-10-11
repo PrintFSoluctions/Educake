@@ -33,7 +33,7 @@ public class Student implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idResponsible", nullable = false)
-    private Person idResponsible;
+    private Person responsible;
 
     public Long getIdStudent() {
         return idStudent;
@@ -59,12 +59,12 @@ public class Student implements Serializable {
         this.rm = rm;
     }
 
-    public Person getIdResponsible() {
-        return idResponsible;
+    public Person getResponsible() {
+        return responsible;
     }
 
-    public void setIdResponsible(Person idResponsible) {
-        this.idResponsible = idResponsible;
+    public void setResponsible(Person responsible) {
+        this.responsible = responsible;
     }    
     
 }
