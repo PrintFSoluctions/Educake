@@ -76,6 +76,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.Pliavi</groupId>
+            <artifactId>swing-material</artifactId>
+            <version>512f94082d</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.jiconfont</groupId>
             <artifactId>jiconfont-swing</artifactId>
             <version>1.0.0</version>

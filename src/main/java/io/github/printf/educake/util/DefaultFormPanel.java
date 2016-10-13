@@ -1,13 +1,13 @@
 package io.github.printf.educake.util;
 
 import de.craften.ui.swingmaterial.*;
-import io.github.printf.educake.util.Components.MaterialFormattedTextField;
 import io.github.printf.educake.util.Enums.Division;
 import io.github.printf.educake.util.Enums.Flex;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 import jiconfont.swing.IconFontSwing;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 
 /**
@@ -182,7 +182,9 @@ public class DefaultFormPanel extends JPanel {
 	}
 
 	public MaterialFormattedTextField addFormattedTextField(String label, String mask) throws Exception {
-		MaterialFormattedTextField textField = new MaterialFormattedTextField(mask);
+		MaskFormatter maskFormatter = new MaskFormatter(mask);
+
+		MaterialFormattedTextField textField = new MaterialFormattedTextField(maskFormatter);
 		textField.setLabel(label);
 		addComponent(textField);
 		return textField;
@@ -288,6 +290,7 @@ public class DefaultFormPanel extends JPanel {
 
 	public DefaultFormPanel addInnerPanel() throws Exception {
 		DefaultFormPanel panel = new DefaultFormPanel();
+		panel.setOpaque(true);
 		panel.addBodyWithoutScroll();
 		addComponent(panel);
 		return panel;
