@@ -1,29 +1,71 @@
 package io.github.printf.educake.model.dao;
 
-import io.github.printf.educake.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.util.List;
+import org.hibernate.HibernateException;
 
 public abstract class DataAccessObject<E> {
 
-    private SessionFactory sessionFactory;
-    protected Session session;
+    private static final SessionFactory sessionFactory =
+		new Configuration().configure().buildSessionFactory();
+    private static final ThreadLocal session = new ThreadLocal();
 
-    public DataAccessObject() {
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+    protected DataAccessObject() {}
+
+    public static Session getSession() {
+        Session session = (Session) DataAccessObject.session.get();
+
+        if (session == null) {
+            session = sessionFactory.openSession();
+            DataAccessObject.session.set(session);
+        }
+
+        return session;
+    }
+
+    protected void begin() {
+        getSession().beginTransaction();
+    }
+
+    protected void commit() {
+        getSession().getTransaction().commit();
+    }
+
+    protected void rollback() {
+        try {
+            getSession().getTransaction().rollback();
+        } catch (HibernateException e) {
+            System.out.println("Não foi possível fazer rollback da transação");
+        }
+
+        try {
+            getSession().close();
+        } catch (HibernateException e) {
+            System.out.println("Não foi possível fazer fechar a sessão");
+        }
+
+        DataAccessObject.session.set(null);
+    }
+
+    public static void close() {
+        getSession().close();
+        DataAccessObject.session.set(null);
     }
 
     public abstract List<E> findAll();
 
     public boolean persist(E object) {
         boolean result = true;
-
-        session.beginTransaction();
-        session.persist(object);
-        session.getTransaction().commit();
+        try {
+            begin();
+            getSession().persist(object);
+            commit();
+        } catch (Exception ex) {
+            rollback();
+        }
 
         return result;
     }
