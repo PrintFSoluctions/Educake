@@ -2,6 +2,7 @@ package io.github.printf.educake.controller.service;
 
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Student;
+import io.github.printf.educake.model.dao.StudentDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,9 +29,9 @@ public class StudentService {
 
     public void generateRm() {
         String rm = getSystemYear() + getSystemMonth();
-        
-        rm += getLastID();
-        
+
+        rm += getNextID();
+
         this.student.setRm(rm);
     }
 
@@ -48,7 +49,27 @@ public class StudentService {
         return systemMonth.format(date);
     }
 
-    private int getLastID() {
-        return 0;
+    private String getNextID() {
+        Student student = getLastStudant();
+
+        String rm = student.getRm();
+        rm = rm.substring(4);
+
+        if (rm.equals("999")) {
+            rm = "000";
+        } else {
+            
+        }
+
+        return rm;
+    }
+
+    private Student getLastStudant() {
+        StudentDAO studentDAO = new StudentDAO();
+        Student student = new Student();
+
+        student = studentDAO.getLastStudent();
+
+        return student;
     }
 }
