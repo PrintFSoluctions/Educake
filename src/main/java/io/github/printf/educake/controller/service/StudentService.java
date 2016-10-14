@@ -67,11 +67,10 @@ public class StudentService {
             rm = rm.substring(4);
             
             if (rm.equals("999")) {
-                rm = "000";
+                rm = "001";
             } else {
-                int temp = Integer.parseInt(rm);
-                temp++;
-                rm = "" + temp;
+                int temp = Integer.parseInt(rm)+1;
+                rm = String.valueOf(temp);
             }
         }else{
             rm = "001";
