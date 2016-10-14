@@ -29,7 +29,7 @@ public class StudentDAO extends DataAccessObject{
         Query query = getSession().createQuery("FROM Student");
         Student student;
         
-        if(query.list() != null)
+        if(!query.list().isEmpty())
             student = (Student) query.list().get(query.list().size()-1);
         else{
             student = new Student();
