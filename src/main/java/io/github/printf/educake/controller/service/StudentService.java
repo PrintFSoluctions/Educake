@@ -14,6 +14,7 @@ import java.util.Date;
 public class StudentService {
 
     Student student = new Student();
+    StudentDAO studnetDAO = new StudentDAO();
 
     public Student getStudent() {
         return this.student;
@@ -34,6 +35,14 @@ public class StudentService {
 
         this.student.setRm(rm);
     }
+    
+    public boolean persist(){
+        boolean result = true;
+        
+        result = studnetDAO.persist(this.student);
+        
+        return result;
+    }
 
     private String getSystemYear() {
         DateFormat systemYear = new SimpleDateFormat("yyyy");
@@ -50,15 +59,22 @@ public class StudentService {
     }
 
     private String getNextID() {
-        Student student = getLastStudant();
+        Student lastStudent = getLastStudant();
 
-        String rm = student.getRm();
-        rm = rm.substring(4);
+        String rm = lastStudent.getRm();
 
-        if (rm.equals("999")) {
-            rm = "000";
-        } else {
+        if (rm != null) {
+            rm = rm.substring(4);
             
+            if (rm.equals("999")) {
+                rm = "000";
+            } else {
+                int temp = Integer.parseInt(rm);
+                temp++;
+                rm = "" + temp;
+            }
+        }else{
+            rm = "001";
         }
 
         return rm;
@@ -66,10 +82,7 @@ public class StudentService {
 
     private Student getLastStudant() {
         StudentDAO studentDAO = new StudentDAO();
-        Student student = new Student();
 
-        student = studentDAO.getLastStudent();
-
-        return student;
+        return studentDAO.getLastStudent();
     }
 }
