@@ -26,8 +26,15 @@ public class StudentDAO extends DataAccessObject{
     }
     
     public Student getLastStudent(){
-        Query query = session.createQuery("FROM Student ORDER BY idStudent DESC LIMIT 1");
+        Query query = getSession().createQuery("FROM Student");
+        Student student;
         
-        return (Student) query.list().get(0);
+        if(query.list() != null)
+            student = (Student) query.list().get(query.list().size()-1);
+        else{
+            student = new Student();
+        }
+
+        return student;
     }
 }
