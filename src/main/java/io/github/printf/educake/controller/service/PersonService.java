@@ -54,7 +54,7 @@ public class PersonService {
         }
 
         this.person.setName(name);
-        this.person.setName(surname);
+        this.person.setSurname(surname);
         return true;
     }
 
