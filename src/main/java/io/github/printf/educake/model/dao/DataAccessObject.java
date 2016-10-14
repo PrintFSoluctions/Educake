@@ -8,23 +8,28 @@ import java.util.List;
 
 public abstract class DataAccessObject<E> {
 
-  public abstract List<E> findAll();
+    private SessionFactory sessionFactory;
+    protected Session session;
 
-  public boolean persist(E object) {
+    public DataAccessObject() {
+        sessionFactory = HibernateUtil.getSessionFactory();
+        session = sessionFactory.openSession();
+    }
 
-    boolean result = true;
+    public abstract List<E> findAll();
 
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    session.persist(object);
-    session.getTransaction().commit();
+    public boolean persist(E object) {
+        boolean result = true;
 
-    return result;
-  }
+        session.beginTransaction();
+        session.persist(object);
+        session.getTransaction().commit();
 
-  public abstract E getById(final Integer id);
+        return result;
+    }
 
-  public abstract boolean removeById(final Integer id);
+    public abstract E getById(final Integer id);
+
+    public abstract boolean removeById(final Integer id);
 
 }
