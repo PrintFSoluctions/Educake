@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +22,10 @@ import javax.persistence.Table;
 public class Student implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STUDENT_SEQUENCE")
+    @SequenceGenerator(name="STUDENT_SEQUENCE", sequenceName = "STUDENT_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
-    private Long idStudent;
+    private Integer idStudent;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPerson", nullable = false)
@@ -35,11 +38,11 @@ public class Student implements Serializable {
     @JoinColumn(name = "idResponsible", nullable = false)
     private Person responsible;
 
-    public Long getIdStudent() {
+    public Integer getIdStudent() {
         return idStudent;
     }
 
-    public void setIdStudent(Long idStudent) {
+    public void setIdStudent(Integer idStudent) {
         this.idStudent = idStudent;
     }
 

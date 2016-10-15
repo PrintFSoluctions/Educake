@@ -13,7 +13,8 @@ import java.util.List;
 public class Person implements Serializable {
   
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQUENCE")
+  @SequenceGenerator(name="PERSON_SEQUENCE", sequenceName = "PERSON_SEQUENCE", allocationSize = 1,initialValue = 1)
   @Column
   private int idPerson;
 
