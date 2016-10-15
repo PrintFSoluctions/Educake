@@ -69,7 +69,7 @@ public class PersonService {
             throw new ParseException("Data fora do padrão DD/MM/AAAA", ex.getErrorOffset());
         }
 
-        this.person.setBirthdate(EasyDate.rearrangeDate(birthDate));
+        this.person.setBirthdate(date);
         
         return true;
     }
