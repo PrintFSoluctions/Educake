@@ -4,6 +4,7 @@ import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.model.dao.StudentDAO;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 public class StudentService {
 
     Student student = new Student();
-    StudentDAO studnetDAO = new StudentDAO();
+    StudentDAO studentDAO = new StudentDAO();
 
     public Student getStudent() {
         return this.student;
@@ -39,13 +40,29 @@ public class StudentService {
     public boolean persist(){
         boolean result = true;
         
-        result = studnetDAO.persist(this.student);
+        result = studentDAO.persist(this.student);
         
         return result;
     }
 
+    public boolean remove(){
+        boolean result = true;
+        
+        result = studentDAO.remove(student);
+        
+        return result;
+    }
+    
+    public boolean removeById(Integer id){
+    boolean result = true;
+        
+        result = studentDAO.removeById(id);
+        
+        return result;
+    }
+    
     private String getSystemYear() {
-        DateFormat systemYear = new SimpleDateFormat("yyyy");
+        DateFormat systemYear = new SimpleDateFormat("yy");
         Date date = new Date();
 
         return systemYear.format(date);
@@ -69,8 +86,10 @@ public class StudentService {
             if (rm.equals("999")) {
                 rm = "001";
             } else {
-                int temp = Integer.parseInt(rm)+1;
-                rm = String.valueOf(temp);
+                DecimalFormat decimal = new DecimalFormat("000");
+                int temp = Integer.parseInt(rm);
+                temp++;
+                rm = decimal.format(temp);
             }
         }else{
             rm = "001";
