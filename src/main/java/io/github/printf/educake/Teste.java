@@ -7,8 +7,6 @@ package io.github.printf.educake;
 
 import io.github.printf.educake.controller.service.PersonService;
 import io.github.printf.educake.controller.service.StudentService;
-import io.github.printf.educake.model.Person;
-import io.github.printf.educake.model.Student;
 
 /**
  *
@@ -27,6 +25,7 @@ public class Teste {
             student.setResponsible(person.getPeson());
             student.generateRm();
             student.persist();
+            student.remove();
         }catch(Exception e){
             System.out.println(e);
         }
