@@ -17,105 +17,104 @@ import static io.github.printf.educake.util.Enums.Division.BODY;
 import static io.github.printf.educake.util.Enums.Division.HEADER;
 import static io.github.printf.educake.util.Enums.Flex.*;
 
-
 /**
  * Created by Vitor on 02/10/2016.
  */
-public class NewStudentView extends JFrame{
-	private DefaultFormPanel addressPanel;
-	private DefaultFormPanel phonesPanel;
-	private DefaultFormPanel formPanel;
+public class NewStudentView extends JFrame {
 
-	private MaterialTextField CEPTextField;
-	private MaterialTextField cityTextField;
-	private MaterialTextField streetTextField;
-	private MaterialTextField houseNumberTextField;
-	private MaterialTextField complementTextField;
-	private MaterialTextField nameTextField;
-	private MaterialTextField surnameTextField;
-	private MaterialFormattedTextField birthDateTextField;
+    private DefaultFormPanel addressPanel;
+    private DefaultFormPanel phonesPanel;
+    private DefaultFormPanel formPanel;
 
-	private MaterialButton findCEPBUtton;
-	private MaterialButton addButton;
-	private MaterialButton plusButton;
+    private MaterialTextField CEPTextField;
+    private MaterialTextField cityTextField;
+    private MaterialTextField streetTextField;
+    private MaterialTextField houseNumberTextField;
+    private MaterialTextField complementTextField;
+    private MaterialTextField nameTextField;
+    private MaterialTextField surnameTextField;
+    private MaterialFormattedTextField birthDateTextField;
 
-	private MaterialComboBox stateCombo;
+    private MaterialButton findCEPBUtton;
+    private MaterialButton addButton;
+    private MaterialButton plusButton;
 
-	public static ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
-	public static ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
-	public static ToastBar errorLog;
+    private MaterialComboBox stateCombo;
 
-	public NewStudentView() throws Exception {
-		formPanel = new DefaultFormPanel();
-		setLayout(new GridLayout()); // Frame Layout
-		add(formPanel); // Add the Panel to the Frame
+    public static ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
+    public static ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
+    public static ToastBar errorLog;
 
-		// Components grid
-		formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Aluno");
-		addButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
+    public NewStudentView() throws Exception {
+        formPanel = new DefaultFormPanel();
+        setLayout(new GridLayout()); // Frame Layout
+        add(formPanel); // Add the Panel to the Frame
 
-		formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
-		nameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Nome:");
-		surnameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Sobrenome:");
-		formPanel.addRow();
-		formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.TODAY);
-		birthDateTextField = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(2)
-				.addFormattedTextField("Data de Nascimento", "00/00/0000", "##/##/####");
-		formPanel.addRow();
+        // Components grid
+        formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Aluno");
+        addButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
 
-		phonesPanel = formPanel.makeGrid(BODY, BOTH).setWidth(3).addInnerPanel();
-		phoneTextField.add(phonesPanel.makeGrid(BODY,HORIZONTAL).setGridWidth(6)
-				.addFormattedTextField("Telefone:","(00)000000000","(##)#########"));
-		phoneTypeCombo.add(phonesPanel.makeGrid(BODY,HORIZONTAL)
-				.addComboBox("Tipo", "Fixo", "Celular"));
-		formPanel.addRow();
+        formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
+        nameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Nome:");
+        surnameTextField = formPanel.makeGrid(BODY, HORIZONTAL).addTextField("Sobrenome:");
+        formPanel.addRow();
+        formPanel.makeGrid(BODY, NONE).addIcon(GoogleMaterialDesignIcons.TODAY);
+        birthDateTextField = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(2)
+                .addFormattedTextField("Data de Nascimento", "00/00/0000", "##/##/####");
+        formPanel.addRow();
 
-		plusButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
-		formPanel.addRow();
+        phonesPanel = formPanel.makeGrid(BODY, BOTH).setWidth(3).addInnerPanel();
+        phoneTextField.add(phonesPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(6)
+                .addFormattedTextField("Telefone:", "(00)000000000", "(##)#########"));
+        phoneTypeCombo.add(phonesPanel.makeGrid(BODY, HORIZONTAL)
+                .addComboBox("Tipo", "Fixo", "Celular"));
+        formPanel.addRow();
 
-		addressPanel = formPanel.makeGrid(BODY, BOTH).setWidth(3).addInnerPanel();
-		CEPTextField = addressPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(8).addTextField("CEP:");
-		findCEPBUtton = addressPanel.makeGrid(BODY,HORIZONTAL).setGridWidth(2).addButton("Buscar");
-		addressPanel.addRow();
-		cityTextField = addressPanel.makeGrid(BODY,HORIZONTAL).addTextField("Cidade:");
-		stateCombo = addressPanel.makeGrid(BODY,HORIZONTAL).addComboBox("SP", "RJ", "MG", "BA");
-		addressPanel.addRow();
-		streetTextField = addressPanel.makeGrid(BODY,HORIZONTAL).addTextField("Rua, Bairro:");
-		houseNumberTextField = addressPanel.makeGrid(BODY,HORIZONTAL).addTextField("Number:");
-		addressPanel.addRow();
-		complementTextField = addressPanel.makeGrid(BODY,HORIZONTAL).setWidth(2).addTextField("Complemento");
+        plusButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
+        formPanel.addRow();
 
+        addressPanel = formPanel.makeGrid(BODY, BOTH).setWidth(3).addInnerPanel();
+        CEPTextField = addressPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(8).addTextField("CEP:");
+        findCEPBUtton = addressPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(2).addButton("Buscar");
+        addressPanel.addRow();
+        cityTextField = addressPanel.makeGrid(BODY, HORIZONTAL).addTextField("Cidade:");
+        stateCombo = addressPanel.makeGrid(BODY, HORIZONTAL).addComboBox("SP", "RJ", "MG", "BA");
+        addressPanel.addRow();
+        streetTextField = addressPanel.makeGrid(BODY, HORIZONTAL).addTextField("Rua, Bairro:");
+        houseNumberTextField = addressPanel.makeGrid(BODY, HORIZONTAL).addTextField("Number:");
+        addressPanel.addRow();
+        complementTextField = addressPanel.makeGrid(BODY, HORIZONTAL).setWidth(2).addTextField("Complemento");
 
-		init(); // iniatlize all
-	}
+        init(); // iniatlize all
+    }
 
-	private void init(){
-		initButtons();
-		setMinimumSize(new Dimension(600,400));
-		setMaximumSize(new Dimension(600,400));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		pack();
-		setVisible(true);
-	}
+    private void init() {
+        initButtons();
+        setMinimumSize(new Dimension(600, 400));
+        setMaximumSize(new Dimension(600, 400));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        pack();
+        setVisible(true);
+    }
 
-	private void initButtons(){
-		addButton.addActionListener(StudentController.getAddListener());
-		plusButton.addActionListener(e -> {
-			try {
-				phonesPanel.addRow();
-				phoneTextField.add(phonesPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(6)
-						.addFormattedTextField("Telefone:", "(00)000000000", "(##)#########"));
-				phoneTypeCombo.add(phonesPanel.makeGrid(BODY, HORIZONTAL)
-						.addComboBox("Fixo", "Celular"));
+    private void initButtons() {
+        addButton.addActionListener(StudentController.getAddListener());
+        plusButton.addActionListener(e -> {
+            try {
+                phonesPanel.addRow();
+                phoneTextField.add(phonesPanel.makeGrid(BODY, HORIZONTAL).setGridWidth(6)
+                        .addFormattedTextField("Telefone:", "(00)000000000", "(##)#########"));
+                phoneTypeCombo.add(phonesPanel.makeGrid(BODY, HORIZONTAL)
+                        .addComboBox("Fixo", "Celular"));
 //				phonesPanel.updateUI();
 //				phonesPanel.getBody().updateUI();
-				formPanel.updateUI();
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-		});
-	}
+                formPanel.updateUI();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
 
     public DefaultFormPanel getAddressPanel() {
         return addressPanel;
@@ -229,22 +228,20 @@ public class NewStudentView extends JFrame{
         this.stateCombo = stateCombo;
     }
 
-    public static ArrayList<MaterialFormattedTextField> getPhoneTextField() {
+    public ArrayList<MaterialFormattedTextField> getPhoneTextField() {
         return phoneTextField;
     }
 
-    public static void setPhoneTextField(ArrayList<MaterialFormattedTextField> phoneTextField) {
+    public void setPhoneTextField(ArrayList<MaterialFormattedTextField> phoneTextField) {
         NewStudentView.phoneTextField = phoneTextField;
     }
 
-    public static ArrayList<MaterialComboBox> getPhoneTypeCombo() {
+    public ArrayList<MaterialComboBox> getPhoneTypeCombo() {
         return phoneTypeCombo;
     }
 
-    public static void setPhoneTypeCombo(ArrayList<MaterialComboBox> phoneTypeCombo) {
+    public void setPhoneTypeCombo(ArrayList<MaterialComboBox> phoneTypeCombo) {
         NewStudentView.phoneTypeCombo = phoneTypeCombo;
     }
-        
-        
-}
 
+}
