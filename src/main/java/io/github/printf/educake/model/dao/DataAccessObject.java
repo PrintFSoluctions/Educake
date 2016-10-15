@@ -10,7 +10,7 @@ import org.hibernate.HibernateException;
 public abstract class DataAccessObject<E> {
 
     private static final SessionFactory sessionFactory =
-		new Configuration().configure().buildSessionFactory();
+		new Configuration().configure().buildSessionFactory();;
     private static final ThreadLocal session = new ThreadLocal();
 
     protected DataAccessObject() {}
@@ -70,6 +70,19 @@ public abstract class DataAccessObject<E> {
         return result;
     }
 
+    public boolean remove(E object){
+        boolean result = true;
+        try {
+            begin();
+            getSession().delete(object);
+            commit();
+        } catch (Exception ex) {
+            rollback();
+        }
+
+        return result;
+    }
+    
     public abstract E getById(final Integer id);
 
     public abstract boolean removeById(final Integer id);

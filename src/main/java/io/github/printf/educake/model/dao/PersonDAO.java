@@ -8,20 +8,30 @@ import java.util.List;
  *
  * @author Vitor
  */
-public class PersonDAO extends DataAccessObject{
+public class PersonDAO extends DataAccessObject<Person>{
 
   @Override
   public List findAll() {
-    return null;
+    return getSession().createQuery("FROM Person").list();
   }
 
   @Override
-  public Object getById(Integer id) {
-    return null;
+  public Person getById(Integer id) {
+    return getSession().load(Person.class, id);
   }
 
   @Override
   public boolean removeById(Integer id) {
-    return false;
+    boolean result = true;
+    
+      try {
+          Person person = this.getById(id);
+          super.remove(person);
+      } catch (Exception e) {
+          e.printStackTrace();
+          result = false;
+      }
+    
+    return result;
   }
 }
