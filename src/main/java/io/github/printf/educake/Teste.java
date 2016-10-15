@@ -25,7 +25,6 @@ public class Teste {
             student.setResponsible(person.getPeson());
             student.generateRm();
             student.persist();
-            student.remove();
         }catch(Exception e){
             System.out.println(e);
         }

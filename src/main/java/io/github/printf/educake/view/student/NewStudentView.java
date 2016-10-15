@@ -116,5 +116,135 @@ public class NewStudentView extends JFrame{
 			}
 		});
 	}
+
+    public DefaultFormPanel getAddressPanel() {
+        return addressPanel;
+    }
+
+    public void setAddressPanel(DefaultFormPanel addressPanel) {
+        this.addressPanel = addressPanel;
+    }
+
+    public DefaultFormPanel getPhonesPanel() {
+        return phonesPanel;
+    }
+
+    public void setPhonesPanel(DefaultFormPanel phonesPanel) {
+        this.phonesPanel = phonesPanel;
+    }
+
+    public DefaultFormPanel getFormPanel() {
+        return formPanel;
+    }
+
+    public void setFormPanel(DefaultFormPanel formPanel) {
+        this.formPanel = formPanel;
+    }
+
+    public MaterialTextField getCEPTextField() {
+        return CEPTextField;
+    }
+
+    public void setCEPTextField(MaterialTextField CEPTextField) {
+        this.CEPTextField = CEPTextField;
+    }
+
+    public MaterialTextField getCityTextField() {
+        return cityTextField;
+    }
+
+    public void setCityTextField(MaterialTextField cityTextField) {
+        this.cityTextField = cityTextField;
+    }
+
+    public MaterialTextField getStreetTextField() {
+        return streetTextField;
+    }
+
+    public void setStreetTextField(MaterialTextField streetTextField) {
+        this.streetTextField = streetTextField;
+    }
+
+    public MaterialTextField getHouseNumberTextField() {
+        return houseNumberTextField;
+    }
+
+    public void setHouseNumberTextField(MaterialTextField houseNumberTextField) {
+        this.houseNumberTextField = houseNumberTextField;
+    }
+
+    public MaterialTextField getComplementTextField() {
+        return complementTextField;
+    }
+
+    public void setComplementTextField(MaterialTextField complementTextField) {
+        this.complementTextField = complementTextField;
+    }
+
+    public MaterialTextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public void setNameTextField(MaterialTextField nameTextField) {
+        this.nameTextField = nameTextField;
+    }
+
+    public MaterialTextField getSurnameTextField() {
+        return surnameTextField;
+    }
+
+    public void setSurnameTextField(MaterialTextField surnameTextField) {
+        this.surnameTextField = surnameTextField;
+    }
+
+    public MaterialFormattedTextField getBirthDateTextField() {
+        return birthDateTextField;
+    }
+
+    public void setBirthDateTextField(MaterialFormattedTextField birthDateTextField) {
+        this.birthDateTextField = birthDateTextField;
+    }
+
+    public MaterialButton getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(MaterialButton addButton) {
+        this.addButton = addButton;
+    }
+
+    public MaterialButton getPlusButton() {
+        return plusButton;
+    }
+
+    public void setPlusButton(MaterialButton plusButton) {
+        this.plusButton = plusButton;
+    }
+
+    public MaterialComboBox getStateCombo() {
+        return stateCombo;
+    }
+
+    public void setStateCombo(MaterialComboBox stateCombo) {
+        this.stateCombo = stateCombo;
+    }
+
+    public static ArrayList<MaterialFormattedTextField> getPhoneTextField() {
+        return phoneTextField;
+    }
+
+    public static void setPhoneTextField(ArrayList<MaterialFormattedTextField> phoneTextField) {
+        NewStudentView.phoneTextField = phoneTextField;
+    }
+
+    public static ArrayList<MaterialComboBox> getPhoneTypeCombo() {
+        return phoneTypeCombo;
+    }
+
+    public static void setPhoneTypeCombo(ArrayList<MaterialComboBox> phoneTypeCombo) {
+        NewStudentView.phoneTypeCombo = phoneTypeCombo;
+    }
+        
+        
 }
 
