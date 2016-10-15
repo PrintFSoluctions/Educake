@@ -14,8 +14,13 @@ import java.util.Date;
  */
 public class StudentService {
 
-    Student student = new Student();
-    StudentDAO studentDAO = new StudentDAO();
+    private final Student student;
+    private final StudentDAO studentDAO;
+
+    public StudentService() {
+        this.studentDAO = new StudentDAO();
+        this.student = new Student();
+    }
 
     public Student getStudent() {
         return this.student;
@@ -36,31 +41,31 @@ public class StudentService {
 
         this.student.setRm(rm);
     }
-    
-    public boolean persist(){
+
+    public boolean persist() {
         boolean result = true;
-        
+
         result = studentDAO.persist(this.student);
-        
+
         return result;
     }
 
-    public boolean remove(){
+    public boolean remove() {
         boolean result = true;
-        
+
         result = studentDAO.remove(student);
-        
+
         return result;
     }
-    
-    public boolean removeById(Integer id){
-    boolean result = true;
-        
+
+    public boolean removeById(Integer id) {
+        boolean result = true;
+
         result = studentDAO.removeById(id);
-        
+
         return result;
     }
-    
+
     private String getSystemYear() {
         DateFormat systemYear = new SimpleDateFormat("yy");
         Date date = new Date();
@@ -82,7 +87,7 @@ public class StudentService {
 
         if (rm != null) {
             rm = rm.substring(4);
-            
+
             if (rm.equals("999")) {
                 rm = "001";
             } else {
@@ -91,7 +96,7 @@ public class StudentService {
                 temp++;
                 rm = decimal.format(temp);
             }
-        }else{
+        } else {
             rm = "001";
         }
 
@@ -99,8 +104,6 @@ public class StudentService {
     }
 
     private Student getLastStudant() {
-        StudentDAO studentDAO = new StudentDAO();
-
-        return studentDAO.getLastStudent();
+        return new StudentDAO().getLastStudent();
     }
 }

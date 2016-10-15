@@ -12,14 +12,14 @@ import io.github.printf.educake.controller.service.StudentService;
  *
  * @author albinof
  */
-public class Teste {
+public class Test {
     public static void main(String... args) {
         PersonService person = new PersonService();
         StudentService student = new StudentService();
         
         try{
-            person.validateNameAndSurname("Albino", "Freitas");
-            person.validateDate("03/11/1997");
+            person.validateNameAndSurname("Hevelyn", "Mendonça");
+            person.validateDate("06/11/2006");
             
             student.setPerson(person.getPeson());
             student.setResponsible(person.getPeson());
@@ -28,6 +28,8 @@ public class Teste {
         }catch(Exception e){
             System.out.println(e);
         }
+        
+        System.exit(0);
         
     }
 }

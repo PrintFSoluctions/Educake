@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -23,7 +25,8 @@ import java.io.Serializable;
 public class Phone implements Serializable{
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQUENCE")
+    @SequenceGenerator(name="PERSON_SEQUENCE", sequenceName = "PHONE_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
     private Integer idPhone;
     
@@ -41,7 +44,7 @@ public class Phone implements Serializable{
     private String operator;
     
     @Enumerated(EnumType.STRING)
-    private io.github.printf.educake.util.Enums.Phone definition;
+    private io.github.printf.educake.util.Enums.PhoneType definition;
 
     public Phone() {}
 
@@ -85,11 +88,11 @@ public class Phone implements Serializable{
         this.operator = operator;
     }
 
-    public io.github.printf.educake.util.Enums.Phone getDefinition() {
+    public io.github.printf.educake.util.Enums.PhoneType getDefinition() {
         return definition;
     }
 
-    public void setDefinition(io.github.printf.educake.util.Enums.Phone definition) {
+    public void setDefinition(io.github.printf.educake.util.Enums.PhoneType definition) {
         this.definition = definition;
     }
     

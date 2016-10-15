@@ -3,7 +3,6 @@ package io.github.printf.educake.controller.service;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.dao.PersonDAO;
-import io.github.printf.educake.util.EasyDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,9 +16,13 @@ import java.util.regex.Pattern;
  */
 public class PersonService {
 
-    Person person = new Person();
-    PersonDAO personDAO = new PersonDAO();
-    String name, surname;
+    private final Person person;
+    private final PersonDAO personDAO;
+
+    public PersonService() {
+        this.person = new Person();
+        this.personDAO = new PersonDAO();
+    }
 
     
     
@@ -66,7 +69,7 @@ public class PersonService {
         try {
             date = sdf.parse(birthDate);
         } catch (ParseException ex) {
-            throw new ParseException("Data fora do padrão DD/MM/AAAA", ex.getErrorOffset());
+            throw new ParseException("Data fora do padrão - DD/MM/AAAA", ex.getErrorOffset());
         }
 
         this.person.setBirthdate(date);
