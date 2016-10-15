@@ -15,16 +15,16 @@ public class StudentController {
 
 	public static ActionListener getAddListener() {
 		return e -> {
-//			String name = NewStudentView.nameTextField.getText();
-//			String surname = NewStudentView.surnameTextField.getText();
-//			String birthDate = NewStudentView.birthDateTextField.getText();
-//
-//			try {
-//				personService.persist(name, surname,birthDate);
-//			} catch (Exception ex) {
-//				System.out.println(ex.getMessage());
+			String name = newStudentView.getNameTextField().getText();
+			String surname = newStudentView.getSurnameTextField().getText();
+			String birthDate = newStudentView.getBirthDateTextField().getText();
+
+			try {
+				personService.persist(name, surname,birthDate);
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
 //				NewStudentView.errorLog.display(new TextToast(ex.getMessage()));
-//			}
+			}
 		};
 	}
 
