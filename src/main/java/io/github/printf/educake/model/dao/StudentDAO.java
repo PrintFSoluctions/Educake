@@ -13,7 +13,7 @@ public class StudentDAO extends DataAccessObject<Student> {
 
     @Override
     public List findAll() {
-        return null;
+        return getSession().createQuery("FROM Student").list();
     }
 
     @Override
