@@ -3,7 +3,7 @@ package io.github.printf.educake.view.person.student;
 import de.craften.ui.swingmaterial.MaterialButton;
 import de.craften.ui.swingmaterial.toast.ToastBar;
 import io.github.printf.educake.util.Components.DefaultFormPanel;
-import io.github.printf.educake.view.AddressPanel;
+import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 
