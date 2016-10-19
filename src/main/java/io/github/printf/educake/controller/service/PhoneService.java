@@ -53,7 +53,8 @@ public class PhoneService {
         
         return true;
     }
-    
-    
 
+    public ArrayList<Phone> getPhones() {
+        return phones;
+    }
 }

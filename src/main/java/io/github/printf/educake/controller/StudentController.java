@@ -1,7 +1,7 @@
 package io.github.printf.educake.controller;
 
 import io.github.printf.educake.controller.service.PersonService;
-import io.github.printf.educake.view.student.NewStudentView;
+import io.github.printf.educake.view.person.student.StudentView;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -11,20 +11,20 @@ import java.awt.event.ActionListener;
  */
 public class StudentController {
 
-    private static NewStudentView newStudentView;
+    private static StudentView studentView;
     private static PersonService personService = new PersonService();
 
     public static ActionListener getAddListener() {
         return e -> {
-            String name = newStudentView.getNameTextField().getText();
-            String surname = newStudentView.getSurnameTextField().getText();
-            String birthDate = newStudentView.getBirthDateTextField().getText();
+//            String name = studentView.getNameTextField().getText();
+//            String surname = studentView.getSurnameTextField().getText();
+//            String birthDate = studentView.getBirthDateTextField().getText();
 
             try {
-                personService.persist(name, surname, birthDate);
+//                personService.persist(name, surname, birthDate);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-//              NewStudentView.errorLog.display(new TextToast(ex.getMessage()));
+//              StudentView.errorLog.display(new TextToast(ex.getMessage()));
             }
         };
     }
@@ -32,7 +32,7 @@ public class StudentController {
     public void start() {
         SwingUtilities.invokeLater(() -> {
             try {
-                newStudentView = new NewStudentView();
+                studentView = new StudentView();
             } catch (Exception e) {
                 e.printStackTrace();
             }

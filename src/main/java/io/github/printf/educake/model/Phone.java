@@ -1,19 +1,7 @@
 package io.github.printf.educake.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -26,7 +14,7 @@ public class Phone implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQUENCE")
-    @SequenceGenerator(name="PERSON_SEQUENCE", sequenceName = "PHONE_SEQUENCE", allocationSize = 1,initialValue = 1)
+    @SequenceGenerator(name="PHONE_SEQUENCE", sequenceName = "PHONE_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
     private Integer idPhone;
     

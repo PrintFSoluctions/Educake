@@ -1,4 +1,4 @@
-package io.github.printf.educake.util;
+package io.github.printf.educake.util.Components;
 
 import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Enums.Division;
@@ -7,19 +7,21 @@ import jiconfont.icons.GoogleMaterialDesignIcons;
 import jiconfont.swing.IconFontSwing;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.util.Map;
 
 /**
  * @author Vitor
- * on 06/10/2016.
+ *         on 06/10/2016.
  */
 public class DefaultFormPanel extends JPanel {
 	private JPanel footer, body;
 	private JPanel header;
-	public JScrollPane scroll = new JScrollPane(body); // Container com scrollbar
+	private JScrollPane scroll = new JScrollPane(body); // Container com scrollbar
 	private JPanel selectedPanel;
-	public GridBagConstraints constraint;
+	private GridBagConstraints constraint;
 	private boolean isGridMade = false;
 	private int y = 0, x = 0;
 
@@ -27,7 +29,7 @@ public class DefaultFormPanel extends JPanel {
 		initPanel();
 	}
 
-	private void initPanel(){
+	private void initPanel() {
 		IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont()); // Registra a fonte de icones
 		this.setLayout(new BorderLayout());
 		this.setBackground(MaterialColor.WHITE);
@@ -35,11 +37,11 @@ public class DefaultFormPanel extends JPanel {
 
 	/**
 	 * Create a new space to a possibly component that will come into it.
-	 * @param division What division the possibly component will go
-	 * @param flex What kind of full resize it will get, or None
 	 *
+	 * @param division What division the possibly component will go
+	 * @param flex     What kind of full resize it will get, or None
 	 * @return DefaultFormPanel The own panel, to give the possibility of cascade methods
-	 * */
+	 */
 	public DefaultFormPanel makeGrid(Division division, Flex flex) throws Exception {
 		constraint = new GridBagConstraints();
 		selectedPanel = selectPanelByDivision(division);
@@ -49,10 +51,10 @@ public class DefaultFormPanel extends JPanel {
 			if (division == Division.HEADER) {
 				addHeader();
 				selectedPanel = header;
-			} else if(division == Division.BODY) {
+			} else if (division == Division.BODY) {
 				addBody();
 				selectedPanel = body;
-			}else{
+			} else {
 				addFooter();
 				selectedPanel = footer;
 			}
@@ -60,20 +62,24 @@ public class DefaultFormPanel extends JPanel {
 
 		constraint.ipady = 54; // Altura padrão dos components
 
-		constraint.insets = new Insets(0,5,0,0); // Borda Padrão
+		constraint.insets = new Insets(0, 5, 0, 0); // Borda Padrão
 		constraint.fill = flex.getFlex();
 		constraint.gridx = x++; // coloca na posição e já adiciona +1 para o próximo componente da linha
 		constraint.gridy = y;
 
-		switch (flex){
+		switch (flex) {
 			case HORIZONTAL:
-				constraint.weightx = 1; break;
+				constraint.weightx = 1;
+				break;
 			case VERTICAL:
-				constraint.weighty = 1; break;
+				constraint.weighty = 1;
+				break;
 			case BOTH:
-				constraint.weightx = constraint.weighty = 1; break;
+				constraint.weightx = constraint.weighty = 1;
+				break;
 			case NONE:
-				constraint.weighty = constraint.weightx = 0; break;
+				constraint.weighty = constraint.weightx = 0;
+				break;
 		}
 
 		isGridMade = true;
@@ -81,65 +87,76 @@ public class DefaultFormPanel extends JPanel {
 	}
 
 
-	/** Adds one to the grid Y and resets X, to make a new row */
-	public void addRow(){
-		y++; x = 0;
+	/**
+	 * Adds one to the grid Y and resets X, to make a new row
+	 */
+	public void addRow() {
+		y++;
+		x = 0;
 	}
 
 	private void addHeader() throws Exception {
-		if(header == null){
+		if (header == null) {
 			header = new JPanel();
 
 			header.setLayout(new GridBagLayout());
 			header.setBackground(MaterialColor.TEAL_500);
 
 			this.add(header, BorderLayout.NORTH);
-		}else{
+		} else {
 			throw new Exception("Já existe um CABEÇALHO!");
 		}
 	}
 
 	private void addBody() throws Exception {
-		if(body == null){
+		if (body == null) {
 			body = new JPanel();
 
 			scroll = new JScrollPane(body);
 
 			body.setLayout(new GridBagLayout());
 			body.setBackground(MaterialColor.WHITE);
-			body.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+			body.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
 			scroll.setBorder(null);
 
 			this.add(scroll);
-		}else{
+		} else {
 			throw new Exception("Já existe um CORPO!");
 		}
 	}
 
-	private void addBodyWithoutScroll() throws Exception{
-		if(body == null){
+	protected void addBodyWithoutScroll(String title) throws Exception {
+		if (body == null) {
 			body = new JPanel();
 
 			body.setLayout(new GridBagLayout());
 			body.setBackground(MaterialColor.WHITE);
-			body.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+
+			body.setBorder(BorderFactory.createTitledBorder(
+					BorderFactory.createMatteBorder(1,0,0,0,MaterialColor.TEAL_200),
+					title,
+					TitledBorder.CENTER,
+					TitledBorder.CENTER,
+					Roboto.REGULAR.deriveFont(16.0F),
+					MaterialColor.TEAL_600)
+			);
 
 			this.add(body);
-		}else{
+		} else {
 			throw new Exception("Já existe um CORPO!");
 		}
 	}
 
 	private void addFooter() throws Exception {
-		if(footer == null){
+		if (footer == null) {
 			footer = new JPanel();
 
 			footer.setLayout(new GridBagLayout());
 			footer.setBackground(MaterialColor.WHITE);
 
 			this.add(footer, BorderLayout.SOUTH);
-		}else{
+		} else {
 			throw new Exception("Já existe um RODAPÉ!");
 		}
 	}
@@ -154,28 +171,27 @@ public class DefaultFormPanel extends JPanel {
 		return this;
 	}
 
-	public void addLabel(String text) throws Exception{
+	public void addLabel(String text) throws Exception {
 		JLabel label = new JLabel(text);
 		label.setFont(Roboto.REGULAR.deriveFont(14.0F));
 		this.addComponent(label);
 	}
 
-	public void addTitleLabel(String text) throws Exception{
-		JLabel label = new JLabel("     "+text);
+	public void addTitleLabel(String text) throws Exception {
+		JLabel label = new JLabel("     " + text);
 		label.setFont(Roboto.BOLD.deriveFont(26.0F));
 		label.setForeground(MaterialColor.WHITE);
 		this.addComponent(label);
 	}
 
-
-	public MaterialTextField addTextField(String label) throws Exception{
+	public MaterialTextField addTextField(String label) throws Exception {
 		MaterialTextField textField = new MaterialTextField();
 		textField.setLabel(label);
 		this.addComponent(textField);
 		return textField;
 	}
 
-	public MaterialTextField addTextField(String label, String hint) throws Exception{
+	public MaterialTextField addTextField(String label, String hint) throws Exception {
 		MaterialTextField textField = addTextField(label);
 		textField.setHint(hint);
 		return textField;
@@ -190,18 +206,27 @@ public class DefaultFormPanel extends JPanel {
 		return textField;
 	}
 
-	public MaterialFormattedTextField addFormattedTextField(String label, String hint, String mask) throws Exception {
-		MaterialFormattedTextField textField = addFormattedTextField(label, mask);
-		textField.setHint(hint);
-		return textField;
-	}
-
 	public MaterialComboBox addComboBox(String... items) throws Exception {
 		MaterialComboBox combo = new MaterialComboBox();
 		constraint.ipady = 39; // o Combo tem tamanho diferente
 		for (String item : items) combo.addItem(item);
 		addComponent(combo);
 		return combo;
+	}
+
+	public MaterialComboBox addComboBox(Map<String, String> items, int preselected) throws Exception {
+		MaterialComboBox combo = new MaterialComboBox();
+		constraint.ipady = 39; // o Combo tem tamanho diferente
+
+		items.forEach((key, value) -> combo.addItem(new ComboItem(key, value)));
+		combo.setSelectedIndex(preselected);
+
+		addComponent(combo);
+		return combo;
+	}
+
+	public MaterialComboBox addComboBox(Map<String, String> items) throws Exception {
+		return addComboBox(items, 0);
 	}
 
 	public MaterialButton addTitleButton(String label) throws Exception {
@@ -222,6 +247,13 @@ public class DefaultFormPanel extends JPanel {
 		return button;
 	}
 
+	public JCheckBox addCheckBox(String label) throws Exception {
+		JCheckBox check = new JCheckBox();
+		check.setText(label);
+		addComponent(check);
+		return check;
+	}
+
 	private void addComponent(JComponent component) throws Exception {
 		if (!isGridMade) throw new Exception("Crie a grid antes!");
 		selectedPanel.add(component, constraint);
@@ -237,30 +269,26 @@ public class DefaultFormPanel extends JPanel {
 	public DefaultFormPanel setWidth(int width) throws Exception {
 		if (!isGridMade) throw new Exception("Crie a grid antes!");
 		constraint.gridwidth = width;
-		x += width-1; // Se aumenta a largura não deve aumentar o x para não gerar problenmas na diagramação;
+		x += width - 1; // Se aumenta a largura não deve aumentar o x para não gerar problenmas na diagramação;
 		return this;
 	}
 
 	public DefaultFormPanel setHeight(int width) throws Exception {
-//		if (!isGridMade) throw new Exception("Crie a grid antes!");
-
+		if (!isGridMade) throw new Exception("Crie a grid antes!");
 		constraint.ipady = width;
-		updateUI();
-		revalidate();
-		repaint();
 		return this;
 	}
 
 	public DefaultFormPanel setGridWidth(int gridWidth) throws Exception {
 		if (!isGridMade) throw new Exception("Crie a grid antes!");
 
-		constraint.ipadx = (getSize().width/100)*gridWidth;
+		constraint.ipadx = (getSize().width / 100) * gridWidth;
 		constraint.weightx = gridWidth;
 		return this;
 	}
 
-	private JPanel selectPanelByDivision(Division division){
-		switch (division){
+	private JPanel selectPanelByDivision(Division division) {
+		switch (division) {
 			case HEADER:
 				return header;
 			case BODY:
@@ -288,11 +316,37 @@ public class DefaultFormPanel extends JPanel {
 		selectedPanel.setVisible(!selectedPanel.isVisible());
 	}
 
-	public DefaultFormPanel addInnerPanel() throws Exception {
+	public DefaultFormPanel addInnerPanel(String title) throws Exception {
 		DefaultFormPanel panel = new DefaultFormPanel();
-		panel.setOpaque(true);
-		panel.addBodyWithoutScroll();
-		addComponent(panel);
+		addInnerPanel(panel, title);
 		return panel;
 	}
+
+	public DefaultFormPanel addInnerPanel(DefaultFormPanel panel, String title) throws Exception {
+		panel.setOpaque(true);
+		panel.addBodyWithoutScroll(title);
+		addComponent(panel);
+		panel.init();
+		return panel;
+	}
+
+	public DefaultFormPanel addInnerPanel(DefaultFormPanel panel) throws Exception {
+		addInnerPanel(panel, "");
+		return panel;
+	}
+
+	public void removeComponent(JComponent component){
+		remove(component);
+		x--;
+	}
+
+	public void removeRow(){
+		y--;
+	}
+
+
+	protected void init() throws Exception{
+		// Proposirally empty
+	}
+
 }
