@@ -1,11 +1,14 @@
 package io.github.printf.educake.controller.service;
 
+import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
+import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.model.dao.StudentDAO;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,6 +19,8 @@ public class StudentService {
 
     private final Student student;
     private final StudentDAO studentDAO;
+    private ArrayList<Phone> phone;
+    private Address address;
 
     public StudentService() {
         this.studentDAO = new StudentDAO();
@@ -34,6 +39,14 @@ public class StudentService {
         this.student.setPerson(person);
     }
 
+    public void setPhone(ArrayList<Phone> phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public void generateRm() {
         String rm = getSystemYear() + getSystemMonth();
 
@@ -43,11 +56,8 @@ public class StudentService {
     }
 
     public boolean persist() {
-        boolean result = true;
-
-        result = studentDAO.persist(this.student);
-
-        return result;
+        // TODO: Persistir um aluno com pessoa, responável, telefone e endereço
+        throw new UnsupportedOperationException("Ainda não implementado");
     }
 
     public boolean remove() {
@@ -81,7 +91,7 @@ public class StudentService {
     }
 
     private String getNextID() {
-        Student lastStudent = getLastStudant();
+        Student lastStudent = getLastStudent();
 
         String rm = lastStudent.getRm();
 
@@ -103,7 +113,13 @@ public class StudentService {
         return rm;
     }
 
-    private Student getLastStudant() {
+    private Student getLastStudent() {
         return new StudentDAO().getLastStudent();
     }
+
+  public void rollback() {
+      // TODO: Deve apagar tudo vinculado ao aluno e o próprio aluno
+  }
+
+
 }
