@@ -28,5 +28,8 @@ public class PhoneDAO extends DataAccessObject<Phone>{
     public boolean removeById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public void removeAllPhones(int idPerson) {
+
+    }
 }

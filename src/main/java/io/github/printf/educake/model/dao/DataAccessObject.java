@@ -1,11 +1,11 @@
 package io.github.printf.educake.model.dao;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
-import org.hibernate.HibernateException;
 
 public abstract class DataAccessObject<E> {
 
@@ -59,12 +59,14 @@ public abstract class DataAccessObject<E> {
 
     public boolean persist(E object) {
         boolean result = true;
+
         try {
             begin();
             getSession().persist(object);
             commit();
         } catch (Exception ex) {
             rollback();
+            result = false;
         }
 
         return result;

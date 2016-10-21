@@ -16,92 +16,90 @@ import java.util.regex.Pattern;
  */
 public class PersonService {
 
-    private final Person person;
-    private final PersonDAO personDAO;
+  private final Person person;
+  private final PersonDAO personDAO;
 
-    public PersonService() {
-        this.person = new Person();
-        this.personDAO = new PersonDAO();
+  public PersonService() {
+    this.person = new Person();
+    this.personDAO = new PersonDAO();
+  }
+
+  public Person getPeson() {
+    return this.person;
+  }
+
+  public void addPhone(Phone phone) {
+    this.person.addPhone(phone);
+  }
+
+  public void addPhones(ArrayList<Phone> phones) {
+    for (Phone phone : phones) {
+      this.person.addPhone(phone);
+    }
+  }
+
+  public boolean validateNameAndSurname(String name, String surname) throws Exception {
+    String regx = "^[\\p{L} .'-]+$";
+    Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+    name = name.trim();
+    surname = surname.trim();
+    Matcher matcherName = pattern.matcher(name);
+    Matcher matcherSurname = pattern.matcher(surname);
+
+    if (!matcherName.find()) {
+      throw new Exception("Nome é inválido ou está vazio");
     }
 
-    
-    
-    public Person getPeson() {
-        return this.person;
-    }
-    
-    public void addPhone(Phone phone){
-        this.person.addPhone(phone);
-    }
-    
-    public void addPhones(ArrayList<Phone> phones){
-        for(Phone phone : phones){
-            this.person.addPhone(phone);
-        }
+    if (!matcherSurname.find()) {
+      throw new Exception("Sobrenome é inválido ou está vazio");
     }
 
-    public boolean validateNameAndSurname(String name, String surname) throws Exception {
-        String regx = "^[\\p{L} .'-]+$";
-        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
-        name = name.trim();
-        surname = surname.trim();
-        Matcher matcherName = pattern.matcher(name);
-        Matcher matcherSurname = pattern.matcher(surname);
+    this.person.setName(name);
+    this.person.setSurname(surname);
+    return true;
+  }
 
-        if (!matcherName.find()) {
-            throw new Exception("Nome é inválido ou está vazio");
-        }
+  public boolean validateDate(String birthDate) throws ParseException {
+    Date date;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    sdf.setLenient(false);
 
-        if (!matcherSurname.find()) {
-            throw new Exception("Sobrenome é inválido ou está vazio");
-        }
-
-        this.person.setName(name);
-        this.person.setSurname(surname);
-        return true;
+    try {
+      date = sdf.parse(birthDate);
+    } catch (ParseException ex) {
+      throw new ParseException("Data fora do padrão - DD/MM/AAAA", ex.getErrorOffset());
     }
 
-    public boolean validateDate(String birthDate) throws ParseException {
-        Date date;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setLenient(false);
+    this.person.setBirthdate(date);
 
-        try {
-            date = sdf.parse(birthDate);
-        } catch (ParseException ex) {
-            throw new ParseException("Data fora do padrão - DD/MM/AAAA", ex.getErrorOffset());
-        }
+    return true;
+  }
 
-        this.person.setBirthdate(date);
-        
-        return true;
-    }
+  public boolean persist(String name, String surname, String birthDate) throws Exception {
+    boolean result = true;
 
-    public boolean persist(String name, String surname, String birthDate) throws Exception {
-        boolean result = true;
-        
-        validateNameAndSurname(name, surname);
-        validateDate(birthDate);
-        
-        result = personDAO.persist(this.person);
+    validateNameAndSurname(name, surname);
+    validateDate(birthDate);
 
-        return result;
-    }
-    
-    public boolean persist() throws Exception {
-        boolean result = true;
-        
-        result = personDAO.persist(this.person);
+    result = personDAO.persist(this.person);
 
-        return result;
-    }
-    
-    public boolean persist(Person person) throws Exception {
-        boolean result = true;
-        
-        result = personDAO.persist(person);
+    return result;
+  }
 
-        return result;
-    }
+  public boolean persist() {
+    boolean result = true;
+
+    result = personDAO.persist(this.person);
+
+    return result;
+  }
+
+  public boolean persist(Person person) {
+    boolean result = true;
+
+    result = personDAO.persist(person);
+
+    return result;
+  }
 
 }

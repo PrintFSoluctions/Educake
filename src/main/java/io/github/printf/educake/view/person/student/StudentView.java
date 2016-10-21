@@ -45,7 +45,7 @@ public class StudentView extends JFrame {
 		formPanel.addRow();
 		addButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
 		formPanel.addRow();
-		addButton.addActionListener(e -> { addButtonListener();});
+		addButton.addActionListener(e -> addButtonListener());
 
 		addressPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new AddressPanel(), "Endereço");
 		init();
