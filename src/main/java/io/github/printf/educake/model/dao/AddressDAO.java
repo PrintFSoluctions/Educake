@@ -17,7 +17,7 @@ public class AddressDAO extends DataAccessObject{
     }
 
     @Override
-    public Object getById(Integer id) {
+    public Address getById(Integer id) {
         return getSession().load(Address.class, id);
     }
 
@@ -26,7 +26,7 @@ public class AddressDAO extends DataAccessObject{
         boolean result = true;
 
         try {
-            Address address = (Address) this.getById(id);
+            Address address = this.getById(id);
             super.remove(address);
         } catch (Exception e) {
             e.printStackTrace();
