@@ -76,6 +76,7 @@ public class Person implements Serializable {
   }
   
   public void addPhone(Phone phone){
+      phone.setPerson(this);
       phones.add(phone);
   }
 

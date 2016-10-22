@@ -1,14 +1,11 @@
 package io.github.printf.educake.controller.service;
 
-import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
-import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.model.dao.StudentDAO;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,45 +16,34 @@ public class StudentService {
 
     private final Student student;
     private final StudentDAO studentDAO;
-    private ArrayList<Phone> phone;
-    private Address address;
-
+    
     public StudentService() {
         this.studentDAO = new StudentDAO();
         this.student = new Student();
+    }
+
+    public void setStudent(Person person, Person responsible) {
+        this.student.setPerson(person);
+        this.student.setResponsible(responsible);
+        generateRm();
+    }
+    
+    public void setStudent(Person person) {
+        this.student.setPerson(person);
+        this.student.setResponsible(person);
+        generateRm();
     }
 
     public Student getStudent() {
         return this.student;
     }
 
-    public void setResponsible(Person person) {
-        this.student.setResponsible(person);
-    }
-
-    public void setPerson(Person person) {
-        this.student.setPerson(person);
-    }
-
-    public void setPhone(ArrayList<Phone> phone) {
-        this.phone = phone;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void generateRm() {
-        String rm = getSystemYear() + getSystemMonth();
-
-        rm += getNextID();
-
-        this.student.setRm(rm);
-    }
-
     public boolean persist() {
-        // TODO: Persistir um aluno com pessoa, responável, telefone e endereço
-        throw new UnsupportedOperationException("Ainda não implementado");
+        boolean result = true;
+
+        result = studentDAO.persist(this.student);
+
+        return result;
     }
 
     public boolean remove() {
@@ -74,6 +60,20 @@ public class StudentService {
         result = studentDAO.removeById(id);
 
         return result;
+    }
+    
+    public void rollback() {
+        // TODO: Deve apagar tudo vinculado ao aluno e o próprio aluno
+    }
+
+    //Private Methods
+    
+    private void generateRm() {
+        String rm = getSystemYear() + getSystemMonth();
+
+        rm += getNextID();
+
+        this.student.setRm(rm);
     }
 
     private String getSystemYear() {
@@ -116,10 +116,5 @@ public class StudentService {
     private Student getLastStudent() {
         return new StudentDAO().getLastStudent();
     }
-
-  public void rollback() {
-      // TODO: Deve apagar tudo vinculado ao aluno e o próprio aluno
-  }
-
 
 }

@@ -19,21 +19,18 @@ public class Test {
         ArrayList<String> listaPhones = new ArrayList();
         ArrayList<String> listaTypes = new ArrayList();
         
-        listaPhones.add("12992561987");
+        listaPhones.add("22222222222");
         listaTypes.add("Celular");
         
-        listaPhones.add("1238968749");
+        listaPhones.add("1111111111");
         listaTypes.add("Fixo");
         
         PersonService person = new PersonService();
         PhoneService phones = new PhoneService();
-        
-        
-        
+                
         try{
-            person.validateNameAndSurname("Albino", "Freitas");
-            person.validateDate("03/11/1997");
-            phones.validatePhones(listaPhones, listaTypes);
+            person.setPerson("Albino", "Freitas", "10/09/1991");
+            phones.setPhones(listaPhones, listaTypes);
             person.addPhones(phones.getPhones());                    
             person.persist();
         }catch(Exception e){
