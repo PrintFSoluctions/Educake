@@ -6,7 +6,9 @@
 package io.github.printf.educake;
 
 import io.github.printf.educake.controller.service.PersonService;
-import io.github.printf.educake.controller.service.StudentService;
+import io.github.printf.educake.controller.service.PhoneService;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -14,17 +16,26 @@ import io.github.printf.educake.controller.service.StudentService;
  */
 public class Test {
     public static void main(String... args) {
+        ArrayList<String> listaPhones = new ArrayList();
+        ArrayList<String> listaTypes = new ArrayList();
+        
+        listaPhones.add("12992561987");
+        listaTypes.add("Celular");
+        
+        listaPhones.add("1238968749");
+        listaTypes.add("Fixo");
+        
         PersonService person = new PersonService();
-        StudentService student = new StudentService();
+        PhoneService phones = new PhoneService();
+        
+        
         
         try{
-            person.validateNameAndSurname("Hevelyn", "Mendonça");
-            person.validateDate("06/11/2006");
-            
-            student.setPerson(person.getPeson());
-            student.setResponsible(person.getPeson());
-            student.generateRm();
-            student.persist();
+            person.validateNameAndSurname("Albino", "Freitas");
+            person.validateDate("03/11/1997");
+            phones.validatePhones(listaPhones, listaTypes);
+            person.addPhones(phones.getPhones());                    
+            person.persist();
         }catch(Exception e){
             System.out.println(e);
         }

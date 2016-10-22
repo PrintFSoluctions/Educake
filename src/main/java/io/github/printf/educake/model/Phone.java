@@ -3,6 +3,8 @@ package io.github.printf.educake.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+import io.github.printf.educake.util.Enums.PhoneType;
+
 /**
  *
  * @author Albino Freitas
@@ -32,7 +34,7 @@ public class Phone implements Serializable{
     private String operator;
     
     @Enumerated(EnumType.STRING)
-    private io.github.printf.educake.util.Enums.PhoneType definition;
+    private PhoneType definition;
 
     public Phone() {}
 
