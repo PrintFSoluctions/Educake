@@ -27,11 +27,11 @@ public class Person implements Serializable {
   @Column
   @Temporal(TemporalType.DATE)
   private Date birthdate;
-  
+
   @OneToMany(
       mappedBy = "person",
       targetEntity = Phone.class,
-      fetch = FetchType.EAGER,
+      fetch = FetchType.LAZY,
       cascade = CascadeType.ALL)
   private List<Phone> phones = new ArrayList<Phone>();
 
@@ -74,9 +74,17 @@ public class Person implements Serializable {
   public void setBirthdate(Date birthdate) {
     this.birthdate = birthdate;
   }
-  
-  public void addPhone(Phone phone){
-      phones.add(phone);
+
+  public void setPhones(List<Phone> phones) {
+    this.phones = phones;
   }
 
+  public List<Phone> getPhones() {
+    return phones;
+  }
+
+  public void addPhone(Phone phone){
+    phone.setPerson(this);
+    phones.add(phone);
+  }
 }

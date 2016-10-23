@@ -17,9 +17,9 @@ import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
 /**
  * Created by Vitor on 02/10/2016.
  */
-public class StudentView extends JFrame {
+public class StudentView extends JPanel {
 
-	private final MaterialButton addButton;
+	private MaterialButton addButton;
 	private DefaultFormPanel phonesPanel;
 	private DefaultFormPanel personPanel;
 	private DefaultFormPanel addressPanel;
@@ -29,7 +29,8 @@ public class StudentView extends JFrame {
 
 	public static ToastBar errorLog;
 
-	public StudentView() throws Exception {
+	public StudentView() {
+		try{
 		formPanel = new DefaultFormPanel();
 		setLayout(new GridLayout()); // Frame Layout
 		add(formPanel); // Add the Panel to the Frame
@@ -49,6 +50,9 @@ public class StudentView extends JFrame {
 
 		addressPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new AddressPanel(), "Endereço");
 		init();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void addButtonListener() {
@@ -58,12 +62,12 @@ public class StudentView extends JFrame {
 	}
 
 	private void init() {
-		setMinimumSize(new Dimension(600, 400));
-		setMaximumSize(new Dimension(600, 400));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		pack();
-		setVisible(true);
+//		setMinimumSize(new Dimension(800, 400));
+//		setMaximumSize(new Dimension(600, 400));
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		setLocationRelativeTo(null);
+//		pack();
+//		setVisible(true);
 	}
 
 	public PhonePanel getPhonesPanel() {

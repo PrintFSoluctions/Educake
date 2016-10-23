@@ -35,9 +35,9 @@ public class AddressPanel extends DefaultFormPanel{
 		stateCombo = makeGrid(BODY, HORIZONTAL).addComboBox(State.getAllStates(), 25);
 		addRow();
 		streetTextField = makeGrid(BODY, HORIZONTAL).addTextField("Rua, Bairro:");
-		houseNumberTextField = makeGrid(BODY, HORIZONTAL).addTextField("Number:");
+		houseNumberTextField = makeGrid(BODY, HORIZONTAL).addTextField("Número:");
 		addRow();
-		complementTextField = makeGrid(BODY, HORIZONTAL).setWidth(2).addTextField("Complemento");
+		complementTextField = makeGrid(BODY, HORIZONTAL).setWidth(2).addTextField("Complemento:");
 	}
 
 	public String getCEP() {

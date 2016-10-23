@@ -1,9 +1,9 @@
 package io.github.printf.educake.model;
 
+import io.github.printf.educake.util.Enums.PhoneType;
+
 import javax.persistence.*;
 import java.io.Serializable;
-
-import io.github.printf.educake.util.Enums.PhoneType;
 
 /**
  *
@@ -21,7 +21,7 @@ public class Phone implements Serializable{
     private Integer idPhone;
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idPerson", nullable = false)
+    @JoinColumn(name = "idPerson", referencedColumnName="idPerson", nullable = false)
     private Person person;
     
     @Column

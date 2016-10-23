@@ -30,9 +30,9 @@ public class StudentController {
   private PhoneService phonesService = new PhoneService();
   private AddressService addressService = new AddressService();
   private StudentService studentService = new StudentService();
-  private PersonPanel personPanel = studentView.getPersonPanel();
-  private AddressPanel addressPanel = studentView.getAddressPanel();
-  private PhonePanel phonePanel = studentView.getPhonesPanel();
+  private PersonPanel personPanel;
+  private AddressPanel addressPanel;
+  private PhonePanel phonePanel;
 
   public ActionListener persist() {
     return e -> {
@@ -50,24 +50,24 @@ public class StudentController {
       String housenumber = addressPanel.getHouseNumber();
       String complement = addressPanel.getComplement();
 
-      try {
-        personService.persist(name, surname, birthDate);
-        person = personService.getPeson();
-
-        phonesService.persist(person, types, tels);
-        phones = phonesService.getPhones();
-
-        addressService.persist(person, CEP, street, city, state, housenumber, complement);
-        address = addressService.getAddress();
-
-        studentService.setPerson(person);
-        studentService.setPhone(phones);
-        studentService.setAddress(address);
-        studentService.persist();
-      }catch (Exception ex){
-        JOptionPane.showMessageDialog(null, ex.getMessage());
-        studentService.rollback();
-      }
+//      try {
+//        phonesService.setPhones(types, tels);
+//        addressService.setAddress(CEP, street, city, state, housenumber, complement);
+//        personService.setPerson(name, surname, birthDate);
+//
+//        phones = phonesService.getPhones();
+//        address = addressService.getAddress();
+//        person = personService.getPerson();
+//
+//        person.setPhones(phones);
+//        person.setAddress(address);
+//
+//        studentService.setStudent(person);
+//        studentService.persist();
+//      }catch (Exception ex){
+//        JOptionPane.showMessageDialog(null, ex.getMessage());
+//        studentService.rollback();
+//      }
     };
   }
 
@@ -75,6 +75,9 @@ public class StudentController {
     SwingUtilities.invokeLater(() -> {
       try {
         studentView = new StudentView();
+        personPanel = studentView.getPersonPanel();
+        addressPanel = studentView.getAddressPanel();
+        phonePanel = studentView.getPhonesPanel();
       } catch (Exception e) {
         e.printStackTrace();
       }
