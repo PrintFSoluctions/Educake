@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package io.github.printf.educake;
 
 import io.github.printf.educake.controller.service.AddressService;
+import io.github.printf.educake.controller.service.CPFService;
 import io.github.printf.educake.controller.service.PersonService;
 import io.github.printf.educake.controller.service.PhoneService;
+import io.github.printf.educake.controller.service.StudentService;
 import java.util.ArrayList;
 
 
@@ -29,6 +26,8 @@ public class Test {
         PersonService person = new PersonService();
         AddressService address = new AddressService();
         PhoneService phones = new PhoneService();
+        StudentService student = new StudentService();
+        CPFService cpf = new CPFService();
                 
         try{
             address.setAddress("Rua", "1", "casa 1", "São Paulo", "13690-010", "SP");
@@ -37,9 +36,14 @@ public class Test {
             person.setPerson("Jóse", "Maria", "10/9/1991");
             
             phones.setPhones(listaPhones, listaTypes);
-            person.addPhones(phones.getPhones());                    
+            person.addPhones(phones.getPhones());
             
-            person.persist();
+            cpf.setCPF("000.000.006-00");
+            person.setCPF(cpf.getCPF());
+            
+            student.setStudent(person.getPerson());
+            
+            student.persist();
         }catch(Exception e){
             System.out.println(e);
         }
