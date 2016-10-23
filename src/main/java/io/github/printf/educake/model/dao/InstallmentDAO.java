@@ -7,21 +7,30 @@ import java.util.List;
 /**
  * Created by Vitor on 24/09/2016.
  */
-public class InstallmentDAO extends DataAccessObject<Installment>{
+public class InstallmentDAO extends DataAccessObject<Installment> {
 
+    @Override
+    public List findAll() {
+        return getSession().createQuery("FROM Installment").list();
+    }
 
-  @Override
-  public List<Installment> findAll() {
-    return null;
-  }
+    @Override
+    public Installment getById(Integer id) {
+        return getSession().load(Installment.class, id);
+    }
 
-  @Override
-  public Installment getById(Integer id) {
-    return null;
-  }
+    @Override
+    public boolean removeById(Integer id) {
+        boolean result = true;
 
-  @Override
-  public boolean removeById(Integer id) {
-    return false;
-  }
+        try {
+            Installment installment = this.getById(id);
+            super.remove(installment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = false;
+        }
+
+        return result;
+    }
 }

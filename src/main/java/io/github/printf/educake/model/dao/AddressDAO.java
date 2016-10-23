@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author a1402056
  */
-public class AddressDAO extends DataAccessObject{
+public class AddressDAO extends DataAccessObject<Address>{
 
     @Override
     public List findAll() {

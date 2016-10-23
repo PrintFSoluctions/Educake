@@ -15,18 +15,28 @@ import java.util.List;
 public class PhoneDAO extends DataAccessObject<Phone>{
 
     @Override
-    public List<Phone> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List findAll() {
+        return getSession().createQuery("FROM Phone").list();
     }
 
     @Override
     public Phone getById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getSession().load(Phone.class, id);
     }
 
     @Override
     public boolean removeById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = true;
+
+        try {
+            Phone phone = this.getById(id);
+            super.remove(phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = false;
+        }
+
+        return result;
     }
 
     public void removeAllPhones(int idPerson) {

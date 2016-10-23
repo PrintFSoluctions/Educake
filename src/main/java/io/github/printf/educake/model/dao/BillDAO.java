@@ -6,22 +6,32 @@ import java.util.List;
 
 /**
  *
- * @author Vitor
+ * @author Albino Freitas
  */
-public class BillDAO extends DataAccessObject{
+public class BillDAO extends DataAccessObject<Bill> {
 
-  @Override
-  public List findAll() {
-    return null;
-  }
+    @Override
+    public List findAll() {
+        return getSession().createQuery("FROM Bill").list();
+    }
 
-  @Override
-  public Object getById(Integer id) {
-    return null;
-  }
+    @Override
+    public Bill getById(Integer id) {
+        return getSession().load(Bill.class, id);
+    }
 
-  @Override
-  public boolean removeById(Integer id) {
-    return false;
-  }
+    @Override
+    public boolean removeById(Integer id) {
+        boolean result = true;
+
+        try {
+            Bill bill = this.getById(id);
+            super.remove(bill);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = false;
+        }
+
+        return result;
+    }
 }
