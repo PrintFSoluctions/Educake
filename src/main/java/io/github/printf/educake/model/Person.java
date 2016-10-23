@@ -36,10 +36,10 @@ public class Person implements Serializable {
             cascade = CascadeType.ALL)
     private List<Phone> phones = new ArrayList<Phone>();
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
     private Address address;
     
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
     private CPF cpf;
 
     public Person() {

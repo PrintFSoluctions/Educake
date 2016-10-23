@@ -1,17 +1,7 @@
 package io.github.printf.educake.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  *
@@ -30,8 +20,7 @@ public class CPF implements Serializable {
     @Column
     private String cpf;
     
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idPerson", nullable = false)
+    @OneToOne
     private Person person;
 
     public CPF() {}
