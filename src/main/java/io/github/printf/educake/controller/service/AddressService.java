@@ -2,6 +2,9 @@ package io.github.printf.educake.controller.service;
 
 import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
+import io.github.printf.educake.model.dao.AddressDAO;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Vitor Silvério de Souza On out, 2016
@@ -9,13 +12,99 @@ import io.github.printf.educake.model.Person;
 // TODO: A classe completa
 public class AddressService {
 
-    private Address address;
+    private final Address address;
+    private final AddressDAO addressDAO;
 
-    public void persist(Person person, String cep, String street, String city, String state, String housenumber, String complement) {
-        throw new UnsupportedOperationException("Ainda não implementado");
+    public AddressService() {
+        address = new Address();
+        addressDAO = new AddressDAO();
+    }
+
+    //With person and complement
+    public void setAddress(Person person, String street, String housenumber, 
+            String complement, String city, String cep, String state) throws Exception {
+        this.address.setPerson(person);
+        this.address.setStreet(street);
+        validateHouseNumber(housenumber);
+        this.address.setComplement(complement);
+        validateCity(city);
+        validateCep(cep);
+        this.address.setState(state);
+    }
+
+    //With person and without complement
+    public void setAddress(Person person, String street, String housenumber, String city, 
+            String cep, String state) throws Exception {
+        this.address.setPerson(person);
+        this.address.setStreet(street);
+        validateHouseNumber(housenumber);
+        validateCity(city);
+        validateCep(cep);
+        this.address.setState(state);
+    }
+
+    //Without person and with complement
+    public void setAddress(String street, String housenumber, String complement,
+            String city, String cep, String state) throws Exception {
+        this.address.setStreet(street);
+        validateHouseNumber(housenumber);
+        this.address.setComplement(complement);
+        validateCity(city);
+        validateCep(cep);
+        this.address.setState(state);
+    }
+
+    //Without person and complement
+    public void setAddress(String street, String housenumber, String city, 
+            String cep, String state) throws Exception {
+        this.address.setStreet(street);
+        validateHouseNumber(housenumber);
+        validateCity(city);
+        validateCep(cep);
+        this.address.setState(state);
     }
 
     public Address getAddress() {
-        throw new UnsupportedOperationException("Ainda não implementado");
+        return this.address;
+    }
+
+    public boolean persist() {
+        return addressDAO.persist(this.address);
+    }
+
+    //Private Methods
+    
+    private void validateCity(String city) throws Exception {
+        String regx = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+        city = city.trim();
+        Matcher matcherCity = pattern.matcher(city);
+
+        if (!matcherCity.find()) {
+            throw new Exception("Cidade é inválida ou está vazia");
+        }
+    }
+
+    private void validateCep(String cep) throws Exception {
+        String regx = "^\\d{5,5}-?\\d{3,3}$";
+        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+        cep = cep.trim();
+        Matcher matcherCep = pattern.matcher(cep);
+
+        if (!matcherCep.find()) {
+            throw new Exception("Cep é inválido ou está vazio");
+        }
+    }
+
+    private void validateHouseNumber(String houseNumber) throws Exception {
+        try {
+            int hn = Integer.parseInt(houseNumber);
+            if(hn >= 0)
+                this.address.setHouseNumber(hn);
+            else
+                throw new Exception("Número da casa deve ser positivo");
+        } catch (NumberFormatException e) {
+            throw new Exception("Número da casa deve conter apenas números");
+        }
     }
 }

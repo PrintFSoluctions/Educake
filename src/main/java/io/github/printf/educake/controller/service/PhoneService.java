@@ -22,22 +22,24 @@ public class PhoneService {
         this.phones = new ArrayList();
     }
 
-    public void persist(Person person, List<String> phones, List<String> types) throws Exception {
-        if (validatePhones(phones, types)) {
+    public void setPhones(List<String> phones, List<String> types) throws Exception {
+        validatePhones(phones, types);
+    }
 
+    public void setPhones(Person person, List<String> phones, List<String> types) throws Exception {
+        if (validatePhones(phones, types)) {
             for (Phone phone : this.phones) {
                 phone.setPerson(person);
-
-                // Caso algum persist falhe, todos os telefones devem ser removidos da pessoa;
-                if (!phoneDAO.persist(phone)) {
-                    phoneDAO.removeAllPhones(person.getIdPerson());
-                    throw new Exception("Falha ao adicionar os telefones!");
-                }
             }
         }
     }
 
-    public boolean validatePhones(List<String> phones, List<String> types) throws Exception {
+    public ArrayList<Phone> getPhones() {
+        return this.phones;
+    }
+
+    //Private Methods
+    private boolean validatePhones(List<String> phones, List<String> types) throws Exception {
         Phone phone;
 
         if (phones.size() == types.size()) {
@@ -49,7 +51,7 @@ public class PhoneService {
                     throw new Exception("Telefone fora do padrão - (DD)NNNN-NNNN");
                 }
 
-                phone.setDdd(number.substring(0, 1));
+                phone.setDdd(number.substring(0, 2));
                 phone.setPhoneNumber(number.substring(2));
 
                 String phoneType = types.get(i);
@@ -71,9 +73,5 @@ public class PhoneService {
         }
 
         return true;
-    }
-
-    public ArrayList<Phone> getPhones() {
-        return phones;
     }
 }

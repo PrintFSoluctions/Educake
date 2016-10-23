@@ -1,9 +1,9 @@
 package io.github.printf.educake.model;
 
-import io.github.printf.educake.util.Enums.PhoneType;
-
 import javax.persistence.*;
 import java.io.Serializable;
+
+import io.github.printf.educake.util.Enums.PhoneType;
 
 /**
  *
@@ -29,10 +29,7 @@ public class Phone implements Serializable{
     
     @Column
     private String phoneNumber;
-    
-    @Column
-    private String operator;
-    
+
     @Enumerated(EnumType.STRING)
     private PhoneType definition;
 
@@ -70,19 +67,11 @@ public class Phone implements Serializable{
         this.phoneNumber = phoneNumber;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
-
-    public io.github.printf.educake.util.Enums.PhoneType getDefinition() {
+    public PhoneType getDefinition() {
         return definition;
     }
 
-    public void setDefinition(io.github.printf.educake.util.Enums.PhoneType definition) {
+    public void setDefinition(PhoneType definition) {
         this.definition = definition;
     }
     

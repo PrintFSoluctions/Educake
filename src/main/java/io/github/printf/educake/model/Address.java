@@ -31,7 +31,7 @@ public class Address implements Serializable {
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPerson", nullable = false)
-    private Person idPerson;
+    private Person person;
     
     @Column
     private String street;
@@ -68,15 +68,15 @@ public class Address implements Serializable {
     /**
      * @return the idPerson
      */
-    public Person getIdPerson() {
-        return idPerson;
+    public Person getPerson() {
+        return person;
     }
 
     /**
-     * @param idPerson the idPerson to set
+     * @param person the idPerson to set
      */
-    public void setIdPerson(Person idPerson) {
-        this.idPerson = idPerson;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     /**
