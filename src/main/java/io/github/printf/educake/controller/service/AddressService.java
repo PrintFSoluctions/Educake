@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Vitor Silvério de Souza On out, 2016
+ * @author Albino Freitas On out, 2016
  */
 // TODO: A classe completa
 public class AddressService {
@@ -83,6 +83,8 @@ public class AddressService {
         if (!matcherCity.find()) {
             throw new Exception("Cidade é inválida ou está vazia");
         }
+        
+        this.address.setCity(city);
     }
 
     private void validateCep(String cep) throws Exception {
@@ -94,6 +96,8 @@ public class AddressService {
         if (!matcherCep.find()) {
             throw new Exception("Cep é inválido ou está vazio");
         }
+        
+        this.address.setCep(cep);
     }
 
     private void validateHouseNumber(String houseNumber) throws Exception {
@@ -104,7 +108,7 @@ public class AddressService {
             else
                 throw new Exception("Número da casa deve ser positivo");
         } catch (NumberFormatException e) {
-            throw new Exception("Número da casa deve conter apenas números");
+            throw new Exception("Número da casa não pode conter letras ou caracteres especiais");
         }
     }
 }

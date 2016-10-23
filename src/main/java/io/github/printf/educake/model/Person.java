@@ -6,85 +6,102 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/** @author Vitor "Pliavi" Silvério */
-
+/**
+ * @author Vitor "Pliavi" Silvério
+ */
 @Entity
 @Table
 public class Person implements Serializable {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQUENCE")
-  @SequenceGenerator(name="PERSON_SEQUENCE", sequenceName = "PERSON_SEQUENCE", allocationSize = 1,initialValue = 1)
-  @Column
-  private int idPerson;
 
-  @Column
-  private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQUENCE")
+    @SequenceGenerator(name = "PERSON_SEQUENCE", sequenceName = "PERSON_SEQUENCE", allocationSize = 1, initialValue = 1)
+    @Column
+    private int idPerson;
 
-  @Column
-  private String surname;
+    @Column
+    private String name;
 
-  @Column
-  @Temporal(TemporalType.DATE)
-  private Date birthdate;
+    @Column
+    private String surname;
 
-  @OneToMany(
-      mappedBy = "person",
-      targetEntity = Phone.class,
-      fetch = FetchType.LAZY,
-      cascade = CascadeType.ALL)
-  private List<Phone> phones = new ArrayList<Phone>();
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date birthdate;
 
-  public Person() {}
+    @OneToMany(
+            mappedBy = "person",
+            targetEntity = Phone.class,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Phone> phones = new ArrayList<Phone>();
 
-  public Person(String name, String surname, Date birthdate) {
-    this.name = name;
-    this.surname = surname;
-    this.birthdate = birthdate;
-  }
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Address address;
 
-  public int getIdPerson() {
-    return idPerson;
-  }
+    public Person() {
+    }
 
-  public void setIdPerson(int idPerson) {
-    this.idPerson = idPerson;
-  }
+    public Person(String name, String surname, Date birthdate) {
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public int getIdPerson() {
+        return idPerson;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setIdPerson(int idPerson) {
+        this.idPerson = idPerson;
+    }
 
-  public String getSurname() {
-    return surname;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setSurname(String surname) {
-    this.surname = surname;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public Date getBirthdate() {
-    return birthdate;
-  }
+    public String getSurname() {
+        return surname;
+    }
 
-  public void setBirthdate(Date birthdate) {
-    this.birthdate = birthdate;
-  }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-  public void setPhones(List<Phone> phones) {
-    this.phones = phones;
-  }
+    public Date getBirthdate() {
+        return birthdate;
+    }
 
-  public List<Phone> getPhones() {
-    return phones;
-  }
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
 
-  public void addPhone(Phone phone){
-      phone.setPerson(this);
-      phones.add(phone);
-  }
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+        phones.stream().forEach((phone) -> {
+            phone.setPerson(this);
+        });
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void addPhone(Phone phone) {
+        phone.setPerson(this);
+        phones.add(phone);
+    }
+    
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        address.setPerson(this);
+        this.address = address;
+    }
 }

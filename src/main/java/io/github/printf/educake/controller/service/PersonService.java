@@ -1,5 +1,6 @@
 package io.github.printf.educake.controller.service;
 
+import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.dao.PersonDAO;
@@ -44,9 +45,11 @@ public class PersonService {
     }
 
     public void addPhones(ArrayList<Phone> phones) {
-        for (Phone phone : phones) {
-            this.person.addPhone(phone);
-        }
+        this.person.setPhones(phones);
+    }
+    
+    public void setAddress(Address address){
+        this.person.setAddress(address);
     }
 
     public boolean persist() {

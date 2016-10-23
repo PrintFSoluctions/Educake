@@ -5,6 +5,7 @@
  */
 package io.github.printf.educake;
 
+import io.github.printf.educake.controller.service.AddressService;
 import io.github.printf.educake.controller.service.PersonService;
 import io.github.printf.educake.controller.service.PhoneService;
 import java.util.ArrayList;
@@ -26,12 +27,18 @@ public class Test {
         listaTypes.add("Fixo");
         
         PersonService person = new PersonService();
+        AddressService address = new AddressService();
         PhoneService phones = new PhoneService();
                 
         try{
-            person.setPerson("Albino", "Freitas", "10/09/1991");
+            address.setAddress("Rua", "1", "casa 1", "São Paulo", "13690-010", "SP");
+            person.setAddress(address.getAddress());
+            
+            person.setPerson("Jóse", "Maria", "10/9/1991");
+            
             phones.setPhones(listaPhones, listaTypes);
             person.addPhones(phones.getPhones());                    
+            
             person.persist();
         }catch(Exception e){
             System.out.println(e);
