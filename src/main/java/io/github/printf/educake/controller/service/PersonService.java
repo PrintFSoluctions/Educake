@@ -26,15 +26,9 @@ public class PersonService {
         this.personDAO = new PersonDAO();
     }
 
-    public boolean setPerson(String name, String surname, String birthDate) throws Exception {
-        boolean result = true;
-
+    public void setPerson(String name, String surname, String birthDate) throws Exception {
         validateNameAndSurname(name, surname);
         validateDate(birthDate);
-
-        result = personDAO.persist(this.person);
-
-        return result;
     }
 
     public Person getPerson() {
@@ -58,9 +52,7 @@ public class PersonService {
     }
 
     public boolean persist() {
-        boolean result = true;
-        result = personDAO.persist(this.person);
-        return result;
+        return personDAO.persist(this.person);
     }
 
     //Private Methods

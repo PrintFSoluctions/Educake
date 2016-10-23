@@ -39,27 +39,15 @@ public class StudentService {
     }
 
     public boolean persist() {
-        boolean result = true;
-
-        result = studentDAO.persist(this.student);
-
-        return result;
+        return studentDAO.persist(this.student);
     }
 
     public boolean remove() {
-        boolean result = true;
-
-        result = studentDAO.remove(student);
-
-        return result;
+        return studentDAO.remove(student);
     }
 
     public boolean removeById(Integer id) {
-        boolean result = true;
-
-        result = studentDAO.removeById(id);
-
-        return result;
+        return studentDAO.removeById(id);
     }
     
     public void rollback() {
