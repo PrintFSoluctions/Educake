@@ -24,7 +24,7 @@ public class PersonService {
     this.personDAO = new PersonDAO();
   }
 
-  public Person getPeson() {
+  public Person getPerson() {
     return this.person;
   }
 
