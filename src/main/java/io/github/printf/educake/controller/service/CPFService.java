@@ -46,6 +46,8 @@ public class CPFService {
     private void newValidateCPF(String cpf) throws Exception{
         if(!(isValidCPF(cpf) || isValidCNPJ(cpf)))
             throw new Exception("Cpf/Cnpj é inválido ou está vazio");
+        
+        this.cpf.setCpf(cpf);
     }
     
     private void validateCPF(String cpf) throws Exception {

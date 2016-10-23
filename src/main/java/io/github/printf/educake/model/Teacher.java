@@ -6,9 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +23,8 @@ import javax.persistence.Table;
 public class Teacher implements Serializable{
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEACHER_SEQUENCE")
+    @SequenceGenerator(name="TEACHER_SEQUENCE", sequenceName = "TEACHER_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
     private Long idTeacher;
 
