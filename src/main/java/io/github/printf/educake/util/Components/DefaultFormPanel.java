@@ -171,10 +171,11 @@ public class DefaultFormPanel extends JPanel {
 		return this;
 	}
 
-	public void addLabel(String text) throws Exception {
+	public JLabel addLabel(String text) throws Exception {
 		JLabel label = new JLabel(text);
 		label.setFont(Roboto.REGULAR.deriveFont(14.0F));
 		this.addComponent(label);
+		return label;
 	}
 
 	public void addTitleLabel(String text) throws Exception {
@@ -258,10 +259,10 @@ public class DefaultFormPanel extends JPanel {
 		if (!isGridMade) throw new Exception("Crie a grid antes!");
 		selectedPanel.add(component, constraint);
 
-		System.out.println("Added Component: "
-				+ component.getClass().getSimpleName()
-				+ "\n - posX...: " + x
-				+ "\n - posY...: " + y);
+//		System.out.println("Added Component: "
+//				+ component.getClass().getSimpleName()
+//				+ "\n - posX...: " + x
+//				+ "\n - posY...: " + y);
 
 		isGridMade = false;
 	}
@@ -328,6 +329,16 @@ public class DefaultFormPanel extends JPanel {
 		addComponent(panel);
 		panel.init();
 		return panel;
+	}
+
+	public DefaultFormPanel setInset(int x){
+		constraint.insets = new Insets(x,x,x,x);
+		return this;
+	}
+
+	public DefaultFormPanel setInset(int top, int left, int bottom, int right){
+		constraint.insets = new Insets(top, left, bottom, right);
+		return this;
 	}
 
 	public DefaultFormPanel addInnerPanel(DefaultFormPanel panel) throws Exception {
