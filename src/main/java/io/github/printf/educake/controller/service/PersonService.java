@@ -1,6 +1,7 @@
 package io.github.printf.educake.controller.service;
 
 import io.github.printf.educake.model.Address;
+import io.github.printf.educake.model.CPF;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.dao.PersonDAO;
@@ -50,6 +51,10 @@ public class PersonService {
     
     public void setAddress(Address address){
         this.person.setAddress(address);
+    }
+    
+    public void setCPF(CPF cpf){
+        this.person.setCpf(cpf);
     }
 
     public boolean persist() {

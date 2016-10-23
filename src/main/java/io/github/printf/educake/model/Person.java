@@ -17,7 +17,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQUENCE")
     @SequenceGenerator(name = "PERSON_SEQUENCE", sequenceName = "PERSON_SEQUENCE", allocationSize = 1, initialValue = 1)
     @Column
-    private int idPerson;
+    private Integer idPerson;
 
     @Column
     private String name;
@@ -38,6 +38,9 @@ public class Person implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
+    
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private CPF cpf;
 
     public Person() {
     }
@@ -104,4 +107,15 @@ public class Person implements Serializable {
         address.setPerson(this);
         this.address = address;
     }
+
+    public CPF getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(CPF cpf) {
+        cpf.setPerson(this);
+        this.cpf = cpf;
+    }
+    
+    
 }

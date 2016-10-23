@@ -10,6 +10,7 @@
     <property name="show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
     <mapping class="io.github.printf.educake.model.Address"/>
+    <mapping class="io.github.printf.educake.model.CPF"/>
     <mapping class="io.github.printf.educake.model.Phone"/>
     <mapping class="io.github.printf.educake.model.Bill"/>
     <mapping class="io.github.printf.educake.model.BillType"/>
