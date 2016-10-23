@@ -1,6 +1,6 @@
 package io.github.printf.educake;
 
-import io.github.printf.educake.controller.StudentController;
+import io.github.printf.educake.view.main.MainFrame;
 
 import javax.swing.*;
 
@@ -13,8 +13,7 @@ public class Educake {
             e.printStackTrace();
         }
 
-        StudentController studentController = new StudentController();
-        studentController.start();
+        MainFrame mainFrame = new MainFrame();
     }
 
 }
