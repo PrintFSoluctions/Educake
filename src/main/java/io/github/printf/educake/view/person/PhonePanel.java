@@ -3,7 +3,6 @@ package io.github.printf.educake.view.person;
 import de.craften.ui.swingmaterial.MaterialButton;
 import de.craften.ui.swingmaterial.MaterialComboBox;
 import de.craften.ui.swingmaterial.MaterialFormattedTextField;
-import io.github.printf.educake.util.Components.ComboItem;
 import io.github.printf.educake.util.Components.DefaultFormPanel;
 
 import java.util.ArrayList;
@@ -40,9 +39,7 @@ public class PhonePanel extends DefaultFormPanel {
     ArrayList<String> phoneTypes = new ArrayList<>();
 
     phoneTypeCombo.forEach((phone) -> phoneTypes
-        .add(((ComboItem) phone
-            .getSelectedItem())
-            .getText()));
+        .add((String) phone.getSelectedItem()));
 
     return phoneTypes;
   }

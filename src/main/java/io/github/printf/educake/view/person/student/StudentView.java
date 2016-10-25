@@ -1,7 +1,7 @@
 package io.github.printf.educake.view.person.student;
 
 import de.craften.ui.swingmaterial.MaterialButton;
-import de.craften.ui.swingmaterial.toast.ToastBar;
+import io.github.printf.educake.controller.StudentController;
 import io.github.printf.educake.util.Components.DefaultFormPanel;
 import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
@@ -26,30 +26,32 @@ public class StudentView extends JPanel {
 	private DefaultFormPanel formPanel;
 
 	private MaterialButton saveButton;
+	private StudentController studentController = new StudentController();
 
-	public static ToastBar errorLog;
 
 	public StudentView() {
 		try{
-		formPanel = new DefaultFormPanel();
-		setLayout(new GridLayout()); // Frame Layout
-		add(formPanel); // Add the Panel to the Frame
+			formPanel = new DefaultFormPanel();
+			setLayout(new GridLayout()); // Frame Layout
+			add(formPanel); // Add the Panel to the Frame
 
-		// Components grid
-		formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Aluno");
-		saveButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
+			// Components grid
+			formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Aluno");
+			saveButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
 
-		personPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PersonPanel(), "Dados Pessoais");
-		formPanel.addRow();
+			personPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PersonPanel(), "Dados Pessoais");
+			formPanel.addRow();
 
-		phonesPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PhonePanel(), "Contato");
-		formPanel.addRow();
-		addButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
-		formPanel.addRow();
-		addButton.addActionListener(e -> addButtonListener());
+			phonesPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PhonePanel(), "Contato");
+			formPanel.addRow();
+			addButton = formPanel.makeGrid(BODY, HORIZONTAL).setWidth(3).addButton("Adicionar Novo Telefone");
+			formPanel.addRow();
 
-		addressPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new AddressPanel(), "Endereço");
-		init();
+			addressPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new AddressPanel(), "Endereço");
+
+			addButton.addActionListener(e -> addButtonListener());
+			saveButton.addActionListener(studentController.persist());
+			studentController.setView(this);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -59,15 +61,6 @@ public class StudentView extends JPanel {
 		try {
 			getPhonesPanel().addTelephone();
 		} catch (Exception ignored) {}
-	}
-
-	private void init() {
-//		setMinimumSize(new Dimension(800, 400));
-//		setMaximumSize(new Dimension(600, 400));
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		setLocationRelativeTo(null);
-//		pack();
-//		setVisible(true);
 	}
 
 	public PhonePanel getPhonesPanel() {
@@ -80,5 +73,9 @@ public class StudentView extends JPanel {
 
 	public AddressPanel getAddressPanel() {
 		return (AddressPanel)addressPanel;
+	}
+
+	public MaterialButton getSaveButton() {
+		return saveButton;
 	}
 }
