@@ -11,50 +11,51 @@ import static io.github.printf.educake.util.Enums.Division.BODY;
 import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
 
 /**
- * @author Vitor Silvério de Souza
- *         On out, 2016
+ * @author Vitor Silvério de Souza On out, 2016
  */
 public class PhonePanel extends DefaultFormPanel {
 
-  private MaterialButton addButton = new MaterialButton();
-  private ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
-  private ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
+    private MaterialButton addButton = new MaterialButton();
+    private ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
+    private ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
 
-  @Override
-  public void init() throws Exception {
-    addTelephone();
-  }
+    @Override
+    public void init() throws Exception {
+        addTelephone();
+    }
 
-  public ArrayList<String> getPhones() {
-    ArrayList<String> phones = new ArrayList<>();
-    phoneTextField.forEach((phone) -> phones.add(phone.getText()));
-    return phones;
-  }
+    public ArrayList<String> getPhones() {
+        ArrayList<String> phones = new ArrayList<>();
+        phoneTextField.forEach((phone) -> phones.add(phone.getText()));
+        return phones;
+    }
 
-  public void setPhoneTextField(ArrayList<MaterialFormattedTextField> phoneTextField) {
-    this.phoneTextField = phoneTextField;
-  }
+    public ArrayList<String> getPhoneTypes() {
+        ArrayList<String> phoneTypes = new ArrayList<>();
 
-  public ArrayList<String> getPhoneTypes() {
-    ArrayList<String> phoneTypes = new ArrayList<>();
+        phoneTypeCombo.forEach((phone) -> phoneTypes
+                .add((String) phone.getSelectedItem()));
 
-    phoneTypeCombo.forEach((phone) -> phoneTypes
-        .add((String) phone.getSelectedItem()));
+        return phoneTypes;
+    }
 
-    return phoneTypes;
-  }
+    public void setPhone(ArrayList<String> phones, ArrayList<String> types) {
+        for (int i = 0; i < phones.length; i++) {
+            String phone = phones[i];
+            String type = types[i];
 
-  // TODO: Receber os valores e colocar no formulário
-  public void setPhoneTypeCombo(ArrayList<MaterialComboBox> phoneTypeCombo) {
-    this.phoneTypeCombo = phoneTypeCombo;
-  }
+            addTelephone();
+            phoneTextField.get(i).setText(phone);
+            phoneTypeCombo.get(i).setSelectedItem(type);
+        }
+    }
 
-  public void addTelephone() throws Exception {
-    phoneTextField.add(makeGrid(BODY, HORIZONTAL).setGridWidth(6)
-        .addFormattedTextField("Telefone:", "(##)####-####"));
-    phoneTypeCombo.add(makeGrid(BODY, HORIZONTAL).addComboBox("Fixo", "Celular"));
-    remove(addButton);
-    addRow();
-    revalidate();
-  }
+    public void addTelephone() throws Exception {
+        phoneTextField.add(makeGrid(BODY, HORIZONTAL).setGridWidth(6)
+                .addFormattedTextField("Telefone:", "(##)####-####"));
+        phoneTypeCombo.add(makeGrid(BODY, HORIZONTAL).addComboBox("Fixo", "Celular"));
+        remove(addButton);
+        addRow();
+        revalidate();
+    }
 }
