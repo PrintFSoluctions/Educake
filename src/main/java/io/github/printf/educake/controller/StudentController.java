@@ -21,21 +21,23 @@ import java.util.List;
  * Created by Vitor on 02/10/2016.
  */
 public class StudentController {
-
-  private StudentView studentView;
-  private PersonService personService = new PersonService();
   private Person person;
   private Address address;
   private ArrayList<Phone> phones = new ArrayList<>();
+
+  private PersonService personService = new PersonService();
   private PhoneService phonesService = new PhoneService();
   private AddressService addressService = new AddressService();
   private StudentService studentService = new StudentService();
+
   private PersonPanel personPanel;
   private AddressPanel addressPanel;
   private PhonePanel phonePanel;
+  private StudentView studentView;
 
   public ActionListener persist() {
     return e -> {
+      System.out.println("asdads");
       String name = personPanel.getName();
       String surname = personPanel.getSurname();
       String birthDate = personPanel.getBirth();
@@ -50,37 +52,31 @@ public class StudentController {
       String housenumber = addressPanel.getHouseNumber();
       String complement = addressPanel.getComplement();
 
-//      try {
-//        phonesService.setPhones(types, tels);
-//        addressService.setAddress(CEP, street, city, state, housenumber, complement);
-//        personService.setPerson(name, surname, birthDate);
-//
-//        phones = phonesService.getPhones();
-//        address = addressService.getAddress();
-//        person = personService.getPerson();
-//
-//        person.setPhones(phones);
-//        person.setAddress(address);
-//
-//        studentService.setStudent(person);
-//        studentService.persist();
-//      }catch (Exception ex){
-//        JOptionPane.showMessageDialog(null, ex.getMessage());
-//        studentService.rollback();
-//      }
+      try {
+        phonesService.setPhones(tels, types);
+        addressService.setAddress(street, housenumber, complement, city, CEP, state);
+        personService.setPerson(name, surname, birthDate);
+
+        phones = phonesService.getPhones();
+        address = addressService.getAddress();
+        person = personService.getPerson();
+
+        person.setPhones(phones);
+        person.setAddress(address);
+
+        studentService.setStudent(person);
+        studentService.persist();
+      }catch (Exception ex){
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+        studentService.rollback();
+      }
     };
   }
 
-  public void start() {
-    SwingUtilities.invokeLater(() -> {
-      try {
-        studentView = new StudentView();
-        personPanel = studentView.getPersonPanel();
-        addressPanel = studentView.getAddressPanel();
-        phonePanel = studentView.getPhonesPanel();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    });
+  public void setView(StudentView view) {
+    this.studentView = view;
+    personPanel = studentView.getPersonPanel();
+    addressPanel = studentView.getAddressPanel();
+    phonePanel = studentView.getPhonesPanel();
   }
 }
