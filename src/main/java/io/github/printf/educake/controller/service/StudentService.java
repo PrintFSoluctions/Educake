@@ -105,4 +105,8 @@ public class StudentService {
         return new StudentDAO().getLastStudent();
     }
 
+    public boolean isOfAge() {
+        return true;
+    }
+
 }

@@ -11,6 +11,8 @@ import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.student.StudentView;
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -34,10 +36,10 @@ public class StudentController {
   private AddressPanel addressPanel;
   private PhonePanel phonePanel;
   private StudentView studentView;
+  private   CardLayout cardLayout;
 
   public ActionListener persist() {
-    return e -> {
-      System.out.println("asdads");
+    return (ActionEvent e) -> {
       String name = personPanel.getName();
       String surname = personPanel.getSurname();
       String birthDate = personPanel.getBirth();
@@ -65,7 +67,17 @@ public class StudentController {
         person.setAddress(address);
 
         studentService.setStudent(person);
-        studentService.persist();
+        
+        if(studentService.isOfAge()){
+            studentService.persist();   
+        }else{
+            // TODO: Ver um jeito de puxar o painel dos cartões no controller 
+            // ou trocar de tela por aqui
+            CardsPanel cards = ;
+                cardLayout = (CardLayout) cards.getLayout();
+        }
+        
+        
       }catch (Exception ex){
         JOptionPane.showMessageDialog(null, ex.getMessage());
         studentService.rollback();
