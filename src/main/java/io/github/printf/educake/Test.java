@@ -23,7 +23,6 @@ public class Test {
         listaPhones.add("1111111111");
         listaTypes.add("Fixo");
         
-        PersonService person = new PersonService();
         AddressService address = new AddressService();
         PhoneService phones = new PhoneService();
         StudentService student = new StudentService();
@@ -31,17 +30,17 @@ public class Test {
                 
         try{
             address.setAddress("Rua", "1", "casa 1", "São Paulo", "13690-010", "SP");
-            person.setAddress(address.getAddress());
+            student.setAddress(address.getAddress());
             
-            person.setPerson("Jóse", "Maria", "10/9/1991");
+            student.setPerson("Jóse", "Maria", "10/9/1991");
             
             phones.setPhones(listaPhones, listaTypes);
-            person.addPhones(phones.getPhones());
+            student.addPhones(phones.getPhones());
             
             cpf.setCPF("000.000.006-00");
-            person.setCPF(cpf.getCPF());
+            student.setCPF(cpf.getCPF());
             
-            student.setStudent(person.getPerson());
+            student.setStudent(student.getPerson());
             
             student.persist();
         }catch(Exception e){

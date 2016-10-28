@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Albino Freitas
  */
-public class StudentService {
+public class StudentService extends PersonService{
 
     private final Student student;
     private final StudentDAO studentDAO;
@@ -37,7 +37,7 @@ public class StudentService {
     public Student getStudent() {
         return this.student;
     }
-
+    
     public boolean persist() {
         return studentDAO.persist(this.student);
     }
