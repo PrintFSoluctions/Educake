@@ -39,10 +39,10 @@ public class PhonePanel extends DefaultFormPanel {
         return phoneTypes;
     }
 
-    public void setPhone(ArrayList<String> phones, ArrayList<String> types) {
-        for (int i = 0; i < phones.length; i++) {
-            String phone = phones[i];
-            String type = types[i];
+    public void setPhone(ArrayList<String> phones, ArrayList<String> types) throws Exception {
+        for (int i = 0; i < phones.size(); i++) {
+            String phone = phones.get(i);
+            String type = types.get(i);
 
             addTelephone();
             phoneTextField.get(i).setText(phone);
