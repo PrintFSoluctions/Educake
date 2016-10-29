@@ -1,6 +1,6 @@
 package io.github.printf.educake.view.main;
 
-import io.github.printf.educake.view.person.student.StudentView;
+import io.github.printf.educake.view.person.student.StudentDash;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class CardsPanel extends JPanel {
   public CardsPanel() {
     setLayout(new CardLayout());
 
-    add(new StudentView(), "Student");
+    add(new StudentDash(), "Student");
     add(new JButton("Essa é a tela dos Professores"), "Teacher");
     add(new JButton("Essa é a tela dos Relatórios"), "Reports");
 
