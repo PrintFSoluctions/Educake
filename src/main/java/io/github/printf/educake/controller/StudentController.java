@@ -11,10 +11,10 @@ import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.student.StudentView;
-import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +73,8 @@ public class StudentController {
         }else{
             // TODO: Ver um jeito de puxar o painel dos cartões no controller 
             // ou trocar de tela por aqui
-            CardsPanel cards = ;
-                cardLayout = (CardLayout) cards.getLayout();
+//            CardsPanel cards = ;
+//                cardLayout = (CardLayout) cards.getLayout();
         }
         
         
