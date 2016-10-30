@@ -255,7 +255,7 @@ public class DefaultFormPanel extends JPanel {
 		return check;
 	}
 
-	private void addComponent(JComponent component) throws Exception {
+	public void addComponent(JComponent component) throws Exception {
 		if (!isGridMade) throw new Exception("Crie a grid antes!");
 		selectedPanel.add(component, constraint);
 
@@ -346,7 +346,7 @@ public class DefaultFormPanel extends JPanel {
 		return panel;
 	}
 
-	public JPanel addUnformattedPanel(JPanel panel) throws Exception {
+	public JComponent addUnformattedPanel(JComponent panel) throws Exception {
     addComponent(panel);
     return panel;
   }
