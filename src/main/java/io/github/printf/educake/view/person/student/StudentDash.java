@@ -15,8 +15,14 @@ public class StudentDash extends NewDefaultFormPanel {
 
   public StudentDash() {
 
-    addCell(new ThumbPanel("a321556", "Fulano da Silva", "29/09/1995", "Caraguatatuba"));
-
+    top();
+    addCell(new ThumbPanel("a321556", "Albino Freitas", "29/09/1995", "Caraguatatuba"));
+    row();
+    addCell(new ThumbPanel("a321556", "Jhones Henrique", "29/09/1995", "Caraguatatuba"));
+    row();
+    addCell(new ThumbPanel("a321556", "Thaila Golçalves", "29/09/1995", "Caraguatatuba"));
+    row();
+    addCell(new ThumbPanel("a32155x", "Vitor Silvério", "29/09/1995", "Caraguatatuba"));
   }
 
 }
