@@ -346,6 +346,11 @@ public class DefaultFormPanel extends JPanel {
 		return panel;
 	}
 
+	public JPanel addUnformattedPanel(JPanel panel) throws Exception {
+    addComponent(panel);
+    return panel;
+  }
+
 	public void removeComponent(JComponent component){
 		remove(component);
 		x--;
