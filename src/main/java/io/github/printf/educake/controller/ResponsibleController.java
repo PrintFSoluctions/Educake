@@ -11,7 +11,6 @@ import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.responsible.ResponsibleView;
-import io.github.printf.educake.view.person.student.StudentView;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -77,7 +76,7 @@ public class ResponsibleController {
 
   public void setView(ResponsibleView view) {
     this.studentView = view;
-    personPanel = studentView.getPersonPanel();
+//    personPanel = studentView.getPersonPanel();
     addressPanel = studentView.getAddressPanel();
     phonePanel = studentView.getPhonesPanel();
   }

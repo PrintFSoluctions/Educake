@@ -7,16 +7,16 @@ package io.github.printf.educake.view.person.responsible;
 
 import de.craften.ui.swingmaterial.MaterialButton;
 import io.github.printf.educake.controller.ResponsibleController;
-import io.github.printf.educake.controller.StudentController;
 import io.github.printf.educake.util.Components.DefaultFormPanel;
+import io.github.printf.educake.view.person.AddressPanel;
+import io.github.printf.educake.view.person.PhonePanel;
+
+import javax.swing.*;
+import java.awt.*;
+
 import static io.github.printf.educake.util.Enums.Division.BODY;
 import static io.github.printf.educake.util.Enums.Division.HEADER;
 import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
-import io.github.printf.educake.view.person.AddressPanel;
-import io.github.printf.educake.view.person.PersonPanel;
-import io.github.printf.educake.view.person.PhonePanel;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ResponsibleView extends JPanel {
 			formPanel.makeGrid(HEADER, HORIZONTAL).addTitleLabel("Cadastro de Responsável");
 			saveButton = formPanel.makeGrid(HEADER, HORIZONTAL).addTitleButton("Salvar");
 
-			personPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PersonPanel(), "Dados Pessoais");
+//			personPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PersonPanel(), "Dados Pessoais");
 			formPanel.addRow();
 
 			phonesPanel = formPanel.makeGrid(BODY, HORIZONTAL).addInnerPanel(new PhonePanel(), "Contato");
@@ -72,9 +72,9 @@ public class ResponsibleView extends JPanel {
 		return (PhonePanel)phonesPanel;
 	}
 
-	public PersonPanel getPersonPanel() {
-		return (PersonPanel)personPanel;
-	}
+//	public PersonPanel getPersonPanel() {
+//		return (PersonPanel)personPanel;
+//	}
 
 	public AddressPanel getAddressPanel() {
 		return (AddressPanel)addressPanel;

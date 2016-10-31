@@ -87,8 +87,8 @@ public class StudentController {
 
   public void setView(StudentView view) {
     this.studentView = view;
-    personPanel = studentView.getPersonPanel();
-    addressPanel = studentView.getAddressPanel();
-    phonePanel = studentView.getPhonesPanel();
+//    personPanel = studentView.getPersonPanel();
+//    addressPanel = studentView.getAddressPanel();
+//    phonePanel = studentView.getPhonesPanel();
   }
 }
