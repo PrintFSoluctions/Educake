@@ -5,16 +5,8 @@
  */
 package io.github.printf.educake.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
@@ -35,6 +27,9 @@ public class Address implements Serializable {
     
     @Column
     private String street;
+
+    @Column
+    private String district;
     
     @Column
     private String city;
@@ -161,5 +156,13 @@ public class Address implements Serializable {
      */
     public void setComplement(String complement) {
         this.complement = complement;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }
