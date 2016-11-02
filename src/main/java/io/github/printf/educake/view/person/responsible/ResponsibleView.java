@@ -26,10 +26,16 @@ public class ResponsibleView extends DefaultView {
   public ResponsibleView(StudentView studentView) {
     super("Resposável", "Confirmar");
 
-    body.add(personPanel);
-    body.add(studentView.getPhonesPanel());
-    body.add(studentView.getAddressPanel());
+    try {
+      phonesPanel = studentView.getPhonesPanel().clone();
+      addressPanel = studentView.getAddressPanel().clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
 
+    body.add(personPanel);
+    body.add(phonesPanel);
+    body.add(addressPanel);
     titlePanel.getButton("Confirmar").addActionListener(responsibleController.persist());
     responsibleController.setView(this);
 }

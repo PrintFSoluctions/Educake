@@ -20,6 +20,7 @@ public class PersonPanel extends JPanel{
 	private MaterialFormattedTextField CPFTextField;
 	private final ComponentFactory component = new ComponentFactory();
 
+	private String textFieldHeight = "w 50%-48px*2px, h 52px, pad -18 0 0 0";
 
 	public PersonPanel(){
 		setBackground(MaterialColor.WHITE);
@@ -32,8 +33,6 @@ public class PersonPanel extends JPanel{
 		birthDateTextField = component.addFormattedTextField("Data de Nascimento:", "##/##/####");
 		JLabel iconDoc     = component.addIcon(GoogleMaterialDesignIcons.ASSIGNMENT);
 		CPFTextField       = component.addFormattedTextField("CPF:","###.###.###-##");
-
-		String textFieldHeight = "w 100%, h 52px, pad -18 0 0 0";
 
 		add(iconID, "w 48");
 		add(nameTextField, textFieldHeight);

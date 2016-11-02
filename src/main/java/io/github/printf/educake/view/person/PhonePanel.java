@@ -11,13 +11,13 @@ import java.util.ArrayList;
 /**
  * @author Vitor Silvério de Souza On out, 2016
  */
-public class PhonePanel extends JPanel {
+public class PhonePanel extends JPanel implements Cloneable {
 
     private MaterialButton addButton;
     private ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
     private ArrayList<MaterialComboBox> phoneTypeCombo = new ArrayList<>();
     private final ComponentFactory component = new ComponentFactory();
-    private String textFieldHeight = "w 100%, h 52px, pad -18 0 0 0";
+    private String textFieldHeight = "w 50%, h 52px, pad -18 0 0 0";
 
     public PhonePanel() {
         setBackground(MaterialColor.WHITE);
@@ -65,5 +65,10 @@ public class PhonePanel extends JPanel {
         add(phone, textFieldHeight);
         add(type, textFieldHeight+", wrap");
         revalidate();
+    }
+
+    @Override
+    public PhonePanel clone() throws CloneNotSupportedException {
+        return (PhonePanel) super.clone();
     }
 }

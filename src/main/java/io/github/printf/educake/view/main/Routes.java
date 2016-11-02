@@ -23,7 +23,6 @@ public class Routes extends JPanel {
 
   public Routes() {
     setLayout(new CardLayout());
-
     // Routes
     add(studentDash, "studentDash");
     add(newStudent, "newStudent");

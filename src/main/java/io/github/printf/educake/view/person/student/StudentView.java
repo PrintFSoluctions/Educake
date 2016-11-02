@@ -20,22 +20,22 @@ public class StudentView extends DefaultView {
 	public StudentView() {
 		super("Cadastro Aluno", "Salvar");
 
-		body.add(personPanel);
-		body.add(phonesPanel);
-		body.add(addressPanel);
+		body.add(getPersonPanel());
+		body.add(getPhonesPanel());
+		body.add(getAddressPanel());
 
 		titlePanel.getButton("Salvar").addActionListener(e -> studentController.persist(null));
 	}
 
 	public PhonePanel getPhonesPanel() {
-		return (PhonePanel)phonesPanel;
+		return phonesPanel;
 	}
 
 	public PersonPanel getPersonPanel() {
-		return (PersonPanel)personPanel;
+		return personPanel;
 	}
 
 	public AddressPanel getAddressPanel() {
-		return (AddressPanel)addressPanel;
+		return addressPanel;
 	}
 }

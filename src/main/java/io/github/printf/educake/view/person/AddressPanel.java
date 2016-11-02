@@ -4,6 +4,7 @@ import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Components.ComboItem;
 import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Enums.State;
+import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -12,42 +13,50 @@ import javax.swing.*;
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class AddressPanel extends JPanel{
-
+public class AddressPanel extends JPanel implements Cloneable{
 	private MaterialFormattedTextField CEPTextField;
 	private MaterialTextField cityTextField;
 	private MaterialTextField streetTextField;
 	private MaterialTextField houseNumberTextField;
 	private MaterialTextField complementTextField;
+	private MaterialTextField districtTextField;
 	private final ComponentFactory component = new ComponentFactory();
 	private MaterialButton findCEPButton;
-
 	private MaterialComboBox stateCombo;
-	private MaterialTextField districtTextField;
 
-	public AddressPanel()	{
+  private String textFieldHeight = "h 52px, pad -18 0 0 0";
+
+  public AddressPanel()	{
 		setBackground(MaterialColor.WHITE);
-		setLayout(new MigLayout("gapy 15, gapx 10, fill"));
+		setLayout(new MigLayout("gapy 15, gapx 10, w 100%"));
 
-		CEPTextField = component.addFormattedTextField("CEP:", "#####-###");
-		findCEPButton = component.addButton("Buscar");
-		cityTextField = component.addTextField("Cidade:");
-		stateCombo = component.addComboBox(State.getAllStates(), 25);
-		streetTextField = component.addTextField("Rua:");
-		districtTextField = component.addTextField("Bairro:");
+
+    JLabel CEPIcon = component.addIcon(GoogleMaterialDesignIcons.PAGEVIEW);
+    JLabel cityIcon = component.addIcon(GoogleMaterialDesignIcons.BUSINESS);
+    JLabel streetIcon = component.addIcon(GoogleMaterialDesignIcons.CALL_SPLIT);
+    JLabel houseIcon = component.addIcon(GoogleMaterialDesignIcons.MY_LOCATION);
+
+		CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
+		findCEPButton        = component.addButton("Buscar");
+		cityTextField        = component.addTextField("Cidade:");
+		stateCombo           = component.addComboBox(State.getAllStates(), 25);
+		streetTextField      = component.addTextField("Rua:");
+		districtTextField    = component.addTextField("Bairro:");
 		houseNumberTextField = component.addTextField("Número:");
-		complementTextField = component.addTextField("Complemento:");
+		complementTextField  = component.addTextField("Complemento:");
 
-		String textFieldHeight = "w 100%, h 52px, pad -18 0 0 0, push";
-
-		add(CEPTextField, textFieldHeight);
-		add(findCEPButton, textFieldHeight+", wrap");
-		add(cityTextField, textFieldHeight);
-		add(stateCombo, textFieldHeight+", wrap");
-		add(streetTextField, textFieldHeight);
-		add(districtTextField, textFieldHeight+", wrap");
-		add(houseNumberTextField, textFieldHeight);
-		add(complementTextField, textFieldHeight);
+    add(CEPIcon, "w 48");
+		add(CEPTextField, textFieldHeight         + ", w 80%-48px, split 2");
+		add(findCEPButton, textFieldHeight        + ", w 20%, growx, span, wrap");
+    add(cityIcon, "w 48");
+		add(cityTextField, textFieldHeight        + ", w 80%-48px, split 2");
+		add(stateCombo, textFieldHeight           + ", w 20%, growx, span, wrap");
+    add(streetIcon, "w 48");
+		add(streetTextField, textFieldHeight      + ", w 50%-48px, growx, split 2");
+		add(districtTextField, textFieldHeight    + ", w 50%, span 2, wrap");
+    add(houseIcon, "w 48");
+		add(houseNumberTextField, textFieldHeight + ", w 50%-48px, growx, split 2");
+		add(complementTextField, textFieldHeight  + ", w 50%, span 2");
 	}
 
 	public String getCEP() {
@@ -106,4 +115,9 @@ public class AddressPanel extends JPanel{
 
 		this.stateCombo.setSelectedItem(selectedItem);
 	}
+
+  @Override
+  public AddressPanel clone() throws CloneNotSupportedException {
+    return (AddressPanel) super.clone();
+  }
 }
