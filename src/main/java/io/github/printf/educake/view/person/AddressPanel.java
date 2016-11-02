@@ -1,43 +1,53 @@
 package io.github.printf.educake.view.person;
 
-import de.craften.ui.swingmaterial.MaterialButton;
-import de.craften.ui.swingmaterial.MaterialComboBox;
-import de.craften.ui.swingmaterial.MaterialTextField;
+import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Components.ComboItem;
-import io.github.printf.educake.util.Components.DefaultFormPanel;
+import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Enums.State;
+import net.miginfocom.swing.MigLayout;
 
-import static io.github.printf.educake.util.Enums.Division.BODY;
-import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
+import javax.swing.*;
 
 /**
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class AddressPanel extends DefaultFormPanel{
+public class AddressPanel extends JPanel{
 
-	private MaterialTextField CEPTextField;
+	private MaterialFormattedTextField CEPTextField;
 	private MaterialTextField cityTextField;
 	private MaterialTextField streetTextField;
 	private MaterialTextField houseNumberTextField;
 	private MaterialTextField complementTextField;
-
-	private MaterialButton findCEPBUtton;
+	private final ComponentFactory component = new ComponentFactory();
+	private MaterialButton findCEPButton;
 
 	private MaterialComboBox stateCombo;
+	private MaterialTextField districtTextField;
 
-	@Override
-	public void init() throws Exception {
-		CEPTextField = makeGrid(BODY, HORIZONTAL).setGridWidth(8).addTextField("CEP:");
-		findCEPBUtton = makeGrid(BODY, HORIZONTAL).setGridWidth(2).addButton("Buscar");
-		addRow();
-		cityTextField = makeGrid(BODY, HORIZONTAL).addTextField("Cidade:");
-		stateCombo = makeGrid(BODY, HORIZONTAL).addComboBox(State.getAllStates(), 25);
-		addRow();
-		streetTextField = makeGrid(BODY, HORIZONTAL).addTextField("Rua, Bairro:");
-		houseNumberTextField = makeGrid(BODY, HORIZONTAL).addTextField("Número:");
-		addRow();
-		complementTextField = makeGrid(BODY, HORIZONTAL).setWidth(2).addTextField("Complemento:");
+	public AddressPanel()	{
+		setBackground(MaterialColor.WHITE);
+		setLayout(new MigLayout("gapy 15, gapx 10, fill"));
+
+		CEPTextField = component.addFormattedTextField("CEP:", "#####-###");
+		findCEPButton = component.addButton("Buscar");
+		cityTextField = component.addTextField("Cidade:");
+		stateCombo = component.addComboBox(State.getAllStates(), 25);
+		streetTextField = component.addTextField("Rua:");
+		districtTextField = component.addTextField("Bairro:");
+		houseNumberTextField = component.addTextField("Número:");
+		complementTextField = component.addTextField("Complemento:");
+
+		String textFieldHeight = "w 100%, h 52px, pad -18 0 0 0, push";
+
+		add(CEPTextField, textFieldHeight);
+		add(findCEPButton, textFieldHeight+", wrap");
+		add(cityTextField, textFieldHeight);
+		add(stateCombo, textFieldHeight+", wrap");
+		add(streetTextField, textFieldHeight);
+		add(districtTextField, textFieldHeight+", wrap");
+		add(houseNumberTextField, textFieldHeight);
+		add(complementTextField, textFieldHeight);
 	}
 
 	public String getCEP() {

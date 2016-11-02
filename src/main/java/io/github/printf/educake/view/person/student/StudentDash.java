@@ -2,32 +2,42 @@ package io.github.printf.educake.view.person.student;
 
 import de.craften.ui.swingmaterial.MaterialColor;
 import io.github.printf.educake.util.Components.ComponentFactory;
+import io.github.printf.educake.util.Components.DefaultView;
 import io.github.printf.educake.util.Components.ThumbPanel;
-import net.miginfocom.swing.MigLayout;
+import io.github.printf.educake.view.main.MainFrame;
 
-import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class StudentDash extends JPanel{
+public class StudentDash extends DefaultView {
   private final ComponentFactory component = new ComponentFactory();
-
-//  ArrayList<ThumbPanel>  students = new ArrayList<ThumbPanel>();
+  ArrayList<ThumbPanel>  students = new ArrayList<ThumbPanel>();
 
   public StudentDash() {
-    setLayout(new MigLayout("insets 4 4 4 4","", ""));
+    super("Alunos", "Novo Aluno");
     setBackground(MaterialColor.GREEN_200);
 
-    add(component.header("Alunos", "Novo Aluno"), "north");
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
 
-    String constraints = "w 100%, wrap";
-    add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"), constraints);
-    add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"), constraints);
-    add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"), constraints);
-    add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"), constraints);
-
+    titlePanel.getButton("Novo Aluno").addActionListener(e -> MainFrame.goTo("newStudent"));
   }
 
 }

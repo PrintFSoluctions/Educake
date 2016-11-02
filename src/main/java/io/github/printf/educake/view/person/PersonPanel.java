@@ -23,7 +23,7 @@ public class PersonPanel extends JPanel{
 
 	public PersonPanel(){
 		setBackground(MaterialColor.WHITE);
-		setLayout(new MigLayout(" h 50!, gapy 15, gapx 10","",""));
+		setLayout(new MigLayout("gapy 15, gapx 10, fill"));
 
 		JLabel iconID      = component.addIcon(GoogleMaterialDesignIcons.ACCOUNT_BOX);
 		nameTextField      = component.addTextField("Nome:");
