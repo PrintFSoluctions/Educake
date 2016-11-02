@@ -50,9 +50,7 @@ public class ResponsibleController {
       String state = addressPanel.getState();
       String housenumber = addressPanel.getHouseNumber();
       String complement = addressPanel.getComplement();
-      
-      
-      
+
       try {
         phonesService.setPhones(tels, types);
         addressService.setAddress(street, housenumber, complement, city, CEP, state);
@@ -65,18 +63,18 @@ public class ResponsibleController {
         person.setPhones(phones);
         person.setAddress(address);
 
-        //studentService.setStudent(person);
-        //studentService.persist();
+        studentService.setStudent(person);
+        studentService.persist();
       }catch (Exception ex){
         JOptionPane.showMessageDialog(null, ex.getMessage());
-        //studentService.rollback();
+        studentService.rollback();
       }
     };
   }
 
   public void setView(ResponsibleView view) {
     this.studentView = view;
-//    personPanel = studentView.getPersonPanel();
+    personPanel = studentView.getPersonPanel();
     addressPanel = studentView.getAddressPanel();
     phonePanel = studentView.getPhonesPanel();
   }
