@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class LateralMenu extends JPanel {
   private final String[][] panelNames = new String[][]{
-      {"Student", "Aluno"},
-      {"Teacher", "Professor"},
-      {"Reports", "Relatórios"}
+      {"studentDash", "Aluno"},
+      {"teacherDash", "Professor"},
+      {"reports", "Relatórios"}
   };
 
   CardLayout cardLayout;
@@ -26,7 +26,7 @@ public class LateralMenu extends JPanel {
   private final ComponentFactory component = new ComponentFactory();
 
 
-  public LateralMenu(CardsPanel cards) {
+  public LateralMenu(Routes cards) {
     cardLayout = (CardLayout) cards.getLayout();
     JLabel educakeLogo = component.addIcon("logo.png");
 
@@ -47,6 +47,5 @@ public class LateralMenu extends JPanel {
 
         button.addActionListener(e -> cardLayout.show(cards, panelName[0]));
       }
-
   }
 }
