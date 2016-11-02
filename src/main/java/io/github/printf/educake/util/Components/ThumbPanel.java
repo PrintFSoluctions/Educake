@@ -23,7 +23,7 @@ public class ThumbPanel extends JPanel{
       add(component.addLabel(field), width);
     }
 
-    String IconsConstraints = "w 48px!, h 48px!, right";
+    String IconsConstraints = "w 32px!, h 32px!, right";
     add(component.addIconButton(GoogleMaterialDesignIcons.EDIT), IconsConstraints);
     add(component.addIconButton(GoogleMaterialDesignIcons.DELETE), IconsConstraints);
 
