@@ -44,7 +44,7 @@ public class ComponentFactory {
   }
 
   public JLabel addIconButton(GoogleMaterialDesignIcons iconName){
-    Icon iconFont = IconFontSwing.buildIcon(iconName, 32, MaterialColor.TEAL_200);
+    Icon iconFont = IconFontSwing.buildIcon(iconName, 28, MaterialColor.TEAL_200);
     JLabel icon = new JLabel();
     icon.setIcon(iconFont);
     icon.setHorizontalAlignment(SwingConstants.CENTER);
