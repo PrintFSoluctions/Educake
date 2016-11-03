@@ -29,7 +29,7 @@ public class PhonePanel extends JPanel implements Cloneable {
 
     public ArrayList<String> getPhones() {
         ArrayList<String> phones = new ArrayList<>();
-        phoneTextField.forEach((phone) -> phones.add(phone.getText()));
+        phoneTextField.forEach((phone) -> phones.add(phone.getText().replaceAll("\\D", "")));
         return phones;
     }
 
