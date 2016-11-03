@@ -11,7 +11,6 @@ import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.responsible.ResponsibleView;
-import io.github.printf.educake.view.person.student.StudentView;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -51,9 +50,7 @@ public class ResponsibleController {
       String state = addressPanel.getState();
       String housenumber = addressPanel.getHouseNumber();
       String complement = addressPanel.getComplement();
-      
-      
-      
+
       try {
         phonesService.setPhones(tels, types);
         addressService.setAddress(street, housenumber, complement, city, CEP, state);
@@ -66,11 +63,11 @@ public class ResponsibleController {
         person.setPhones(phones);
         person.setAddress(address);
 
-        //studentService.setStudent(person);
-        //studentService.persist();
+        studentService.setStudent(person);
+        studentService.persist();
       }catch (Exception ex){
         JOptionPane.showMessageDialog(null, ex.getMessage());
-        //studentService.rollback();
+        studentService.rollback();
       }
     };
   }

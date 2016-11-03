@@ -12,10 +12,11 @@ import java.util.Date;
  *
  * @author Albino Freitas
  */
-public class StudentService {
+public class StudentService extends PersonService{
 
     private final Student student;
     private final StudentDAO studentDAO;
+    private Person responsible = null;
     
     public StudentService() {
         this.studentDAO = new StudentDAO();
@@ -37,7 +38,7 @@ public class StudentService {
     public Student getStudent() {
         return this.student;
     }
-
+    
     public boolean persist() {
         return studentDAO.persist(this.student);
     }
@@ -105,4 +106,15 @@ public class StudentService {
         return new StudentDAO().getLastStudent();
     }
 
+    public boolean isOfAge() {
+        return true;
+    }
+
+    public Person getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(Person responsible) {
+        this.responsible = responsible;
+    }
 }

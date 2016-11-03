@@ -1,43 +1,62 @@
 package io.github.printf.educake.view.person;
 
-import de.craften.ui.swingmaterial.MaterialButton;
-import de.craften.ui.swingmaterial.MaterialComboBox;
-import de.craften.ui.swingmaterial.MaterialTextField;
+import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Components.ComboItem;
-import io.github.printf.educake.util.Components.DefaultFormPanel;
+import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Enums.State;
+import jiconfont.icons.GoogleMaterialDesignIcons;
+import net.miginfocom.swing.MigLayout;
 
-import static io.github.printf.educake.util.Enums.Division.BODY;
-import static io.github.printf.educake.util.Enums.Flex.HORIZONTAL;
+import javax.swing.*;
 
 /**
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class AddressPanel extends DefaultFormPanel{
-
-	private MaterialTextField CEPTextField;
+public class AddressPanel extends JPanel implements Cloneable{
+	private MaterialFormattedTextField CEPTextField;
 	private MaterialTextField cityTextField;
 	private MaterialTextField streetTextField;
 	private MaterialTextField houseNumberTextField;
 	private MaterialTextField complementTextField;
-
-	private MaterialButton findCEPBUtton;
-
+	private MaterialTextField districtTextField;
+	private final ComponentFactory component = new ComponentFactory();
+	private MaterialButton findCEPButton;
 	private MaterialComboBox stateCombo;
 
-	@Override
-	public void init() throws Exception {
-		CEPTextField = makeGrid(BODY, HORIZONTAL).setGridWidth(8).addTextField("CEP:");
-		findCEPBUtton = makeGrid(BODY, HORIZONTAL).setGridWidth(2).addButton("Buscar");
-		addRow();
-		cityTextField = makeGrid(BODY, HORIZONTAL).addTextField("Cidade:");
-		stateCombo = makeGrid(BODY, HORIZONTAL).addComboBox(State.getAllStates(), 25);
-		addRow();
-		streetTextField = makeGrid(BODY, HORIZONTAL).addTextField("Rua, Bairro:");
-		houseNumberTextField = makeGrid(BODY, HORIZONTAL).addTextField("Número:");
-		addRow();
-		complementTextField = makeGrid(BODY, HORIZONTAL).setWidth(2).addTextField("Complemento:");
+  private String textFieldHeight = "h 52px, pad -18 0 0 0";
+
+  public AddressPanel()	{
+		setBackground(MaterialColor.WHITE);
+		setLayout(new MigLayout("gapy 15, gapx 10, w 100%"));
+
+
+    JLabel CEPIcon = component.addIcon(GoogleMaterialDesignIcons.PAGEVIEW);
+    JLabel cityIcon = component.addIcon(GoogleMaterialDesignIcons.BUSINESS);
+    JLabel streetIcon = component.addIcon(GoogleMaterialDesignIcons.CALL_SPLIT);
+    JLabel houseIcon = component.addIcon(GoogleMaterialDesignIcons.MY_LOCATION);
+
+		CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
+		findCEPButton        = component.addButton("Buscar");
+		cityTextField        = component.addTextField("Cidade:");
+		stateCombo           = component.addComboBox(State.getAllStates(), 25);
+		streetTextField      = component.addTextField("Rua:");
+		districtTextField    = component.addTextField("Bairro:");
+		houseNumberTextField = component.addTextField("Número:");
+		complementTextField  = component.addTextField("Complemento:");
+
+    add(CEPIcon, "w 48");
+		add(CEPTextField, textFieldHeight         + ", w 80%-48px, split 2");
+		add(findCEPButton, textFieldHeight        + ", w 20%, growx, span, wrap");
+    add(cityIcon, "w 48");
+		add(cityTextField, textFieldHeight        + ", w 80%-48px, split 2");
+		add(stateCombo, textFieldHeight           + ", w 20%, growx, span, wrap");
+    add(streetIcon, "w 48");
+		add(streetTextField, textFieldHeight      + ", w 50%-48px, growx, split 2");
+		add(districtTextField, textFieldHeight    + ", w 50%, span 2, wrap");
+    add(houseIcon, "w 48");
+		add(houseNumberTextField, textFieldHeight + ", w 50%-48px, growx, split 2");
+		add(complementTextField, textFieldHeight  + ", w 50%, span 2");
 	}
 
 	public String getCEP() {
@@ -96,4 +115,9 @@ public class AddressPanel extends DefaultFormPanel{
 
 		this.stateCombo.setSelectedItem(selectedItem);
 	}
+
+  @Override
+  public AddressPanel clone() throws CloneNotSupportedException {
+    return (AddressPanel) super.clone();
+  }
 }

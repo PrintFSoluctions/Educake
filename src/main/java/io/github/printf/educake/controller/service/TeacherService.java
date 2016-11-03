@@ -8,7 +8,7 @@ import io.github.printf.educake.model.dao.TeacherDAO;
  *
  * @author Albino Freitas
  */
-public class TeacherService {
+public class TeacherService extends PersonService{
     
     private final Teacher teacher;
     private final TeacherDAO teacherDAO;
