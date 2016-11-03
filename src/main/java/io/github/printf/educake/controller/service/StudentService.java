@@ -16,7 +16,7 @@ public class StudentService extends PersonService{
 
     private final Student student;
     private final StudentDAO studentDAO;
-    private Person responsible;
+    private Person responsible = null;
     
     public StudentService() {
         this.studentDAO = new StudentDAO();

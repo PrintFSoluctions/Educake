@@ -67,7 +67,6 @@ public class StudentController {
         person.setAddress(address);
 
         studentService.setStudent(person);
-        studentService.setResponsible(responsible);
 
         if(studentService.isOfAge() || studentService.getResponsible() != null){
           studentService.persist();
