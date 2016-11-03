@@ -16,6 +16,7 @@ public class StudentService extends PersonService{
 
     private final Student student;
     private final StudentDAO studentDAO;
+    private Person responsible = null;
     
     public StudentService() {
         this.studentDAO = new StudentDAO();
@@ -109,4 +110,11 @@ public class StudentService extends PersonService{
         return true;
     }
 
+    public Person getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(Person responsible) {
+        this.responsible = responsible;
+    }
 }

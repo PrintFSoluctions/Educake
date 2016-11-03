@@ -92,5 +92,18 @@
             <artifactId>jiconfont-google_material_design_icons</artifactId>
             <version>2.2.0.1</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.github.mikaelgrev</groupId>-->
+            <!--<artifactId>miglayout</artifactId>-->
+            <!--<version>miglayout-parent-4.1</version>-->
+        <!--</dependency>-->
+
+            <dependency>
+                <groupId>com.miglayout</groupId>
+                <artifactId>miglayout-swing</artifactId>
+                <version>4.1</version>
+            </dependency>
+
     </dependencies>
 </project>

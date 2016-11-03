@@ -7,13 +7,13 @@ import io.github.printf.educake.controller.service.StudentService;
 import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Phone;
+import io.github.printf.educake.view.main.MainFrame;
 import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.student.StudentView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,9 +36,8 @@ public class StudentController {
   private AddressPanel addressPanel;
   private PhonePanel phonePanel;
   private StudentView studentView;
-  private   CardLayout cardLayout;
 
-  public ActionListener persist() {
+  public ActionListener persist(Person responsible) {
     return (ActionEvent e) -> {
       String name = personPanel.getName();
       String surname = personPanel.getSurname();
@@ -58,6 +57,7 @@ public class StudentController {
         phonesService.setPhones(tels, types);
         addressService.setAddress(street, housenumber, complement, city, CEP, state);
         personService.setPerson(name, surname, birthDate);
+        System.out.println(name+" "+surname+" : "+birthDate);
 
         phones = phonesService.getPhones();
         address = addressService.getAddress();
@@ -67,17 +67,13 @@ public class StudentController {
         person.setAddress(address);
 
         studentService.setStudent(person);
-        
-        if(studentService.isOfAge()){
-            studentService.persist();   
+
+        if(studentService.isOfAge() || studentService.getResponsible() != null){
+          studentService.persist();
         }else{
-            // TODO: Ver um jeito de puxar o painel dos cartões no controller 
-            // ou trocar de tela por aqui
-//            CardsPanel cards = ;
-//                cardLayout = (CardLayout) cards.getLayout();
+          MainFrame.goTo("attachResponsible");
         }
-        
-        
+
       }catch (Exception ex){
         JOptionPane.showMessageDialog(null, ex.getMessage());
         studentService.rollback();

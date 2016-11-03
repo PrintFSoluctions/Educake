@@ -1,9 +1,10 @@
 package io.github.printf.educake.view.person.student;
 
-import io.github.printf.educake.util.Components.DefaultFormPanel;
-import io.github.printf.educake.util.Enums.Division;
-import io.github.printf.educake.util.Enums.Flex;
-import io.github.printf.educake.view.ThumbPanel;
+import de.craften.ui.swingmaterial.MaterialColor;
+import io.github.printf.educake.util.Components.ComponentFactory;
+import io.github.printf.educake.util.Components.DefaultView;
+import io.github.printf.educake.util.Components.ThumbPanel;
+import io.github.printf.educake.view.main.MainFrame;
 
 import java.util.ArrayList;
 
@@ -11,18 +12,32 @@ import java.util.ArrayList;
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class StudentDash extends DefaultFormPanel {
-
+public class StudentDash extends DefaultView {
+  private final ComponentFactory component = new ComponentFactory();
   ArrayList<ThumbPanel>  students = new ArrayList<ThumbPanel>();
 
-  public StudentDash(){
-    try{
-    students.add((ThumbPanel) makeGrid(Division.BODY, Flex.HORIZONTAL)
-        .addUnformattedPanel(new ThumbPanel
-            ("a321556", "Fulano da Silva", "29/09/1995", "Caraguatatuba")));
-    }catch(Exception ex){
-      ex.printStackTrace();
-    }
+  public StudentDash() {
+    super("Alunos", "Novo Aluno");
+    setBackground(MaterialColor.GREEN_200);
+
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Albino Freitas", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Jhones Henrique", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Vitor Silvério", "29/09/1995"));
+    body.add(new ThumbPanel("a321654x", "Thaila Gonçalves", "29/09/1995"));
+
+    titlePanel.getButton("Novo Aluno").addActionListener(e -> MainFrame.goTo("newStudent"));
   }
 
 }
