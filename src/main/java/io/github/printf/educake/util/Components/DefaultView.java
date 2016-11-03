@@ -20,6 +20,7 @@ public class DefaultView extends JPanel{
     setLayout(new MigLayout("insets 4 4 4 4, flowy, w 100%", "grow"));
     body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
     scroll.setBorder(null);
+    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
     add(titlePanel, "north");
     add(scroll, "w 100%");

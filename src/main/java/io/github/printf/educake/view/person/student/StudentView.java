@@ -24,7 +24,8 @@ public class StudentView extends DefaultView {
 		body.add(getPhonesPanel());
 		body.add(getAddressPanel());
 
-		titlePanel.getButton("Salvar").addActionListener(e -> studentController.persist(null));
+		titlePanel.getButton("Salvar").addActionListener(studentController.persist(null));
+		studentController.setView(this);
 	}
 
 	public PhonePanel getPhonesPanel() {

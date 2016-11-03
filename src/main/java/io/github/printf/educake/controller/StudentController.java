@@ -57,6 +57,7 @@ public class StudentController {
         phonesService.setPhones(tels, types);
         addressService.setAddress(street, housenumber, complement, city, CEP, state);
         personService.setPerson(name, surname, birthDate);
+        System.out.println(name+" "+surname+" : "+birthDate);
 
         phones = phonesService.getPhones();
         address = addressService.getAddress();
