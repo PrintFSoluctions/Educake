@@ -45,7 +45,8 @@ public class LateralMenu extends JPanel {
         String constraints = "h 70px!, w 180px!, x -10px, y 76+"+(i*50);
         add(button, constraints);
 
-        button.addActionListener(e -> cardLayout.show(cards, panelName[0]));
+//        button.addActionListener(e -> cardLayout.show(cards, panelName[0]));
+        button.addActionListener(e -> MainFrame.goTo(panelName[0]));
       }
   }
 }

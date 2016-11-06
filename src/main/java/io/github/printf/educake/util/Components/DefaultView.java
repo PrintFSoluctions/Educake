@@ -9,7 +9,8 @@ import javax.swing.*;
  * @author Vitor Silvério de Souza
  *         On nov, 2016
  */
-public class DefaultView extends JPanel{
+public abstract class DefaultView extends JPanel{
+  protected MigLayout layout = new MigLayout("insets 4 4 4 4, flowy, w 100%", "grow");
   protected TitlePanel titlePanel;
   protected JPanel body  = new JPanel();
   private JScrollPane scroll = new JScrollPane(body);
@@ -17,7 +18,7 @@ public class DefaultView extends JPanel{
   public DefaultView(String title, String...buttons) {
     titlePanel = new TitlePanel(title, buttons);
     setBackground(MaterialColor.WHITE);
-    setLayout(new MigLayout("insets 4 4 4 4, flowy, w 100%", "grow"));
+    setLayout(layout);
     body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
     scroll.setBorder(null);
     scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -25,4 +26,15 @@ public class DefaultView extends JPanel{
     add(titlePanel, "north");
     add(scroll, "w 100%");
   }
+
+  public void reset(){
+    if(getPanels() != null){
+      for (JPanel resetable : getPanels()) {
+        ((Resetable)resetable).reset();
+      }
+    }
+  }
+
+  public abstract JPanel[] getPanels();
+
 }

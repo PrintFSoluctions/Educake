@@ -4,6 +4,7 @@ import de.craften.ui.swingmaterial.MaterialColor;
 import de.craften.ui.swingmaterial.MaterialFormattedTextField;
 import de.craften.ui.swingmaterial.MaterialTextField;
 import io.github.printf.educake.util.Components.ComponentFactory;
+import io.github.printf.educake.util.Components.Resetable;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
@@ -13,7 +14,7 @@ import javax.swing.*;
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class PersonPanel extends JPanel{
+public class PersonPanel extends JPanel implements Resetable{
 	private MaterialTextField nameTextField;
 	private MaterialTextField surnameTextField;
 	private MaterialFormattedTextField birthDateTextField;
@@ -66,5 +67,13 @@ public class PersonPanel extends JPanel{
 
 	public void setBirth(String birthDate) {
 		this.birthDateTextField.setText(birthDate);
+	}
+
+	@Override
+	public void reset() {
+		nameTextField.setText("");
+		surnameTextField.setText("");
+		birthDateTextField.setText("");
+		CPFTextField.setText("");
 	}
 }

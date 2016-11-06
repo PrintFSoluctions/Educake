@@ -6,6 +6,8 @@ import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 
+import javax.swing.*;
+
 /**
  * Created by Vitor on 02/10/2016.
  */
@@ -38,5 +40,14 @@ public class StudentView extends DefaultView {
 
 	public AddressPanel getAddressPanel() {
 		return addressPanel;
+	}
+
+	@Override
+	public JPanel[] getPanels() {
+		return new JPanel[]{
+				getAddressPanel(),
+				getPersonPanel(),
+				getPhonesPanel()
+		};
 	}
 }

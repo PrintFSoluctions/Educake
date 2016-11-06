@@ -1,5 +1,7 @@
 package io.github.printf.educake.view.main;
 
+import io.github.printf.educake.util.Components.DefaultView;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -42,6 +44,8 @@ public class MainFrame extends JFrame{
   }
 
   public static void goTo(String route) {
+    DefaultView defaultView = routes.getPanels().get(route);
+    defaultView.reset();
     ((CardLayout) routes.getLayout()).show(routes, route);
   }
 }
