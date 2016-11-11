@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Table        
 public class BillType implements Serializable {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BILLTYPE_SEQUENCE")
+  @SequenceGenerator(name = "BILLTYPE_SEQUENCE", sequenceName = "BILLTYPE_SEQUENCE", allocationSize = 1, initialValue = 1)
   @Column private long idBillType;
   
   @Column(name = "name") private String typeName;
