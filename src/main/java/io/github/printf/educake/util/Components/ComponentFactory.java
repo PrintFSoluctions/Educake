@@ -83,6 +83,13 @@ public class ComponentFactory {
     return textField;
   }
 
+  public MaterialPasswordField addPasswordField(String label){
+      MaterialPasswordField pass = new MaterialPasswordField();
+      pass.setLabel(label);
+      
+      return pass;
+  }
+  
   public MaterialFormattedTextField addFormattedTextField(String label, String mask) {
     MaskFormatter maskFormatter = null;
     try {
