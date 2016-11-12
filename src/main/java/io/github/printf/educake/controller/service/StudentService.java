@@ -3,10 +3,12 @@ package io.github.printf.educake.controller.service;
 import io.github.printf.educake.model.Person;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.model.dao.StudentDAO;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,7 +19,7 @@ public class StudentService extends PersonService{
     private final Student student;
     private final StudentDAO studentDAO;
     private Person responsible = null;
-    
+
     public StudentService() {
         this.studentDAO = new StudentDAO();
         this.student = new Student();
@@ -28,7 +30,7 @@ public class StudentService extends PersonService{
         this.student.setResponsible(responsible);
         generateRm();
     }
-    
+
     public void setStudent(Person person) {
         this.student.setPerson(person);
         this.student.setResponsible(person);
@@ -38,7 +40,7 @@ public class StudentService extends PersonService{
     public Student getStudent() {
         return this.student;
     }
-    
+
     public boolean persist() {
         return studentDAO.persist(this.student);
     }
@@ -50,13 +52,13 @@ public class StudentService extends PersonService{
     public boolean removeById(Integer id) {
         return studentDAO.removeById(id);
     }
-    
+
     public void rollback() {
         // TODO: Deve apagar tudo vinculado ao aluno e o próprio aluno
     }
 
     //Private Methods
-    
+
     private void generateRm() {
         String rm = getSystemYear() + getSystemMonth();
 
@@ -116,5 +118,9 @@ public class StudentService extends PersonService{
 
     public void setResponsible(Person responsible) {
         this.responsible = responsible;
+    }
+
+    public List<Student> getAllStudents() {
+        return studentDAO.findAll();
     }
 }

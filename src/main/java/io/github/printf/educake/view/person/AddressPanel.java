@@ -3,6 +3,7 @@ package io.github.printf.educake.view.person;
 import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Components.ComboItem;
 import io.github.printf.educake.util.Components.ComponentFactory;
+import io.github.printf.educake.util.Components.Resetable;
 import io.github.printf.educake.util.Enums.State;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
@@ -13,7 +14,7 @@ import javax.swing.*;
  * @author Vitor Silvério de Souza
  *         On out, 2016
  */
-public class AddressPanel extends JPanel implements Cloneable{
+public class AddressPanel extends JPanel implements Cloneable, Resetable {
 	private MaterialFormattedTextField CEPTextField;
 	private MaterialTextField cityTextField;
 	private MaterialTextField streetTextField;
@@ -36,27 +37,27 @@ public class AddressPanel extends JPanel implements Cloneable{
     JLabel streetIcon = component.addIcon(GoogleMaterialDesignIcons.CALL_SPLIT);
     JLabel houseIcon = component.addIcon(GoogleMaterialDesignIcons.MY_LOCATION);
 
-		CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
-		findCEPButton        = component.addButton("Buscar");
-		cityTextField        = component.addTextField("Cidade:");
-		stateCombo           = component.addComboBox(State.getAllStates(), 25);
-		streetTextField      = component.addTextField("Rua:");
-		districtTextField    = component.addTextField("Bairro:");
-		houseNumberTextField = component.addTextField("Número:");
-		complementTextField  = component.addTextField("Complemento:");
+	  CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
+//	  findCEPButton        = component.addButton("Buscar");
+	  cityTextField        = component.addTextField("Cidade:");
+	  stateCombo           = component.addComboBox(State.getAllStates(), 25);
+	  streetTextField      = component.addTextField("Rua:");
+	  districtTextField    = component.addTextField("Bairro:");
+	  houseNumberTextField = component.addTextField("Número:");
+	  complementTextField  = component.addTextField("Complemento:");
 
     add(CEPIcon, "w 48");
-		add(CEPTextField, textFieldHeight         + ", w 80%-48px, split 2");
-		add(findCEPButton, textFieldHeight        + ", w 20%, growx, span, wrap");
+		add(CEPTextField, textFieldHeight         + ", w 100%-48px, span, wrap");
+//		add(findCEPButton, textFieldHeight        + ", w 20%, growx, span, wrap");
     add(cityIcon, "w 48");
-		add(cityTextField, textFieldHeight        + ", w 80%-48px, split 2");
-		add(stateCombo, textFieldHeight           + ", w 20%, growx, span, wrap");
+		add(cityTextField, textFieldHeight        + ", w 80%-48px");
+		add(stateCombo, textFieldHeight           + ", w 20%, growx, wrap");
     add(streetIcon, "w 48");
-		add(streetTextField, textFieldHeight      + ", w 50%-48px, growx, split 2");
-		add(districtTextField, textFieldHeight    + ", w 50%, span 2, wrap");
+		add(streetTextField, textFieldHeight      + ", w 50%-48px, growx ");
+		add(districtTextField, textFieldHeight    + ", w 50%, wrap");
     add(houseIcon, "w 48");
-		add(houseNumberTextField, textFieldHeight + ", w 50%-48px, growx, split 2");
-		add(complementTextField, textFieldHeight  + ", w 50%, span 2");
+		add(houseNumberTextField, textFieldHeight + ", w 50%-48px, growx");
+		add(complementTextField, textFieldHeight  + ", w 50%");
 	}
 
 	public String getCEP() {
@@ -120,4 +121,15 @@ public class AddressPanel extends JPanel implements Cloneable{
   public AddressPanel clone() throws CloneNotSupportedException {
     return (AddressPanel) super.clone();
   }
+
+	@Override
+	public void reset() {
+		CEPTextField        .setText("");
+		cityTextField       .setText("");
+		stateCombo          .setSelectedIndex(25);
+		streetTextField     .setText("");
+		districtTextField   .setText("");
+		houseNumberTextField.setText("");
+		complementTextField .setText("");
+	}
 }

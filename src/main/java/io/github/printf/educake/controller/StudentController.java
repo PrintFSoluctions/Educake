@@ -11,6 +11,7 @@ import io.github.printf.educake.view.main.MainFrame;
 import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
+import io.github.printf.educake.view.person.student.StudentDash;
 import io.github.printf.educake.view.person.student.StudentView;
 
 import javax.swing.*;
@@ -36,6 +37,7 @@ public class StudentController {
   private AddressPanel addressPanel;
   private PhonePanel phonePanel;
   private StudentView studentView;
+  private StudentDash studentDash;
 
   public ActionListener persist(Person responsible) {
     return (ActionEvent e) -> {
@@ -86,5 +88,10 @@ public class StudentController {
     personPanel = studentView.getPersonPanel();
     addressPanel = studentView.getAddressPanel();
     phonePanel = studentView.getPhonesPanel();
+  }
+
+  public void setDash(StudentDash dash){
+    this.studentDash = dash;
+    dash.showAll(studentService.getAllStudents());
   }
 }

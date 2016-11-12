@@ -12,6 +12,8 @@ import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
 import io.github.printf.educake.view.person.student.StudentView;
 
+import javax.swing.*;
+
 /**
  *
  * @author a1402056
@@ -52,5 +54,9 @@ public class ResponsibleView extends DefaultView {
     return (AddressPanel)addressPanel;
   }
 
+  @Override
+  public JPanel[] getPanels() {
+    return null;
+  }
 }
 

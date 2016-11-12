@@ -2,6 +2,7 @@ package io.github.printf.educake.view.person;
 
 import de.craften.ui.swingmaterial.*;
 import io.github.printf.educake.util.Components.ComponentFactory;
+import io.github.printf.educake.util.Components.Resetable;
 import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 /**
  * @author Vitor Silvério de Souza On out, 2016
  */
-public class PhonePanel extends JPanel implements Cloneable {
+public class PhonePanel extends JPanel implements Cloneable, Resetable {
 
     private MaterialButton addButton;
     private ArrayList<MaterialFormattedTextField> phoneTextField = new ArrayList<>();
@@ -70,5 +71,11 @@ public class PhonePanel extends JPanel implements Cloneable {
     @Override
     public PhonePanel clone() throws CloneNotSupportedException {
         return (PhonePanel) super.clone();
+    }
+
+    @Override
+    public void reset() {
+        phoneTextField.forEach(phone -> phone.setText(""));
+        phoneTypeCombo.forEach(type -> type.setSelectedIndex(0));
     }
 }
