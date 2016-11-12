@@ -12,7 +12,8 @@ import java.util.Date;
 public class Payment implements Serializable{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAYMENT_SEQUENCE")
+  @SequenceGenerator(name = "PAYMENT_SEQUENCE", sequenceName = "PAYMENT_SEQUENCE", allocationSize = 1, initialValue = 1)
   @Column
   private Integer idPayment;
 

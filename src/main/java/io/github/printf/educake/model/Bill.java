@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class Bill implements Serializable {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BILL_SEQUENCE")
+  @SequenceGenerator(name = "BILL_SEQUENCE", sequenceName = "BILL_SEQUENCE", allocationSize = 1, initialValue = 1)
   @Column
   private long idBill;
 

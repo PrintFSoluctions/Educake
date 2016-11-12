@@ -11,8 +11,9 @@ import java.util.Date;
 public class Installment implements Serializable {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INSTALLMENT_SEQUENCE")
+  @SequenceGenerator(name = "INSTALLMENT_SEQUENCE", sequenceName = "INSTALLMENT_SEQUENCE", allocationSize = 1, initialValue = 1)
   @Column
-  @GeneratedValue
   private Integer idInstallment;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
