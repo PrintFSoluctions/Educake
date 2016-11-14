@@ -20,5 +20,6 @@
     <mapping class="io.github.printf.educake.model.Phone"/>
     <mapping class="io.github.printf.educake.model.Student"/>
     <mapping class="io.github.printf.educake.model.Teacher"/>
+    <mapping class="io.github.printf.educake.model.Login"/>
   </session-factory>
 </hibernate-configuration>

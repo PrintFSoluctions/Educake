@@ -1,6 +1,6 @@
 package io.github.printf.educake;
 
-import io.github.printf.educake.view.main.MainFrame;
+import io.github.printf.educake.view.main.LoginView;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ public class Educake {
             e.printStackTrace();
         }
 
-        MainFrame mainFrame = new MainFrame();
+        LoginView login = new LoginView();
     }
 
 }

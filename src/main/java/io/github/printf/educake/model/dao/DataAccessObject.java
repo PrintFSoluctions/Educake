@@ -9,8 +9,7 @@ import java.util.List;
 
 public abstract class DataAccessObject<E> {
 
-    private static final SessionFactory sessionFactory =
-		new Configuration().configure().buildSessionFactory();;
+    private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     private static final ThreadLocal session = new ThreadLocal();
 
     protected DataAccessObject() {}
