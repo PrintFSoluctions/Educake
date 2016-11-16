@@ -41,7 +41,11 @@ public class LoginView extends JPanel {
         title = component.addTitleLabel("EDUCAKE");
         title.setText(title.getText().trim());
         title.setForeground(MaterialColor.TEAL_500);
+
+        JLabel educakeLogo = component.addIcon("logoWhite.png");
+
         subtitle = component.addLabel("Gestão de Escolas");
+
 
         error = component.addLabel("");
         error.setForeground(Color.red);
@@ -54,8 +58,8 @@ public class LoginView extends JPanel {
         setBorder(BorderFactory.createLineBorder(MaterialColor.TEAL_500, 3));
 
         add(title,"span, center, wrap");
+        add(educakeLogo, "span, center, h 70px!, wrap");
         add(subtitle,"span, center, wrap");
-
         add(error, "center, span, hmin 40, wrap");
         add(login, c+", span, wrap");
         add(pass, c+", span, wrap");
@@ -89,7 +93,7 @@ public class LoginView extends JPanel {
             loginFrame.dispose();
         }else{
             String[] errors = new String[]{
-                "Errou! ~ Fausto Silva",
+                "Errou! ~ Faustão",
                 "You Shall not Pass!! ~ Gandalf",
                 "<html>Veja se alguém do seu lado sabe a senha...<br> Fica a dica.</html>",
                 "Iih, acho que não deu não hein...",
