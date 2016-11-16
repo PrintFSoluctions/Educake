@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class ThumbPanel extends JPanel{
 
   private final ComponentFactory component = new ComponentFactory();
-  private JLabel edit = component.addIconButton(GoogleMaterialDesignIcons.EDIT);
-  private JLabel delete = component.addIconButton(GoogleMaterialDesignIcons.DELETE);
+//  private JLabel edit = component.addIconButton(GoogleMaterialDesignIcons.EDIT);
+//  private JLabel delete = component.addIconButton(GoogleMaterialDesignIcons.DELETE);
   private HashMap<String, JLabel> buttons = new HashMap<>();
   private String iconsConstraints = "w 32px!, h 32px!, right";
 
@@ -28,10 +28,10 @@ public class ThumbPanel extends JPanel{
       add(component.addLabel(field), width);
     }
 
-    add(edit, iconsConstraints);
-    add(delete, iconsConstraints);
-    buttons.put("edit", edit);
-    buttons.put("delete", delete);
+//    add(edit, iconsConstraints);
+//    add(delete, iconsConstraints);
+//    buttons.put("edit", edit);
+//    buttons.put("delete", delete);
   }
 
   public ThumbPanel(String text){

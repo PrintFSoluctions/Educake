@@ -44,6 +44,9 @@ public class StudentDash extends DefaultView {
           student.getRm(),
           student.getPerson().getName() + " " + student.getPerson().getSurname(),
           String.valueOf(student.getPerson().getBirthdate()));
+      
+        thumb.addButton("edit", GoogleMaterialDesignIcons.EDIT);
+        thumb.addButton("delete", GoogleMaterialDesignIcons.DELETE);
 
       thumb.getButtonbyId("edit").addMouseListener(new MouseAdapter() {
         @Override
