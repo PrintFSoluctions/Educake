@@ -71,6 +71,21 @@ public abstract class DataAccessObject<E> {
         return result;
     }
 
+    public boolean merge(E object){
+        boolean result = true;
+
+        try {
+            begin();
+            getSession().merge(object);
+            commit();
+        } catch (Exception ex) {
+            rollback();
+            result = false;
+        }
+
+        return result;
+    }
+
     public boolean remove(E object){
         boolean result = true;
         try {
