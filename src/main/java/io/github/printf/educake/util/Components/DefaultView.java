@@ -13,6 +13,7 @@ public abstract class DefaultView extends JPanel{
   protected MigLayout layout = new MigLayout("insets 4 4 4 4, flowy, w 100%", "grow");
   protected TitlePanel titlePanel;
   protected JPanel body  = new JPanel();
+  protected int id;
   private JScrollPane scroll = new JScrollPane(body);
 
   public DefaultView(String title, String...buttons) {
@@ -36,5 +37,14 @@ public abstract class DefaultView extends JPanel{
   }
 
   public abstract JPanel[] getPanels();
+
+  public void setId(int id) {
+    this.id = id;
+    fillForm();
+  }
+
+  public int getId(){return this.id;}
+
+  public void fillForm(){}
 
 }
