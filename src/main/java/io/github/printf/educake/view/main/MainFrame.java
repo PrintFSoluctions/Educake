@@ -48,4 +48,9 @@ public class MainFrame extends JFrame{
     defaultView.reset();
     ((CardLayout) routes.getLayout()).show(routes, route);
   }
+
+  public static void goTo(String route, int id){
+    goTo(route);
+    routes.getPanels().get(route).setId(id);
+  }
 }
