@@ -3,7 +3,6 @@ package io.github.printf.educake.view.person.student;
 import io.github.printf.educake.controller.StudentController;
 import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
-import io.github.printf.educake.model.Student;
 import io.github.printf.educake.util.Components.DefaultView;
 import io.github.printf.educake.util.EasyDate;
 import io.github.printf.educake.view.person.AddressPanel;
@@ -37,7 +36,7 @@ public class EditStudent extends DefaultView implements StudentView{
 	public void fillForm(){
 		Person student = studentController.getStudentById(id).getPerson();
 
-		// FIXME: Separate the phones on setPhone method
+//		 FIXME: Separate the phones on setPhone method
 		getPhonesPanel().setPhone(student.getPhones());
 
 		getPersonPanel().setName(student.getName());

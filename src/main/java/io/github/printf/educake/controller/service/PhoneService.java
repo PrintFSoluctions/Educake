@@ -74,4 +74,12 @@ public class PhoneService {
 
         return true;
     }
+
+    public ArrayList<Phone> getById(int id) {
+        return phoneDAO.getByIdPerson(id);
+    }
+
+    public void deleteById(int id) {
+        phoneDAO.deleteByIdPerson(id);
+    }
 }

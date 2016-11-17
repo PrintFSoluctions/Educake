@@ -7,6 +7,7 @@ import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Components.DefaultView;
 import io.github.printf.educake.util.Components.ThumbPanel;
 import io.github.printf.educake.view.main.MainFrame;
+import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -57,6 +58,12 @@ public class StudentDash extends DefaultView {
 
       body.add(thumb);
     });
+  }
+
+  @Override
+  public void reset() {
+    body.removeAll();
+    studentController.setDash(this);
   }
 
   @Override

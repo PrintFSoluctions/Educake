@@ -37,6 +37,12 @@ public class StudentService extends PersonService{
         generateRm();
     }
 
+    public void setStudent(Person person, String rm) {
+        this.student.setPerson(person);
+        this.student.setResponsible(person);
+        this.student.setRm(rm);
+    }
+
     public void setStudent(Student student){
         this.student = student;
     }
@@ -45,13 +51,17 @@ public class StudentService extends PersonService{
         return this.student;
     }
 
-    public Student getStudentById(int id){ return studentDAO.getById(id); }
+    public Student getById(int id){ return studentDAO.getById(id); }
 
     public boolean persist() {
         return studentDAO.persist(this.student);
     }
 
-    public  boolean update(){ return studentDAO.merge(this.student); }
+    public  boolean update(){
+        System.out.println(this.student.getIdStudent());
+        System.out.println(this.student.getRm());
+        return studentDAO.update(this.student);
+    }
 
     public boolean remove(int id) {
         return studentDAO.removeById(id);

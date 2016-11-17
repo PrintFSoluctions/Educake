@@ -71,7 +71,7 @@ public abstract class DataAccessObject<E> {
         return result;
     }
 
-    public boolean merge(E object){
+    public boolean update(E object){
         boolean result = true;
 
         try {
@@ -79,6 +79,7 @@ public abstract class DataAccessObject<E> {
             getSession().merge(object);
             commit();
         } catch (Exception ex) {
+            ex.printStackTrace();
             rollback();
             result = false;
         }
