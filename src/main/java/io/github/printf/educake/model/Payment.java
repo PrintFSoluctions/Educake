@@ -5,56 +5,118 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by Vitor on 24/09/2016.
+ * Created by Jhones Henrique
  */
 @Entity
 @Table
-public class Payment implements Serializable{
+public class Payment implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAYMENT_SEQUENCE")
-  @SequenceGenerator(name = "PAYMENT_SEQUENCE", sequenceName = "PAYMENT_SEQUENCE", allocationSize = 1, initialValue = 1)
-  @Column
-  private Integer idPayment;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAYMENT_SEQUENCE")
+    @SequenceGenerator(name = "PAYMENT_SEQUENCE", sequenceName = "PAYMENT_SEQUENCE", allocationSize = 1, initialValue = 1)
+    @Column
+    private Integer idPayment;
+    
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date paymentDate;
 
-  @Temporal(TemporalType.DATE)
-  private Date paymentDate;
+    @Column
+    private String name;
 
-  @OneToOne
-  @JoinColumn(name = "idInstallment", nullable = false)
-  private Installment installment;
+    @Column
+    private double value;
 
-  public Payment() {
-    this.paymentDate = new Date();
-  }
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date due;
 
-  public Payment(Installment installment) {
-    this.paymentDate = new Date();
-    this.installment = installment;
-  }
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "idPerson", nullable = false)
+    private Person idPerson;
 
-  public Integer getIdPayment() {
-    return idPayment;
-  }
+    /**
+     * @return the idPayment
+     */
+    public Integer getIdPayment() {
+        return idPayment;
+    }
 
-  public void setIdPayment(Integer idPayment) {
-    this.idPayment = idPayment;
-  }
+    /**
+     * @param idPayment the idPayment to set
+     */
+    public void setIdPayment(Integer idPayment) {
+        this.idPayment = idPayment;
+    }
 
-  public Date getPaymentDate() {
-    return paymentDate;
-  }
+    /**
+     * @return the paymentDate
+     */
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
 
-  public void setPaymentDate(Date paymentDate) {
-    this.paymentDate = paymentDate;
-  }
+    /**
+     * @param paymentDate the paymentDate to set
+     */
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-  public Installment getInstallment() {
-    return installment;
-  }
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-  public void setInstallment(Installment installment) {
-    this.installment = installment;
-    installment.setPayment(this);
-  }
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the value
+     */
+    public double getValue() {
+        return value;
+    }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    /**
+     * @return the due
+     */
+    public Date getDue() {
+        return due;
+    }
+
+    /**
+     * @param due the due to set
+     */
+    public void setDue(Date due) {
+        this.due = due;
+    }
+
+    /**
+     * @return the idPerson
+     */
+    public Person getIdPerson() {
+        return idPerson;
+    }
+
+    /**
+     * @param idPerson the idPerson to set
+     */
+    public void setIdPerson(Person idPerson) {
+        this.idPerson = idPerson;
+    }
+
 }
