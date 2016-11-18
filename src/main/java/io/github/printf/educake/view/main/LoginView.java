@@ -16,6 +16,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.SwingConstants.CENTER;
@@ -53,7 +55,7 @@ public class LoginView extends JPanel {
         login = component.addTextField("Nome de Usuário:");
         pass = component.addPasswordField("Senha:");
         enter = component.addButton("Entrar");
-        exit = component.addButton("Sair");
+        exit = component.addButton("Fechar");
 
         setBorder(BorderFactory.createLineBorder(MaterialColor.TEAL_500, 3));
 
@@ -68,7 +70,15 @@ public class LoginView extends JPanel {
 
         enter.addActionListener(e->tryLogin());
         exit.addActionListener(e->System.exit(0));
-
+        
+        pass.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    tryLogin();
+                }
+            }
+        });
+        
         setBackground(MaterialColor.WHITE);
     }
 
