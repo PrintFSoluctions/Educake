@@ -72,7 +72,7 @@ public class LoginView extends JPanel {
         setBackground(MaterialColor.WHITE);
     }
 
-    public static void main(String... args) {
+    public void start() {
         loginFrame = new JFrame();
         loginFrame.setContentPane(new LoginView());
         loginFrame.setUndecorated(true);

@@ -14,6 +14,7 @@ public class Educake {
         }
 
         LoginView login = new LoginView();
+        login.start();
     }
 
 }
