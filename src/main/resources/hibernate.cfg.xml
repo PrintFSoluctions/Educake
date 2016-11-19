@@ -9,17 +9,12 @@
     <property name="hibernate.connection.password">root</property>
     <property name="show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
-    <mapping class="io.github.printf.educake.newa.model.Address"/>
-    <mapping class="io.github.printf.educake.model.CPF"/>
-    <mapping class="io.github.printf.educake.newa.model.Phone"/>
-    <mapping class="io.github.printf.educake.model.Bill"/>
-    <mapping class="io.github.printf.educake.model.BillType"/>
-    <mapping class="io.github.printf.educake.model.Installment"/>
-    <mapping class="io.github.printf.educake.newa.model.Payment"/>
-    <mapping class="io.github.printf.educake.newa.model.Person"/>
-    <mapping class="io.github.printf.educake.newa.model.Phone"/>
-    <mapping class="io.github.printf.educake.newa.model.Student"/>
-    <mapping class="io.github.printf.educake.model.Teacher"/>
-    <mapping class="io.github.printf.educake.newa.model.Login"/>
+    <mapping class="io.github.printf.educake.model.Address"/>
+    <mapping class="io.github.printf.educake.model.Phone"/>
+    <mapping class="io.github.printf.educake.model.Payment"/>
+    <mapping class="io.github.printf.educake.model.Person"/>
+    <mapping class="io.github.printf.educake.model.Phone"/>
+    <mapping class="io.github.printf.educake.model.Student"/>
+    <mapping class="io.github.printf.educake.model.Login"/>
   </session-factory>
 </hibernate-configuration>
