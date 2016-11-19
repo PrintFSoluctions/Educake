@@ -22,40 +22,40 @@ public class AddressPanel extends JPanel implements Cloneable, Resetable {
 	private MaterialTextField complementTextField;
 	private MaterialTextField districtTextField;
 	private final ComponentFactory component = new ComponentFactory();
-	private MaterialButton findCEPButton;
+	//	private MaterialButton findCEPButton;
 	private MaterialComboBox stateCombo;
 
-  private String textFieldHeight = "h 52px, pad -18 0 0 0";
+	private String textFieldHeight = "h 52px, pad -18 0 0 0";
 
-  public AddressPanel()	{
+	public AddressPanel()	{
 		setBackground(MaterialColor.WHITE);
 		setLayout(new MigLayout("gapy 15, gapx 10, w 100%"));
 
 
-    JLabel CEPIcon = component.addIcon(GoogleMaterialDesignIcons.PAGEVIEW);
-    JLabel cityIcon = component.addIcon(GoogleMaterialDesignIcons.BUSINESS);
-    JLabel streetIcon = component.addIcon(GoogleMaterialDesignIcons.CALL_SPLIT);
-    JLabel houseIcon = component.addIcon(GoogleMaterialDesignIcons.MY_LOCATION);
+		JLabel CEPIcon = component.addIcon(GoogleMaterialDesignIcons.PAGEVIEW);
+		JLabel cityIcon = component.addIcon(GoogleMaterialDesignIcons.BUSINESS);
+		JLabel streetIcon = component.addIcon(GoogleMaterialDesignIcons.CALL_SPLIT);
+		JLabel houseIcon = component.addIcon(GoogleMaterialDesignIcons.MY_LOCATION);
 
-	  CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
+		CEPTextField         = component.addFormattedTextField("CEP:", "#####-###");
 //	  findCEPButton        = component.addButton("Buscar");
-	  cityTextField        = component.addTextField("Cidade:");
-	  stateCombo           = component.addComboBox(State.getAllStates(), 25);
-	  streetTextField      = component.addTextField("Rua:");
-	  districtTextField    = component.addTextField("Bairro:");
-	  houseNumberTextField = component.addTextField("Número:");
-	  complementTextField  = component.addTextField("Complemento:");
+		cityTextField        = component.addTextField("Cidade:");
+		stateCombo           = component.addComboBox(State.getAllStates(), 25);
+		streetTextField      = component.addTextField("Rua:");
+		districtTextField    = component.addTextField("Bairro:");
+		houseNumberTextField = component.addTextField("Número:");
+		complementTextField  = component.addTextField("Complemento:");
 
-    add(CEPIcon, "w 48");
+		add(CEPIcon, "w 48");
 		add(CEPTextField, textFieldHeight         + ", w 100%-48px, span, wrap");
 //		add(findCEPButton, textFieldHeight        + ", w 20%, growx, span, wrap");
-    add(cityIcon, "w 48");
+		add(cityIcon, "w 48");
 		add(cityTextField, textFieldHeight        + ", w 80%-48px");
 		add(stateCombo, textFieldHeight           + ", w 20%, growx, wrap");
-    add(streetIcon, "w 48");
+		add(streetIcon, "w 48");
 		add(streetTextField, textFieldHeight      + ", w 50%-48px, growx ");
 		add(districtTextField, textFieldHeight    + ", w 50%, wrap");
-    add(houseIcon, "w 48");
+		add(houseIcon, "w 48");
 		add(houseNumberTextField, textFieldHeight + ", w 50%-48px, growx");
 		add(complementTextField, textFieldHeight  + ", w 50%");
 	}
@@ -117,10 +117,19 @@ public class AddressPanel extends JPanel implements Cloneable, Resetable {
 		this.stateCombo.setSelectedItem(selectedItem);
 	}
 
-  @Override
-  public AddressPanel clone() throws CloneNotSupportedException {
-    return (AddressPanel) super.clone();
-  }
+	public String getDistrict(){
+		return districtTextField.getText();
+	}
+
+	public void setDistrict(String district) {
+		this.districtTextField.setText(district);
+	}
+
+
+	@Override
+	public AddressPanel clone() throws CloneNotSupportedException {
+		return (AddressPanel) super.clone();
+	}
 
 	@Override
 	public void reset() {

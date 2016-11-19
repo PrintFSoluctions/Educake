@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class StudentService extends PersonService{
 
-    private final Student student;
+    private Student student;
     private final StudentDAO studentDAO;
     private Person responsible = null;
 
@@ -37,16 +37,34 @@ public class StudentService extends PersonService{
         generateRm();
     }
 
+    public void setStudent(Person person, String rm) {
+        this.student.setPerson(person);
+        this.student.setResponsible(person);
+        this.student.setRm(rm);
+    }
+
+    public void setStudent(Student student){
+        this.student = student;
+    }
+
     public Student getStudent() {
         return this.student;
     }
+
+    public Student getById(int id){ return studentDAO.getById(id); }
 
     public boolean persist() {
         return studentDAO.persist(this.student);
     }
 
-    public boolean remove() {
-        return studentDAO.remove(student);
+    public  boolean update(){
+        System.out.println(this.student.getIdStudent());
+        System.out.println(this.student.getRm());
+        return studentDAO.update(this.student);
+    }
+
+    public boolean remove(int id) {
+        return studentDAO.removeById(id);
     }
 
     public boolean removeById(Integer id) {

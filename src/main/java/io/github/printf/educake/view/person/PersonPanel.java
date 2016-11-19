@@ -69,6 +69,14 @@ public class PersonPanel extends JPanel implements Resetable{
 		this.birthDateTextField.setText(birthDate);
 	}
 
+	public String getCPF() {
+		return CPFTextField.getText();
+	}
+
+	public void setCPF(String cpf) {
+		this.CPFTextField.setText(cpf);
+	}
+
 	@Override
 	public void reset() {
 		nameTextField.setText("");

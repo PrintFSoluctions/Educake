@@ -1,5 +1,7 @@
 package io.github.printf.educake.util;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,5 +26,20 @@ public class EasyDate {
 		Date rearrangedDate = toDate(day,month,year);
 
 		return rearrangedDate;
+	}
+
+	public static String toString(Date date){
+		String result;
+		GregorianCalendar gc = new GregorianCalendar();
+		DecimalFormat df = new DecimalFormat("00");
+
+
+		date.getTime();
+		gc.setTime(date);
+		result = String.valueOf(gc.get(Calendar.DAY_OF_MONTH));
+		result += df.format(gc.get(Calendar.MONTH)+1);
+		result += gc.get(Calendar.YEAR);
+
+		return result;
 	}
 }

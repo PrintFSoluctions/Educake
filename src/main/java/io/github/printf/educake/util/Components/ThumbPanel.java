@@ -5,6 +5,7 @@ import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.util.HashMap;
 
 /**
  * @author Vitor Silvério de Souza
@@ -13,6 +14,10 @@ import javax.swing.*;
 public class ThumbPanel extends JPanel{
 
   private final ComponentFactory component = new ComponentFactory();
+//  private JLabel edit = component.addIconButton(GoogleMaterialDesignIcons.EDIT);
+//  private JLabel delete = component.addIconButton(GoogleMaterialDesignIcons.DELETE);
+  private HashMap<String, JLabel> buttons = new HashMap<>();
+  private String iconsConstraints = "w 32px!, h 32px!, right";
 
   public ThumbPanel(String...fields) {
     setLayout(new MigLayout("inset 5 15 5 5", "[grow]", "")); // Row constraints with default align
@@ -23,9 +28,10 @@ public class ThumbPanel extends JPanel{
       add(component.addLabel(field), width);
     }
 
-    String IconsConstraints = "w 32px!, h 32px!, right";
-    add(component.addIconButton(GoogleMaterialDesignIcons.EDIT), IconsConstraints);
-    add(component.addIconButton(GoogleMaterialDesignIcons.DELETE), IconsConstraints);
+//    add(edit, iconsConstraints);
+//    add(delete, iconsConstraints);
+//    buttons.put("edit", edit);
+//    buttons.put("delete", delete);
   }
 
   public ThumbPanel(String text){
@@ -34,7 +40,17 @@ public class ThumbPanel extends JPanel{
 
     JLabel label = component.addLabel(text);
     label.setHorizontalAlignment(SwingConstants.CENTER);
-      add(label, "w 100%");
+    add(label, "w 100%");
   }
 
+  public JLabel getButtonbyId(String id) {
+    return buttons.get(id);
+  }
+
+  public void addButton(String id, GoogleMaterialDesignIcons icon){
+    JLabel button = component.addIconButton(icon);
+    add(button, iconsConstraints);
+    buttons.put(id, button);
+  }
+  
 }

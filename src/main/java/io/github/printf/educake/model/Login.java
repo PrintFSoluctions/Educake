@@ -5,20 +5,36 @@
  */
 package io.github.printf.educake.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import io.github.printf.educake.util.BCrypt;
+
+import javax.persistence.*;
 
 /**
  *
  * @author a1402056
  */
+@Entity
+@Table
 public class Login {
     @Id
-    @Column
+     @Column(name = "`name`")
     private String user;
-    
-    @Column
+
+    @Column(name = "`password`")
     private String password;
+
+    public Login() {
+    }
+
+    public Login(String user, String password) {
+        this.user = user;
+
+        String salt = BCrypt.gensalt(12);
+        String hashed_password = BCrypt.hashpw(password, salt);
+        System.out.println(hashed_password);
+
+        this.password = hashed_password;
+    }
 
     /**
      * @return the user
@@ -47,6 +63,6 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
-    
- 
+
+
 }

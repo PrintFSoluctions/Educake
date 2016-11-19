@@ -1,6 +1,10 @@
 package io.github.printf.educake.view.person;
 
-import de.craften.ui.swingmaterial.*;
+import de.craften.ui.swingmaterial.MaterialButton;
+import de.craften.ui.swingmaterial.MaterialColor;
+import de.craften.ui.swingmaterial.MaterialComboBox;
+import de.craften.ui.swingmaterial.MaterialFormattedTextField;
+import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Components.Resetable;
 import jiconfont.icons.GoogleMaterialDesignIcons;
@@ -8,6 +12,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Vitor Silvério de Souza On out, 2016
@@ -43,12 +48,13 @@ public class PhonePanel extends JPanel implements Cloneable, Resetable {
         return phoneTypes;
     }
 
-    public void setPhone(ArrayList<String> phones, ArrayList<String> types){
+    public void setPhone(List<Phone> phones){
         for (int i = 0; i < phones.size(); i++) {
-            String phone = phones.get(i);
-            String type = types.get(i);
+            String phone =  phones.get(i).getDdd()+phones.get(i).getPhoneNumber();
+//            String type = phones.get(i).getDefinition().name(); FIXME:
+            String type = "Fixo";
 
-            addTelephone();
+//            addTelephone();
             phoneTextField.get(i).setText(phone);
             phoneTypeCombo.get(i).setSelectedItem(type);
         }

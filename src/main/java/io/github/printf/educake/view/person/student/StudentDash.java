@@ -7,9 +7,12 @@ import io.github.printf.educake.util.Components.ComponentFactory;
 import io.github.printf.educake.util.Components.DefaultView;
 import io.github.printf.educake.util.Components.ThumbPanel;
 import io.github.printf.educake.view.main.MainFrame;
+import jiconfont.icons.GoogleMaterialDesignIcons;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +39,36 @@ public class StudentDash extends DefaultView {
     if (allStudents.isEmpty()){
       body.add(new ThumbPanel("Não há resultados!"));
     }
-    allStudents.forEach(student -> body.add(new ThumbPanel(
-        student.getRm(),
-        student.getPerson().getName()+" "+student.getPerson().getSurname(),
-        String.valueOf(student.getPerson().getBirthdate())
-    )));
+
+    allStudents.forEach(student -> {
+      ThumbPanel thumb = new ThumbPanel(
+          student.getRm(),
+          student.getPerson().getName() + " " + student.getPerson().getSurname(),
+          String.valueOf(student.getPerson().getBirthdate()));
+      
+        thumb.addButton("edit", GoogleMaterialDesignIcons.EDIT);
+        thumb.addButton("delete", GoogleMaterialDesignIcons.DELETE);
+
+      thumb.getButtonbyId("edit").addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) { MainFrame.goTo("editStudent", student.getIdStudent()); }
+      });
+
+      thumb.getButtonbyId("delete").addMouseListener(studentController.delete(student.getIdStudent()));
+
+      body.add(thumb);
+    });
+  }
+
+  @Override
+  public void reset() {
+    body.removeAll();
+    studentController.setDash(this);
   }
 
   @Override
   public JPanel[] getPanels() {
     return null;
   }
+
 }

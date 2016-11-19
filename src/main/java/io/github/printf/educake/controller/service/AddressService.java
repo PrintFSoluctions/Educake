@@ -21,9 +21,10 @@ public class AddressService {
     }
 
     //With person and complement
-    public void setAddress(Person person, String street, String housenumber, 
-            String complement, String city, String cep, String state) throws Exception {
+    public void setAddress(Person person, String district, String street, String housenumber,
+                           String complement, String city, String cep, String state) throws Exception {
         this.address.setPerson(person);
+        this.address.setDistrict(district);
         this.address.setStreet(street);
         validateHouseNumber(housenumber);
         this.address.setComplement(complement);
@@ -33,9 +34,10 @@ public class AddressService {
     }
 
     //With person and without complement
-    public void setAddress(Person person, String street, String housenumber, String city, 
-            String cep, String state) throws Exception {
+    public void setAddress(Person person, String district, String street, String housenumber,
+                           String city, String cep, String state) throws Exception {
         this.address.setPerson(person);
+        this.address.setDistrict(district);
         this.address.setStreet(street);
         validateHouseNumber(housenumber);
         validateCity(city);
@@ -44,8 +46,9 @@ public class AddressService {
     }
 
     //Without person and with complement
-    public void setAddress(String street, String housenumber, String complement,
-            String city, String cep, String state) throws Exception {
+    public void setAddress(String district, String street, String housenumber, String complement,
+                           String city, String cep, String state) throws Exception {
+        this.address.setDistrict(district);
         this.address.setStreet(street);
         validateHouseNumber(housenumber);
         this.address.setComplement(complement);
@@ -55,8 +58,9 @@ public class AddressService {
     }
 
     //Without person and complement
-    public void setAddress(String street, String housenumber, String city, 
-            String cep, String state) throws Exception {
+    public void setAddress(String district, String street, String housenumber, String city,
+                           String cep, String state) throws Exception {
+        this.address.setDistrict(district);
         this.address.setStreet(street);
         validateHouseNumber(housenumber);
         validateCity(city);
@@ -73,7 +77,7 @@ public class AddressService {
     }
 
     //Private Methods
-    
+
     private void validateCity(String city) throws Exception {
         String regx = "^[\\p{L} .'-]+$";
         Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
@@ -83,7 +87,7 @@ public class AddressService {
         if (!matcherCity.find()) {
             throw new Exception("Cidade é inválida ou está vazia");
         }
-        
+
         this.address.setCity(city);
     }
 
@@ -96,7 +100,7 @@ public class AddressService {
         if (!matcherCep.find()) {
             throw new Exception("Cep é inválido ou está vazio");
         }
-        
+
         this.address.setCep(cep);
     }
 

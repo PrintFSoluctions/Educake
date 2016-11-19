@@ -9,8 +9,7 @@ import java.util.List;
 
 public abstract class DataAccessObject<E> {
 
-    private static final SessionFactory sessionFactory =
-		new Configuration().configure().buildSessionFactory();;
+    private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     private static final ThreadLocal session = new ThreadLocal();
 
     protected DataAccessObject() {}
@@ -65,6 +64,22 @@ public abstract class DataAccessObject<E> {
             getSession().persist(object);
             commit();
         } catch (Exception ex) {
+            rollback();
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean update(E object){
+        boolean result = true;
+
+        try {
+            begin();
+            getSession().merge(object);
+            commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             rollback();
             result = false;
         }

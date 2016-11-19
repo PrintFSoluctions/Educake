@@ -10,7 +10,7 @@ import io.github.printf.educake.util.Components.DefaultView;
 import io.github.printf.educake.view.person.AddressPanel;
 import io.github.printf.educake.view.person.PersonPanel;
 import io.github.printf.educake.view.person.PhonePanel;
-import io.github.printf.educake.view.person.student.StudentView;
+import io.github.printf.educake.view.person.student.NewStudent;
 
 import javax.swing.*;
 
@@ -25,7 +25,7 @@ public class ResponsibleView extends DefaultView {
 
   private ResponsibleController responsibleController = new ResponsibleController();
 
-  public ResponsibleView(StudentView studentView) {
+  public ResponsibleView(NewStudent studentView) {
     super("Resposável", "Confirmar");
 
     try {

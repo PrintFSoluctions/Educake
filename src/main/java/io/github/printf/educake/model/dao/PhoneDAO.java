@@ -6,7 +6,9 @@
 package io.github.printf.educake.model.dao;
 
 import io.github.printf.educake.model.Phone;
-import java.util.List;
+import org.hibernate.Query;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -15,8 +17,8 @@ import java.util.List;
 public class PhoneDAO extends DataAccessObject<Phone>{
 
     @Override
-    public List findAll() {
-        return getSession().createQuery("FROM Phone").list();
+    public ArrayList<Phone> findAll() {
+        return (ArrayList<Phone>) getSession().createQuery("FROM Phone").list();
     }
 
     @Override
@@ -41,5 +43,16 @@ public class PhoneDAO extends DataAccessObject<Phone>{
 
     public void removeAllPhones(int idPerson) {
 
+    }
+
+    public ArrayList<Phone> getByIdPerson(int id) {
+        Query query = getSession().createQuery("FROM Phone WHERE idPerson = :id");
+        query.setParameter("id", id);
+
+        return (ArrayList<Phone>) query.list();
+    }
+
+    public void deleteByIdPerson(int id){
+        getByIdPerson(id).forEach(phone -> getSession().delete(phone));
     }
 }
