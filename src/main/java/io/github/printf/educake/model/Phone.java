@@ -1,9 +1,9 @@
 package io.github.printf.educake.model;
 
+import io.github.printf.educake.util.validators.Validator;
+
 import javax.persistence.*;
 import java.io.Serializable;
-
-import io.github.printf.educake.util.Enums.PhoneType;
 
 /**
  *
@@ -13,27 +13,27 @@ import io.github.printf.educake.util.Enums.PhoneType;
 @Entity
 @Table
 public class Phone implements Serializable{
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PHONE_SEQUENCE")
     @SequenceGenerator(name="PHONE_SEQUENCE", sequenceName = "PHONE_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
     private Integer idPhone;
-    
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPerson", referencedColumnName="idPerson", nullable = false)
     private Person person;
-    
-    @Column
-    private String ddd;
-    
-    @Column
-    private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    private PhoneType definition;
+    @Column
+    private String number;
 
+    Validator validator = new Validator();
+    
     public Phone() {}
+
+    public Phone(String number) throws Exception {
+        validator.phone(number);
+    }
 
     public Integer getIdPhone() {
         return idPhone;
@@ -51,29 +51,12 @@ public class Phone implements Serializable{
         this.person = person;
     }
 
-    public String getDdd() {
-        return ddd;
+    public String getNumber() {
+        return number;
     }
 
-    public void setDdd(String ddd) {
-        this.ddd = ddd;
+    public void setNumber(String number) throws Exception {
+        this.number = validator.phone(number);
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public PhoneType getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(PhoneType definition) {
-        this.definition = definition;
-    }
-    
-    
 }

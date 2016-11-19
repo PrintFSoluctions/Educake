@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package io.github.printf.educake.model;
+
+import io.github.printf.educake.util.validators.Validator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,140 +19,94 @@ public class Address implements Serializable {
     @SequenceGenerator(name = "ADDRESS_SEQUENCE", sequenceName = "ADDRESS_SEQUENCE", allocationSize = 1, initialValue = 1)
     @Column
     private Integer idAddress;
-    
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPerson", nullable = false)
     private Person person;
-    
+
     @Column
     private String street;
 
     @Column
     private String district;
-    
+
     @Column
     private String city;
-    
+
     @Column
     private String cep;
-    
+
     @Column
     private String state;
-    
+
     @Column
     private Integer houseNumber;
-    
+
     @Column
     private String complement;
 
-    /**
-     * @return the idAddress
-     */
+    Validator validator = new Validator();
+
     public Integer getIdAddress() {
         return idAddress;
     }
 
-    /**
-     * @param idAddress the idAddress to set
-     */
     public void setIdAddress(Integer idAddress) {
         this.idAddress = idAddress;
     }
 
-    /**
-     * @return the idPerson
-     */
     public Person getPerson() {
         return person;
     }
 
-    /**
-     * @param person the idPerson to set
-     */
     public void setPerson(Person person) {
         this.person = person;
     }
 
-    /**
-     * @return the street
-     */
     public String getStreet() {
         return street;
     }
 
-    /**
-     * @param street the street to set
-     */
     public void setStreet(String street) {
         this.street = street;
     }
 
-    /**
-     * @return the city
-     */
     public String getCity() {
         return city;
     }
 
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String city) throws Exception {
+        this.city = validator.city(city);
     }
 
-    /**
-     * @return the cep
-     */
     public String getCep() {
         return cep;
     }
 
-    /**
-     * @param cep the cep to set
-     */
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setCep(String cep) throws Exception {
+        this.cep = validator.cep(cep);
     }
 
-    /**
-     * @return the state
-     */
     public String getState() {
         return state;
     }
 
-    /**
-     * @param state the state to set
-     */
     public void setState(String state) {
         this.state = state;
     }
 
-    /**
-     * @return the houseNumber
-     */
-    public Integer getHouseNumber() {
+    public int getHouseNumber() {
         return houseNumber;
     }
 
-    /**
-     * @param houseNumber the houseNumber to set
-     */
-    public void setHouseNumber(Integer houseNumber) {
-        this.houseNumber = houseNumber;
+    public void setHouseNumber(String houseNumber) throws Exception {
+        this.houseNumber = validator.houseNumber(houseNumber);
     }
 
-    /**
-     * @return the complement
-     */
     public String getComplement() {
         return complement;
     }
 
-    /**
-     * @param complement the complement to set
-     */
     public void setComplement(String complement) {
         this.complement = complement;
     }
@@ -163,7 +115,7 @@ public class Address implements Serializable {
         return district;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrict(String district) throws Exception {
+        this.district = validator.district(district);
     }
 }

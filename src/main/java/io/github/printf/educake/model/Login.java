@@ -1,68 +1,58 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package io.github.printf.educake.model;
 
-import io.github.printf.educake.util.BCrypt;
+import io.github.printf.educake.util.validators.BCrypt;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- *
- * @author a1402056
- */
+*
+* @author a1402056
+*/
 @Entity
 @Table
 public class Login {
-    @Id
-     @Column(name = "`name`")
-    private String user;
+  @Id
+  @Column(name = "`user`")
+  private String user;
 
-    @Column(name = "`password`")
-    private String password;
+  @Column(name = "`password`")
+  private String password;
 
-    public Login() {
-    }
+  public Login(String user, String password) {
+    this.user = user;
 
-    public Login(String user, String password) {
-        this.user = user;
+    String salt = BCrypt.gensalt(12);
+    String hashed_password = BCrypt.hashpw(password, salt);
+    System.out.println(hashed_password);
 
-        String salt = BCrypt.gensalt(12);
-        String hashed_password = BCrypt.hashpw(password, salt);
-        System.out.println(hashed_password);
+    this.password = hashed_password;
+  }
 
-        this.password = hashed_password;
-    }
+  public Login() {
 
-    /**
-     * @return the user
-     */
-    public String getUser() {
-        return user;
-    }
+  }
 
-    /**
-     * @param user the user to set
-     */
-    public void setUser(String user) {
-        this.user = user;
-    }
+  public String getUser() {
+    return user;
+  }
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+  public void setUser(String user) {
+    this.user = user;
+  }
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

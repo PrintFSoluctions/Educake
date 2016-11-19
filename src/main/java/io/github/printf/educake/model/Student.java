@@ -1,5 +1,7 @@
 package io.github.printf.educake.model;
 
+import io.github.printf.educake.util.generators.Generator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,17 +18,17 @@ public class Student implements Serializable {
     @SequenceGenerator(name="STUDENT_SEQUENCE", sequenceName = "STUDENT_SEQUENCE", allocationSize = 1,initialValue = 1)
     @Column
     private Integer idStudent;
-    
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "idPerson", nullable = false)
     private Person person;
-    
+
     @Column
     private String rm;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idResponsible", nullable = false)
-    private Person responsible;
+    public Student(){
+      this.rm = new Generator().rm();
+    }
 
     public Integer getIdStudent() {
         return idStudent;
@@ -52,12 +54,4 @@ public class Student implements Serializable {
         this.rm = rm;
     }
 
-    public Person getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(Person responsible) {
-        this.responsible = responsible;
-    }    
-    
 }
