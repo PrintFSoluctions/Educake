@@ -33,10 +33,11 @@ public class Generator{
         }
 
         private String getNextID() {
+            String rm;
             Student lastStudent = (new StudentDAO()).getLastStudent();
-            String rm = lastStudent.getRm();
 
-            if (rm != null) {
+            if (lastStudent != null) {
+                rm = lastStudent.getRm();
                 rm = rm.substring(4);
 
                 if (rm.equals("999")) {
