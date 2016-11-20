@@ -24,15 +24,16 @@ public class Phone implements Serializable{
     @JoinColumn(name = "idPerson", referencedColumnName="idPerson", nullable = false)
     private Person person;
 
-    @Column
+    @Column(name="`number`")
     private String number;
 
+    @Transient
     Validator validator = new Validator();
     
     public Phone() {}
 
     public Phone(String number) throws Exception {
-        validator.phone(number);
+        this.number = validator.phone(number);
     }
 
     public Integer getIdPhone() {
