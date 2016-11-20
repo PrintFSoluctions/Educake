@@ -43,7 +43,7 @@ public class StudentDAO extends DataAccessObject<Student> {
         if (!query.list().isEmpty()) {
             student = (Student) query.list().get(query.list().size() - 1);
         } else {
-            student = new Student();
+            student = null;
         }
 
         return student;
