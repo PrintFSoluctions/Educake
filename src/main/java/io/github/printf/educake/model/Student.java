@@ -26,8 +26,10 @@ public class Student implements Serializable {
     @Column
     private String rm;
 
-    public Student(){
-      this.rm = new Generator().rm();
+    public Student(){}
+
+    public void generateRM(){
+       this.rm = new Generator().rm();
     }
 
     public Integer getIdStudent() {
