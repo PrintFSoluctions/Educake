@@ -50,9 +50,9 @@ public class LoginDAO extends DataAccessObject<Login> {
 
         if(login != null){
             result = BCrypt.checkpw(password, login.getPassword());
-            System.out.println("senha "+((!result)?"in":"")+"correta");
+            System.out.println("Senha "+((!result)?"in":"")+"correta");
         }else{
-            System.out.println("não existe usuário");
+            System.out.println("O usuário " + user + " não existe");
             result = false;
         }
 
