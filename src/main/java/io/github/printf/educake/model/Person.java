@@ -42,7 +42,8 @@ public class Person implements Serializable {
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
   private Address address;
 
-  Validator validator = new Validator();
+  @Transient
+  private Validator validator = new Validator();
 
   public Person() {}
 

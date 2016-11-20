@@ -45,6 +45,7 @@ public class Address implements Serializable {
     @Column
     private String complement;
 
+    @Transient
     Validator validator = new Validator();
 
     public Integer getIdAddress() {
