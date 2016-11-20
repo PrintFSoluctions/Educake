@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
-*
-* @author a1402056
-*/
+ *
+ * @author a1402056
+ */
 @Entity
 @Table
 public class Login {
@@ -27,18 +27,11 @@ public class Login {
   private String password;
 
   public Login(String user, String password) {
-    this.user = user;
-
-    String salt = BCrypt.gensalt(12);
-    String hashed_password = BCrypt.hashpw(password, salt);
-    System.out.println(hashed_password);
-
-    this.password = hashed_password;
+    setUser(user);
+    setPassword(password);
   }
 
-  public Login() {
-
-  }
+  public Login() {}
 
   public String getUser() {
     return user;
@@ -53,6 +46,8 @@ public class Login {
   }
 
   public void setPassword(String password) {
-    this.password = password;
+    String salt = BCrypt.gensalt(12);
+    String hashed_password = BCrypt.hashpw(password, salt);
+    this.password = hashed_password;
   }
 }
