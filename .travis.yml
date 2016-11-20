@@ -1,6 +1,8 @@
 language: java
 
-mvn test
+cache:
+  directories:
+  - ~/.m2
 
 jdk:
   - oraclejdk8
@@ -8,7 +10,5 @@ jdk:
   - openjdk6
 
 sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+
+script: mvn clean verify
