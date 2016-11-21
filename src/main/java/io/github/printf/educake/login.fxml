@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.printf.educake.controller.LoginController">
    <children>
-      <TextField maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-      <PasswordField maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+      <TextField maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS" fx:id = "user"/>
+      <PasswordField maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS" fx:id = "pass"/>
       <HBox alignment="CENTER" spacing="5.0">
          <children>
             <Button contentDisplay="CENTER" mnemonicParsing="false" text="Sair" HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Entrar" HBox.hgrow="ALWAYS" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#tryLogin" text="Entrar" HBox.hgrow="ALWAYS" />
          </children>
          <opaqueInsets>
             <Insets />
