@@ -37,9 +37,9 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */ 
-package io.github.printf.educake.view;
+package io.github.printf.educake.util.interfaces;
 
-import io.github.printf.educake.ScreensController;
+import io.github.printf.educake.controller.ScreensController;
 
 /**
  *
@@ -48,5 +48,5 @@ import io.github.printf.educake.ScreensController;
 public interface ControlledScreen {
     
     //This method will allow the injection of the Parent ScreenPane
-    public void setScreenParent(ScreensController screenPage);
+    public void setScreenParent(ScreensController screenParent);
 }
