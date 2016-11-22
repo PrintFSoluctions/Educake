@@ -1,15 +1,14 @@
 package io.github.printf.educake.controller;
 
-import io.github.printf.educake.ScreensController;
 import io.github.printf.educake.dao.LoginDAO;
-import io.github.printf.educake.view.ControlledScreen;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Vitor Silvério de Souza On nov, 2016
@@ -17,7 +16,7 @@ import javafx.scene.control.TextField;
 public class LoginController implements Initializable, ControlledScreen {
 
     @FXML
-    private TextField user;
+    private TextField user, tel;
     @FXML
     private PasswordField pass;
     ScreensController myController;
@@ -30,15 +29,18 @@ public class LoginController implements Initializable, ControlledScreen {
 
     @FXML
     public boolean tryLogin() {
+        System.out.println(tel.getText());
         String username = user.getText();
         String password = pass.getText();
 
+//        Login login = new Login(username, password);
+//        dao.persist(login);
         return dao.tryLogin(username, password);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //
     }
 
 }

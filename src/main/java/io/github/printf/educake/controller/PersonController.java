@@ -15,15 +15,15 @@ public class PersonController {
                             String birth,
                             String cpf,
                             Address address,
-                            String ... phones) throws Exception {
+                            String... phones) throws Exception {
         Person person = new Person();
 
         person.setName(name);
         person.setBirthdate(birth);
         person.setCpf(cpf);
 
-        for (String phone : phones){
-            if(!(phone.trim()).isEmpty()){
+        for (String phone : phones) {
+            if (!(phone.trim()).isEmpty()) {
                 person.addPhone(new Phone(phone));
             }
         }
