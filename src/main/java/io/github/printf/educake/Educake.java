@@ -1,5 +1,6 @@
 package io.github.printf.educake;
 
+import io.github.printf.educake.controller.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
