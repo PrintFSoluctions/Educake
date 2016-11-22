@@ -81,9 +81,7 @@ public class Person implements Serializable {
 
     public void setPhones(List<Phone> phones) {
       this.phones = phones;
-      phones.stream().forEach((phone) -> {
-        phone.setPerson(this);
-      });
+      phones.stream().forEach((phone) -> phone.setPerson(this));
     }
 
     public List<Phone> getPhones() {
