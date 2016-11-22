@@ -82,7 +82,7 @@ public class ScreensController extends StackPane {
     public boolean loadScreen(String name, String resource) {
         try {
             System.out.println(resource);
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/"+resource));
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/view/"+resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
             myScreenControler.setScreenParent(this);
