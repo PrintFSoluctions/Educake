@@ -158,6 +158,6 @@ public class StudentController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setStudentToForm(2);
+        setStudentToForm(1);
     }
 }

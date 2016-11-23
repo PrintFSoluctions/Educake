@@ -2,6 +2,7 @@ package io.github.printf.educake.controller;
 
 import io.github.printf.educake.Educake;
 import io.github.printf.educake.dao.LoginDAO;
+import io.github.printf.educake.model.Login;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,7 +35,7 @@ public class LoginController implements Initializable, ControlledScreen {
         String username = user.getText();
         String password = pass.getText();
 
-//        dao.persist(new Login(username, password));
+        dao.persist(new Login(username, password));
 
         if(dao.tryLogin(username, password)){
             ScreensController mainContainer = new ScreensController();

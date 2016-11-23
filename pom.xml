@@ -14,14 +14,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <!-- Code LDS Repository, using to get OJDBC 7, DO NOT REMOVE IT! -->
-    <repository>
-        <id>codelds</id>
-        <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-    </repository>
-
     <!-- Maven Repository Indexer to Git Repositories -->
     <repositories>
+        <!-- Code LDS Repository, using to get OJDBC 7, DO NOT REMOVE IT! -->
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
