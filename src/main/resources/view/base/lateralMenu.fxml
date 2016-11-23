@@ -4,9 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXButton alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" text="Alunos" textFill="#dbdbdb">
          <padding>

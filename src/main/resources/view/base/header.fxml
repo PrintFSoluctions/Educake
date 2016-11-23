@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox minHeight="66.0" prefHeight="66.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minHeight="66.0" minWidth="800.0" prefHeight="66.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="66.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="66.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #8e24aa;">
          <children>
