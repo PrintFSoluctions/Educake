@@ -5,7 +5,6 @@
     <name>Educake</name>
     <groupId>io.github.printf.educake</groupId>
     <artifactId>Educake</artifactId>
-    <ciManagement>Travis-CI</ciManagement>
     <version>0.2-REVISED</version>
     <packaging>jar</packaging>
 
@@ -14,6 +13,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- JUnit Unit Tests -->
@@ -36,6 +42,18 @@
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.Kairos-Project</groupId>
+            <artifactId>kairos-material-components</artifactId>
+            <version>0.3</version>
         </dependency>
 
     </dependencies>
