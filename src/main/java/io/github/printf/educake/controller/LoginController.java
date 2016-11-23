@@ -1,9 +1,11 @@
 package io.github.printf.educake.controller;
 
+import io.github.printf.educake.Educake;
 import io.github.printf.educake.dao.LoginDAO;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -16,7 +18,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable, ControlledScreen {
 
     @FXML
-    private TextField user, tel;
+    private TextField user;
     @FXML
     private PasswordField pass;
     ScreensController myController;
@@ -28,14 +30,27 @@ public class LoginController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    public boolean tryLogin() {
-        System.out.println(tel.getText());
+    public void tryLogin() {
         String username = user.getText();
         String password = pass.getText();
 
-//        Login login = new Login(username, password);
-//        dao.persist(login);
-        return dao.tryLogin(username, password);
+//        dao.persist(new Login(username, password));
+
+        if(dao.tryLogin(username, password)){
+            ScreensController mainContainer = new ScreensController();
+            mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
+            mainContainer.setScreen(Educake.studentID);
+
+            Scene scene = new Scene(mainContainer);
+            scene.getStylesheets().add("view/css/components.css");
+            Educake.primaryStage.setScene(scene);
+            Educake.primaryStage.show();
+        }
+    }
+
+    @FXML
+    public void exit(){
+        System.exit(0);
     }
 
     @Override

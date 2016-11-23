@@ -49,12 +49,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.HashMap;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -64,12 +65,32 @@ public class ScreensController extends StackPane {
     //Holds the screens to be displayed
 
     private HashMap<String, Node> screens = new HashMap<>();
-    private BorderPane main = new BorderPane();
+    private BorderPane structurePane = new BorderPane();
 
     public ScreensController() {
         super();
-        getChildren().add(main);
-        main.setLeft(new Button("Teste"));
+
+        setStyle("-fx-background-color: white");
+
+        try {
+            FXMLLoader myLoader;
+            getChildren().add(structurePane);
+
+            // Setting LateralMenu
+            myLoader = new FXMLLoader(getClass().getResource("/view/base/lateralMenu.fxml"));
+            Parent aBasePane = (Parent) myLoader.load();
+            structurePane.setLeft(aBasePane);
+
+            structurePane.setCenter(new AnchorPane());
+
+            // Setting Header
+            myLoader = new FXMLLoader(getClass().getResource("/view/base/header.fxml"));
+            aBasePane = (Parent) myLoader.load();
+            structurePane.setTop(aBasePane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     //Add the screen to the collection
@@ -86,7 +107,7 @@ public class ScreensController extends StackPane {
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
-            System.out.println(resource);
+            System.out.println("Opening route: " + resource);
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/view/" + resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
@@ -109,25 +130,25 @@ public class ScreensController extends StackPane {
 
             if (!getChildren().isEmpty()) {    //if there is more than one screen
                 Timeline fade = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent t) {
-                                main.setCenter(screens.get(name));     //add the screen
-                                Timeline fadeIn = new Timeline(
-                                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                        new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
-                                fadeIn.play();
-                            }
-                        }, new KeyValue(opacity, 0.0)));
+                    new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
+                    new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent t) {
+                            structurePane.setCenter(screens.get(name));     //add the screen
+                            Timeline fadeIn = new Timeline(
+                                new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+                                new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
+                            fadeIn.play();
+                        }
+                    }, new KeyValue(opacity, 0.0)));
                 fade.play();
 
             } else {
                 setOpacity(0.0);
-                main.setCenter(screens.get(name));     //add the screen
+                structurePane.setCenter(screens.get(name));     //add the screen
                 Timeline fadeIn = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                        new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
+                    new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+                    new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
             return true;
