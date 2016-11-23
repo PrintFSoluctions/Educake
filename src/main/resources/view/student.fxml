@@ -6,28 +6,28 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import io.github.printf.educake.util.generators.MaskField?>
+<?import io.github.printf.educake.util.components.MaskField?>
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.printf.educake.controller.StudentController">
    <content>
       <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-color: white;">
          <children>
             <Label id="title-label" text="Dados Pessoais" />
             <JFXTextField fx:id="nameTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Nome" />
-            <JFXTextField fx:id="birthTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Data de Nascimento" />
+            <MaskField mask="DD/DD/DDDD" fx:id="birthTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Data de Nascimento" />
             <MaskField fx:id="cpfTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="795.0" promptText="CPF" mask="DDD.DDD.DDD-DD"/>
             <Label id="title-label" text="Contato" />
             <MaskField fx:id="phone1TextField" mask="(DD)DDDD-DDDD" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Telefone" />
-            <MaskField fx:id="phone2TextField" mask="(DD)DDDDD-DDDD" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Celular" />
+            <MaskField fx:id="phone2TextField" mask="(DD)DDDDD-DDDD" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Celular (Opcional)" />
             <Label id="title-label" text="Endereço" />
-            <JFXTextField fx:id="cepTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="CEP" />
+            <MaskField mask="DDDDD-DDD" fx:id="cepTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="CEP" />
             <JFXTextField fx:id="stateTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Estado" />
             <JFXTextField fx:id="cityTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Cidade" />
             <JFXTextField fx:id="districtTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Bairro" />
             <JFXTextField fx:id="streetTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Rua" />
             <JFXTextField fx:id="houseNumberTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Número" />
-            <JFXTextField fx:id="complementTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Complemento" />
+            <JFXTextField fx:id="complementTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Complemento (Opcional)" />
 
-            <JFXButton maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cadastrar" onAction="#persistStudent" />
+            <JFXButton fx:id="confirmationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cadastrar" onAction="#persistStudent" />
          </children>
       </VBox>
    </content>
