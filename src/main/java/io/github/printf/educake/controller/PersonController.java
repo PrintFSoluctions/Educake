@@ -16,7 +16,6 @@ public class PersonController {
                             String cpf,
                             Address address,
                             String... phones) throws Exception {
-        Person person = new Person();
 
         person.setName(name);
         person.setBirthdate(birth);
