@@ -1,41 +1,45 @@
 package io.github.printf.educake;
 
-import io.github.printf.educake.controller.ScreensController;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Educake extends Application {
+
+    public static Stage primaryStage;
 
     public static String loginID = "login";
     public static String loginFile = "login.fxml";
 
-//    public static String mainID = "main";
+    //    public static String mainID = "main";
 //    public static String mainFile = "main.fxml";
 //
-//    public static String addStudentID = "addStudent";
-//    public static String addStudentFile = "addStudent.fxml";
+    public static String studentID = "student";
+    public static String studentFile = "student.fxml";
 //
 //    public static String addPaymentID = "addPayment";
 //    public static String addPaymentFile = "addPayment.fxml";
 
     @Override
     public void start(Stage primaryStage) {
+        FXMLLoader myLoader;
+        VBox login = null;
 
-        ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(loginID, loginFile);
-//        mainContainer.loadScreen(this.mainID, this.mainFile);
-//        mainContainer.loadScreen(this.addStudentID, this.addStudentFile);
-//        mainContainer.loadScreen(this.addPaymentID, this.addStudentFile);
+        try {
+        myLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            login = myLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        mainContainer.setScreen(loginID);
-
-        Group root = new Group();
-        root.getChildren().addAll(mainContainer);
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Scene scene = new Scene(login);
+        Educake.primaryStage = primaryStage;
+        Educake.primaryStage.setScene(scene);
+        Educake.primaryStage.show();
     }
 
     /**
