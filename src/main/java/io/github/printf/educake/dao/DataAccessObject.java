@@ -76,7 +76,7 @@ public abstract class DataAccessObject<E> {
 
         try {
             begin();
-            getSession().merge(object);
+            getSession().update(object);
             commit();
         } catch (Exception ex) {
             ex.printStackTrace();

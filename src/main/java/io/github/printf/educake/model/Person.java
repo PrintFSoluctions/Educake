@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
-* @author Vitor "Pliavi" Silvério
-*/
+ * @author Vitor "Pliavi" Silvério
+ */
 @Entity
 @Table
 public class Person implements Serializable {
@@ -34,10 +34,10 @@ public class Person implements Serializable {
   private Date birthdate;
 
   @OneToMany(
-  mappedBy = "person",
-  targetEntity = Phone.class,
-  fetch = FetchType.LAZY,
-  cascade = CascadeType.ALL)
+      mappedBy = "person",
+      targetEntity = Phone.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL)
   private List<Phone> phones = new ArrayList<Phone>();
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
@@ -48,59 +48,65 @@ public class Person implements Serializable {
 
   public Person() {}
 
-    public int getIdPerson() {
-      return idPerson;
-    }
-
-    public void setIdPerson(int idPerson) {
-      this.idPerson = idPerson;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) throws Exception {
-      this.name = WordUtils.capitalizeFully(validator.name(name));
-    }
-
-    public String getCpf() {
-      return cpf;
-    }
-
-    public void setCpf(String cpf) throws Exception {
-      this.cpf = validator.cpf(cpf);
-    }
-
-    public Date getBirthdate() {
-      return birthdate;
-    }
-
-    public void setBirthdate(String birthdate) throws ParseException {
-      this.birthdate = validator.birthDate(birthdate);
-    }
-
-    public void setPhones(List<Phone> phones) {
-      this.phones = phones;
-      phones.stream().forEach((phone) -> phone.setPerson(this));
-    }
-
-    public List<Phone> getPhones() {
-      return phones;
-    }
-
-    public void addPhone(Phone phone) {
-      phone.setPerson(this);
-      phones.add(phone);
-    }
-
-    public Address getAddress() {
-      return address;
-    }
-
-    public void setAddress(Address address) {
-      address.setPerson(this);
-      this.address = address;
-    }
-
+  public int getIdPerson() {
+    return idPerson;
   }
+
+  public void setIdPerson(int idPerson) {
+    this.idPerson = idPerson;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) throws Exception {
+    this.name = WordUtils.capitalizeFully(validator.name(name));
+  }
+
+  public String getCpf() {
+    return cpf;
+  }
+
+  public void setCpf(String cpf) throws Exception {
+    this.cpf = validator.cpf(cpf);
+  }
+
+  public Date getBirthdate() {
+    return birthdate;
+  }
+
+  public void setBirthdate(String birthdate) throws ParseException {
+    this.birthdate = validator.birthDate(birthdate);
+  }
+
+  public void setPhones(String phone1, String phone2) {
+    try {
+      this.phones.set(0, new Phone(phone1));
+      if(!phone2.trim().isEmpty()){
+        this.phones.set(1, new Phone(phone2));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public List<Phone> getPhones() {
+    return phones;
+  }
+
+  public void addPhone(Phone phone) {
+    phone.setPerson(this);
+    phones.add(phone);
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address address) {
+    address.setPerson(this);
+    this.address = address;
+  }
+
+}
