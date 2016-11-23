@@ -21,7 +21,7 @@ public class Payment implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
 
-    @Column
+    @Column(name = "`name`")
     private String name;
 
     @Column
