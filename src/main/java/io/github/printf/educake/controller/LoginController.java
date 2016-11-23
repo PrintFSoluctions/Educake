@@ -44,6 +44,7 @@ public class LoginController implements Initializable, ControlledScreen {
             Scene scene = new Scene(mainContainer);
             scene.getStylesheets().add("view/css/components.css");
             Educake.primaryStage.setScene(scene);
+            Educake.primaryStage.centerOnScreen();
             Educake.primaryStage.show();
         }
     }
