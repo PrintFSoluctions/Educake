@@ -53,6 +53,8 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.util.HashMap;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -62,9 +64,12 @@ public class ScreensController extends StackPane {
     //Holds the screens to be displayed
 
     private HashMap<String, Node> screens = new HashMap<>();
+    private BorderPane main = new BorderPane();
 
     public ScreensController() {
         super();
+        getChildren().add(main);
+        main.setLeft(new Button("Teste"));
     }
 
     //Add the screen to the collection
@@ -82,7 +87,7 @@ public class ScreensController extends StackPane {
     public boolean loadScreen(String name, String resource) {
         try {
             System.out.println(resource);
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/view/"+resource));
+            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/view/" + resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
             myScreenControler.setScreenParent(this);
@@ -108,8 +113,7 @@ public class ScreensController extends StackPane {
                         new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent t) {
-                                getChildren().remove(0);                    //remove the displayed screen
-                                getChildren().add(0, screens.get(name));     //add the screen
+                                main.setCenter(screens.get(name));     //add the screen
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -120,7 +124,7 @@ public class ScreensController extends StackPane {
 
             } else {
                 setOpacity(0.0);
-                getChildren().add(screens.get(name));       //no one else been displayed, then just show
+                main.setCenter(screens.get(name));     //add the screen
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
