@@ -60,7 +60,7 @@ public class Validator {
   public String phone(String phone) throws Exception {
     phone.trim();
 
-    if (!phone.matches("\\d{10,11}")) {
+    if (!phone.matches("\\(\\d{2}\\)\\d{4,5}-\\d{4}")) {
       throw new Exception("Telefone informado é invalido! Padrão (DD)NNNN-NNNN");
     }
 
