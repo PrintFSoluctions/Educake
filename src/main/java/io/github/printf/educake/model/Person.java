@@ -1,6 +1,7 @@
 package io.github.printf.educake.model;
 
 import io.github.printf.educake.util.validators.Validator;
+import org.apache.commons.lang3.text.WordUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -60,7 +61,7 @@ public class Person implements Serializable {
     }
 
     public void setName(String name) throws Exception {
-      this.name = validator.name(name);
+      this.name = WordUtils.capitalizeFully(validator.name(name));
     }
 
     public String getCpf() {

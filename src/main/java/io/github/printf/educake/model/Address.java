@@ -2,6 +2,7 @@
 package io.github.printf.educake.model;
 
 import io.github.printf.educake.util.validators.Validator;
+import org.apache.commons.lang3.text.WordUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -69,7 +70,7 @@ public class Address implements Serializable {
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.street = WordUtils.capitalizeFully(street);
     }
 
     public String getCity() {
@@ -77,7 +78,7 @@ public class Address implements Serializable {
     }
 
     public void setCity(String city) throws Exception {
-        this.city = validator.city(city);
+        this.city = WordUtils.capitalizeFully(validator.city(city));
     }
 
     public String getCep() {
@@ -93,7 +94,7 @@ public class Address implements Serializable {
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.state = state.toUpperCase();
     }
 
     public int getHouseNumber() {
@@ -117,6 +118,6 @@ public class Address implements Serializable {
     }
 
     public void setDistrict(String district) throws Exception {
-        this.district = validator.district(district);
+        this.district = WordUtils.capitalizeFully(validator.district(district));
     }
 }
