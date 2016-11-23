@@ -1,0 +1,33 @@
+@font-face {
+    src: url("Roboto-Regular.ttf");
+}
+
+*{
+    -fx-font-family: "Roboto";
+}
+
+.scroll-pane{
+    -fx-background-color: white;
+    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.25 ), 6, 0, 0, 2);
+    -fx-padding: 10;
+}
+
+.text-field{
+    -fx-padding: 20 0 0 0;
+    -fx-margin: 5 15 15 5;
+    -fx-label-float: true;
+    -fx-font: 15px "Roboto";
+    -fx-border: 0;
+}
+
+.button{
+    -fx-margin: 10 0 0 0;
+    -fx-padding: 10;
+    -fx-font: 18px "Roboto";
+}
+
+#title-label{
+    -fx-padding: 20 0 0 0;
+    -fx-font: 24px "Roboto";
+    -fx-text-fill: #AB47BC;
+}
