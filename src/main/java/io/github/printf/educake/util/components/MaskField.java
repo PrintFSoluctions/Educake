@@ -15,7 +15,7 @@
  *
  */
 
-package io.github.printf.educake.util.generators;
+package io.github.printf.educake.util.components;
 
 
 import com.jfoenix.controls.JFXTextField;
