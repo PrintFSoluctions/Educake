@@ -1,5 +1,6 @@
 package io.github.printf.educake.controller;
 
+import io.github.printf.educake.Educake;
 import io.github.printf.educake.dao.StudentDAO;
 import io.github.printf.educake.model.Address;
 import io.github.printf.educake.model.Person;
@@ -7,10 +8,14 @@ import io.github.printf.educake.model.Phone;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.util.EasyDate;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.List;
@@ -30,7 +35,7 @@ public class StudentController implements Initializable, ControlledScreen {
     @FXML
     private Button confirmationButton;
     @FXML
-    private Button removeButton;
+    private TableView<Student> studentsTable;
 
     ScreensController myController;
     private StudentDAO studentDAO = new StudentDAO();
@@ -70,9 +75,8 @@ public class StudentController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    public void setStudentToForm(int idStudent){
+    public void setStudentToForm(Student student){
 
-        student = studentDAO.getById(idStudent);
         person = student.getPerson();
         address = person.getAddress();
 
@@ -102,11 +106,11 @@ public class StudentController implements Initializable, ControlledScreen {
         houseNumberTextField.setText(houseNumber);
         complementTextField.setText(complement);
         confirmationButton.setText("Atualizar");
-        confirmationButton.setOnAction(event -> updateStudent(idStudent));
+        confirmationButton.setOnAction(event -> updateStudent(student));
     }
 
 
-    public void updateStudent(int idStudent) {
+    public void updateStudent(Student student) {
 
         String name = nameTextField.getText();
         String birth = birthTextField.getText();
@@ -121,7 +125,6 @@ public class StudentController implements Initializable, ControlledScreen {
         String houseNumber = houseNumberTextField.getText();
         String complement = complementTextField.getText();
 
-        student = studentDAO.getById(idStudent);
         person = student.getPerson();
         address = person.getAddress();
 
@@ -147,8 +150,10 @@ public class StudentController implements Initializable, ControlledScreen {
 
     // FIXME: Na verdade o id deve ser retirado da tabela
     @FXML
-    public void removeStudent(int idStudent){
+    public void removeStudent(){
+        int idStudent = studentsTable.getSelectionModel().getSelectedItem().getIdStudent();
         studentDAO.remove(studentDAO.getById(idStudent));
+        initialize(null, null);
     }
 
     @Override
@@ -158,6 +163,29 @@ public class StudentController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setStudentToForm(1);
+        if (Educake.activeScreen == Educake.studentDashID){
+            studentsTable.setItems(FXCollections.observableArrayList(studentDAO.findAll()));
+            TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
+            TableColumn<Student, String> nameColumn = new TableColumn<>("Nome");
+
+            rmColumn.setCellValueFactory(new PropertyValueFactory<>("rm"));
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+            studentsTable.getColumns().addAll(rmColumn, nameColumn);
+        }
+
     }
+
+    public void goToNewStudent() {
+        myController.setScreen(Educake.studentID);
+    }
+
+    public void goToUpdateStudent(){
+        Student student = studentsTable.getSelectionModel().getSelectedItem();
+
+        goToNewStudent();
+        ((StudentController)myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
+
+    }
+
 }
