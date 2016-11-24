@@ -28,7 +28,7 @@ public class LateralMenuController  implements Initializable, ControlledScreen {
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
-        myController = screenParent;
+        myController = Educake.mainContainer;
     }
 
     @Override

@@ -83,8 +83,10 @@ public class Person implements Serializable {
   public void setPhones(String phone1, String phone2) {
     try {
       this.phones.set(0, new Phone(phone1));
+      this.phones.get(0).setPerson(this);
       if(!phone2.trim().isEmpty()){
         this.phones.set(1, new Phone(phone2));
+        this.phones.get(1).setPerson(this);
       }
     } catch (Exception e) {
       e.printStackTrace();

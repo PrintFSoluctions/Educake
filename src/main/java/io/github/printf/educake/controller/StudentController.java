@@ -22,16 +22,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * @author Vitor Silvério de Souza
- *         On nov, 2016
+ * @author Vitor Silvério de Souza On nov, 2016
  */
 public class StudentController implements Initializable, ControlledScreen {
 
     @FXML
-    private TextField
-        nameTextField, birthTextField, cpfTextField, phone1TextField, phone2TextField, cepTextField,
-        stateTextField,cityTextField, districtTextField, streetTextField, houseNumberTextField,
-        complementTextField;
+    private TextField nameTextField, birthTextField, cpfTextField, phone1TextField, phone2TextField, cepTextField,
+            stateTextField, cityTextField, districtTextField, streetTextField, houseNumberTextField,
+            complementTextField;
     @FXML
     private Button confirmationButton;
     @FXML
@@ -48,7 +46,7 @@ public class StudentController implements Initializable, ControlledScreen {
     private AddressController addressController = new AddressController();
 
     @FXML
-    public void persistStudent(){
+    public void persistStudent() {
 
         String name = nameTextField.getText();
         String birth = birthTextField.getText();
@@ -75,7 +73,7 @@ public class StudentController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    public void setStudentToForm(Student student){
+    public void setStudentToForm(Student student) {
 
         person = student.getPerson();
         address = person.getAddress();
@@ -108,7 +106,6 @@ public class StudentController implements Initializable, ControlledScreen {
         confirmationButton.setText("Atualizar");
         confirmationButton.setOnAction(event -> updateStudent(student));
     }
-
 
     public void updateStudent(Student student) {
 
@@ -150,7 +147,7 @@ public class StudentController implements Initializable, ControlledScreen {
 
     // FIXME: Na verdade o id deve ser retirado da tabela
     @FXML
-    public void removeStudent(){
+    public void removeStudent() {
         int idStudent = studentsTable.getSelectionModel().getSelectedItem().getIdStudent();
         studentDAO.remove(studentDAO.getById(idStudent));
         initialize(null, null);
@@ -163,7 +160,7 @@ public class StudentController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Educake.activeScreen == Educake.studentDashID){
+        if (Educake.activeScreen == Educake.studentDashID) {
             studentsTable.setItems(FXCollections.observableArrayList(studentDAO.findAll()));
             TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
             TableColumn<Student, String> nameColumn = new TableColumn<>("Nome");
@@ -178,13 +175,29 @@ public class StudentController implements Initializable, ControlledScreen {
 
     public void goToNewStudent() {
         myController.setScreen(Educake.studentID);
+
+        nameTextField.setText("");
+        birthTextField.setText("");
+        cpfTextField.setText("");
+        phone1TextField.setText("");
+        phone2TextField.setText("");
+        cepTextField.setText("");
+        stateTextField.setText("");
+        cityTextField.setText("");
+        districtTextField.setText("");
+        streetTextField.setText("");
+        houseNumberTextField.setText("");
+        complementTextField.setText("");
+
+        confirmationButton.setText("Cadastrar");
+        confirmationButton.setOnAction(event -> persistStudent());
     }
 
-    public void goToUpdateStudent(){
+    public void goToUpdateStudent() {
         Student student = studentsTable.getSelectionModel().getSelectedItem();
 
         goToNewStudent();
-        ((StudentController)myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
+        ((StudentController) myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
 
     }
 
