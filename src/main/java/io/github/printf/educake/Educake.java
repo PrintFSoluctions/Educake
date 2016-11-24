@@ -1,5 +1,6 @@
 package io.github.printf.educake;
 
+import io.github.printf.educake.controller.ScreensController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import java.io.IOException;
 public class Educake extends Application {
 
     public static Stage primaryStage;
+    public static ScreensController mainContainer = new ScreensController();
+    public static String activeScreen = "";
 
     public static String loginID = "login";
     public static String loginFile = "login.fxml";
@@ -20,6 +23,10 @@ public class Educake extends Application {
 //
     public static String studentID = "student";
     public static String studentFile = "student.fxml";
+
+    public static String studentDashID = "studentDash";
+    public static String studentDashFile = "studentDash.fxml";
+
 //
 //    public static String addPaymentID = "addPayment";
 //    public static String addPaymentFile = "addPayment.fxml";
