@@ -39,6 +39,7 @@
  */
 package io.github.printf.educake.controller;
 
+import io.github.printf.educake.Educake;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -47,6 +48,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -54,7 +56,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -65,18 +66,18 @@ public class ScreensController extends StackPane {
     //Holds the screens to be displayed
 
     private HashMap<String, Node> screens = new HashMap<>();
+    private HashMap<String, ControlledScreen> controllers = new HashMap<>();
     private BorderPane structurePane = new BorderPane();
 
     public ScreensController() {
         super();
-
         setStyle("-fx-background-color: white");
-
     }
 
     //Add the screen to the collection
-    public void addScreen(String name, Node screen) {
+    public void addScreen(String name, Node screen, ControlledScreen controller) {
         screens.put(name, screen);
+        controllers.put(name, controller);
     }
 
     //Returns the Node with the appropriate name
@@ -88,12 +89,12 @@ public class ScreensController extends StackPane {
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
-            System.out.println("Opening route: " + resource);
+            System.out.println("Loading view: " + resource);
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/view/" + resource));
             Parent loadScreen = (Parent) myLoader.load();
             ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
-            myScreenControler.setScreenParent(this);
-            addScreen(name, loadScreen);
+            myScreenControler.setScreenParent(Educake.mainContainer);
+            addScreen(name, loadScreen, myScreenControler);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,6 +107,8 @@ public class ScreensController extends StackPane {
     //one screen the new screen is been added second, and then the current screen is removed.
     // If there isn't any screen being displayed, the new screen is just added to the root.
     public boolean setScreen(final String name) {
+        System.out.println("Opening Route: "+name);
+
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = opacityProperty();
 
@@ -127,31 +130,32 @@ public class ScreensController extends StackPane {
             } else {
                 setOpacity(0.0);
 
-                try {
-                    FXMLLoader myLoader;
-                    getChildren().add(structurePane);
+                getChildren().add(structurePane);
 
-                    // Setting LateralMenu
-                    myLoader = new FXMLLoader(getClass().getResource("/view/base/lateralMenu.fxml"));
-                    Parent aBasePane = (Parent) myLoader.load();
-                    structurePane.setLeft(aBasePane);
+                // Setting LateralMenu
+                loadScreen("lateral", "/base/lateralMenu.fxml");
+                structurePane.setLeft(screens.get("lateral"));
 
-                    structurePane.setCenter(new AnchorPane());
+                structurePane.setCenter(new AnchorPane());
 
-                    // Setting Header
-                    myLoader = new FXMLLoader(getClass().getResource("/view/base/header.fxml"));
-                    aBasePane = (Parent) myLoader.load();
-                    structurePane.setTop(aBasePane);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                // Setting Header
+                loadScreen("header", "/base/header.fxml");
+                structurePane.setTop(screens.get("header"));
 
                 structurePane.setCenter(screens.get(name));     //add the screen
+
                 Timeline fadeIn = new Timeline(
                     new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                     new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
+
+            structurePane.getStylesheets().add("view/css/components.css");
+
+            Educake.activeScreen = name;
+            System.out.println("Active Screen: "+Educake.activeScreen);
+            ((Initializable)controllers.get(name)).initialize(null, null);
+
             return true;
         } else {
             System.out.println("screen hasn't been loaded!!! \n");
@@ -160,10 +164,12 @@ public class ScreensController extends StackPane {
 
     }
 
-
-    public void showError(String error){
-
+    public ControlledScreen getControlledScreen(String name){
+        return controllers.get(name);
     }
+
+
+    public void showError(String error){}
 
     //This method will remove the screen with the given name from the collection of screens
     public boolean unloadScreen(String name) {
