@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  * @author Vitor Silvério de Souza On nov, 2016
@@ -44,7 +45,7 @@ public class StudentController implements Initializable, ControlledScreen {
 
     Address address = new Address();
     private AddressController addressController = new AddressController();
-
+    
     @FXML
     public void persistStudent() {
 
@@ -75,6 +76,7 @@ public class StudentController implements Initializable, ControlledScreen {
     @FXML
     public void setStudentToForm(Student student) {
 
+        myController.setScreen(Educake.studentID);
         person = student.getPerson();
         address = person.getAddress();
 
@@ -103,6 +105,7 @@ public class StudentController implements Initializable, ControlledScreen {
         streetTextField.setText(street);
         houseNumberTextField.setText(houseNumber);
         complementTextField.setText(complement);
+
         confirmationButton.setText("Atualizar");
         confirmationButton.setOnAction(event -> updateStudent(student));
     }
@@ -145,12 +148,15 @@ public class StudentController implements Initializable, ControlledScreen {
         }
     }
 
-    // FIXME: Na verdade o id deve ser retirado da tabela
     @FXML
     public void removeStudent() {
-        int idStudent = studentsTable.getSelectionModel().getSelectedItem().getIdStudent();
-        studentDAO.remove(studentDAO.getById(idStudent));
-        initialize(null, null);
+        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            int idStudent = studentsTable.getSelectionModel().getSelectedItem().getIdStudent();
+            studentDAO.remove(studentDAO.getById(idStudent));
+            initialize(null, null);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um aluno");
+        }
     }
 
     @Override
@@ -160,45 +166,57 @@ public class StudentController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Educake.activeScreen == Educake.studentDashID) {
+        if (Educake.activeScreen.equals(Educake.studentDashID)) {
             studentsTable.setItems(FXCollections.observableArrayList(studentDAO.findAll()));
-            TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
-            TableColumn<Student, String> nameColumn = new TableColumn<>("Nome");
 
-            rmColumn.setCellValueFactory(new PropertyValueFactory<>("rm"));
-            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            if (studentsTable.getColumns().size() == 0) {
+                TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
+                TableColumn<Student, String> nameColumn = new TableColumn<>("Nome");
 
-            studentsTable.getColumns().addAll(rmColumn, nameColumn);
+                rmColumn.setCellValueFactory(new PropertyValueFactory<>("rm"));
+                nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+                studentsTable.getColumns().addAll(rmColumn, nameColumn);
+            }
+        }
+    }
+
+    public void goToNewStudent() {
+        Educake.activeScreen = "";
+
+        Educake.mainContainer.unloadScreen(Educake.studentID);
+        Educake.mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
+        Educake.mainContainer.setScreen(Educake.studentID);
+
+        myController.setScreen(Educake.studentID);
+
+        if (nameTextField != null) {
+            nameTextField.setText("");
+            birthTextField.setText("");
+            cpfTextField.setText("");
+            phone1TextField.setText("");
+            phone2TextField.setText("");
+            cepTextField.setText("");
+            stateTextField.setText("");
+            cityTextField.setText("");
+            districtTextField.setText("");
+            streetTextField.setText("");
+            houseNumberTextField.setText("");
+            complementTextField.setText("");
+
+            confirmationButton.setText("Cadastrar");
+            confirmationButton.setOnAction(event -> persistStudent());
         }
 
     }
 
-    public void goToNewStudent() {
-        myController.setScreen(Educake.studentID);
-
-        nameTextField.setText("");
-        birthTextField.setText("");
-        cpfTextField.setText("");
-        phone1TextField.setText("");
-        phone2TextField.setText("");
-        cepTextField.setText("");
-        stateTextField.setText("");
-        cityTextField.setText("");
-        districtTextField.setText("");
-        streetTextField.setText("");
-        houseNumberTextField.setText("");
-        complementTextField.setText("");
-
-        confirmationButton.setText("Cadastrar");
-        confirmationButton.setOnAction(event -> persistStudent());
-    }
-
     public void goToUpdateStudent() {
-        Student student = studentsTable.getSelectionModel().getSelectedItem();
-
-        goToNewStudent();
-        ((StudentController) myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
-
+        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Student student = studentsTable.getSelectionModel().getSelectedItem();
+            ((StudentController) myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um aluno");
+        }
     }
 
 }
