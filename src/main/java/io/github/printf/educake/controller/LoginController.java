@@ -38,11 +38,11 @@ public class LoginController implements Initializable, ControlledScreen {
         dao.persist(new Login(username, password));
 
         if(dao.tryLogin(username, password)){
-            ScreensController mainContainer = new ScreensController();
-            mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
-            mainContainer.setScreen(Educake.studentID);
+            Educake.mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
+            Educake.mainContainer.loadScreen(Educake.studentDashID, Educake.studentDashFile);
+            Educake.mainContainer.setScreen(Educake.studentDashID);
 
-            Scene scene = new Scene(mainContainer);
+            Scene scene = new Scene(Educake.mainContainer);
             scene.getStylesheets().add("view/css/components.css");
             Educake.primaryStage.setScene(scene);
             Educake.primaryStage.centerOnScreen();
