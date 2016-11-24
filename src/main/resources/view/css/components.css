@@ -12,12 +12,16 @@
     -fx-padding: 10;
 }
 
+.vbox, .hbox{ -fx-background-color: white; }
+
 .text-field{
+    -fx-label-float: true;
     -fx-padding: 20 0 0 0;
     -fx-margin: 5 15 15 5;
     -fx-label-float: true;
     -fx-font: 15px "Roboto";
     -fx-border: 0;
+    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0 ), 0, 0, 0, 0);
 }
 
 .button{
