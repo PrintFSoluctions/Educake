@@ -56,4 +56,8 @@ public class Student implements Serializable {
         this.rm = rm;
     }
 
+    @Transient
+    public String getName() {
+        return this.getPerson().getName();
+    }
 }
