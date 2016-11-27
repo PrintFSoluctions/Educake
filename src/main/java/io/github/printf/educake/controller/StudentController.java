@@ -2,25 +2,22 @@ package io.github.printf.educake.controller;
 
 import io.github.printf.educake.Educake;
 import io.github.printf.educake.dao.StudentDAO;
-import io.github.printf.educake.model.Address;
-import io.github.printf.educake.model.Person;
-import io.github.printf.educake.model.Phone;
-import io.github.printf.educake.model.Student;
+import io.github.printf.educake.model.*;
 import io.github.printf.educake.util.EasyDate;
+import io.github.printf.educake.util.components.MaskField;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.swing.JOptionPane;
 
 /**
  * @author Vitor Silvério de Souza On nov, 2016
@@ -28,9 +25,12 @@ import javax.swing.JOptionPane;
 public class StudentController implements Initializable, ControlledScreen {
 
     @FXML
-    private TextField nameTextField, birthTextField, cpfTextField, phone1TextField, phone2TextField, cepTextField,
-            stateTextField, cityTextField, districtTextField, streetTextField, houseNumberTextField,
-            complementTextField;
+    public ToggleGroup courses;
+    @FXML
+    private TextField nameTextField, stateTextField, cityTextField, districtTextField,
+        streetTextField, houseNumberTextField, complementTextField, searchTextField;
+    @FXML
+    private MaskField cpfTextField, phone1TextField, phone2TextField, cepTextField, birthTextField;
     @FXML
     private Button confirmationButton;
     @FXML
@@ -45,28 +45,37 @@ public class StudentController implements Initializable, ControlledScreen {
 
     Address address = new Address();
     private AddressController addressController = new AddressController();
-    
+
     @FXML
     public void persistStudent() {
 
         String name = nameTextField.getText();
         String birth = birthTextField.getText();
-        String cpf = cpfTextField.getText();
-        String phone1 = phone1TextField.getText();
-        String phone2 = phone2TextField.getText();
-        String cep = cepTextField.getText();
+        String cpf = cpfTextField.getPlainText();
+        String phone1 = phone1TextField.getPlainText();
+        String phone2 = phone2TextField.getPlainText();
+        String cep = cepTextField.getPlainText();
         String state = stateTextField.getText();
         String city = cityTextField.getText();
         String district = districtTextField.getText();
         String street = streetTextField.getText();
         String houseNumber = houseNumberTextField.getText();
         String complement = complementTextField.getText();
+        Course course;
+
 
         try {
+            try {
+                course = Course.valueOf(((ToggleButton) courses.getSelectedToggle()).getId());
+            } catch (Exception e) {
+                throw new Exception("É necessário selecionar um curso");
+            }
+
             address = addressController.setAddress(cep, state, city, district, street, houseNumber, complement);
             person = personController.setPerson(name, birth, cpf, address, phone1, phone2);
             student.setPerson(person);
             student.generateRM();
+            student.setCourse(course);
             studentDAO.persist(student);
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,43 +101,55 @@ public class StudentController implements Initializable, ControlledScreen {
         String street = address.getStreet();
         String houseNumber = String.valueOf(address.getHouseNumber());
         String complement = address.getComplement();
+        Course course = student.getCourse();
 
         nameTextField.setText(name);
-        birthTextField.setText(birth);
-        cpfTextField.setText(cpf);
-        phone1TextField.setText(phones.get(0).getNumber());
-        phone2TextField.setText(phones.get(1).getNumber());
-        cepTextField.setText(cep);
+        birthTextField.setPlainText(birth);
+        cpfTextField.setPlainText(cpf);
+        phone1TextField.setPlainText(phones.get(0).getNumber());
+        phone2TextField.setPlainText(phones.get(1).getNumber());
+        cepTextField.setPlainText(cep);
         stateTextField.setText(state);
         cityTextField.setText(city);
         districtTextField.setText(district);
         streetTextField.setText(street);
         houseNumberTextField.setText(houseNumber);
         complementTextField.setText(complement);
+        courses.selectToggle(courses.getToggles().get(course.ordinal()));
 
         confirmationButton.setText("Atualizar");
-        confirmationButton.setOnAction(event -> updateStudent(student));
+        confirmationButton.setOnAction(event -> {
+            updateStudent(student);
+            Educake.mainContainer.setScreen(Educake.studentDashID);
+        });
     }
 
     public void updateStudent(Student student) {
 
         String name = nameTextField.getText();
         String birth = birthTextField.getText();
-        String cpf = cpfTextField.getText();
-        String phone1 = phone1TextField.getText();
-        String phone2 = phone2TextField.getText();
-        String cep = cepTextField.getText();
+        String cpf = cpfTextField.getPlainText();
+        String phone1 = phone1TextField.getPlainText();
+        String phone2 = phone2TextField.getPlainText();
+        String cep = cepTextField.getPlainText();
         String state = stateTextField.getText();
         String city = cityTextField.getText();
         String district = districtTextField.getText();
         String street = streetTextField.getText();
         String houseNumber = houseNumberTextField.getText();
         String complement = complementTextField.getText();
+        Course course;
 
         person = student.getPerson();
         address = person.getAddress();
 
         try {
+            try {
+                course = Course.valueOf(((ToggleButton) courses.getSelectedToggle()).getId());
+            } catch (Exception e) {
+                throw new Exception("É necessário selecionar um curso");
+            }
+
             person.setName(name);
             person.setCpf(cpf);
             person.setBirthdate(birth);
@@ -141,6 +162,8 @@ public class StudentController implements Initializable, ControlledScreen {
             address.setStreet(street);
             address.setHouseNumber(houseNumber);
             address.setComplement(complement);
+
+            student.setCourse(course);
 
             studentDAO.update(student);
         } catch (Exception e) {
@@ -167,16 +190,43 @@ public class StudentController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (Educake.activeScreen.equals(Educake.studentDashID)) {
-            studentsTable.setItems(FXCollections.observableArrayList(studentDAO.findAll()));
+
+            ObservableList<Student> students = FXCollections.observableArrayList(studentDAO.findAll());
+            FilteredList<Student> studentsFiltered = new FilteredList<>(students, p -> true);
+
+
+            searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
+                studentsFiltered.setPredicate(student -> {
+                    // Se o texto do campo estiver vazio, mostra todos (tudo bate com o vazio)
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (student.getName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Caso o nome bata
+                    } else if (student.getCourseString().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // caso o curso bata
+                    } else if (student.getRm().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // caso o rm bata
+                    }
+
+                    return false; // Caso nada bata, remove da lista
+                }));
+
+            studentsTable.setItems(studentsFiltered);
 
             if (studentsTable.getColumns().size() == 0) {
                 TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
                 TableColumn<Student, String> nameColumn = new TableColumn<>("Nome");
+                TableColumn<Student, String> courseColumn = new TableColumn<>("Curso");
 
                 rmColumn.setCellValueFactory(new PropertyValueFactory<>("rm"));
                 nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+                courseColumn.setCellValueFactory(new PropertyValueFactory<>("courseString"));
 
-                studentsTable.getColumns().addAll(rmColumn, nameColumn);
+                studentsTable.getColumns().addAll(rmColumn, nameColumn, courseColumn);
             }
         }
     }
@@ -205,7 +255,10 @@ public class StudentController implements Initializable, ControlledScreen {
             complementTextField.setText("");
 
             confirmationButton.setText("Cadastrar");
-            confirmationButton.setOnAction(event -> persistStudent());
+            confirmationButton.setOnAction(event -> {
+                persistStudent();
+                Educake.mainContainer.setScreen(Educake.studentDashID);
+            });
         }
 
     }
@@ -219,4 +272,7 @@ public class StudentController implements Initializable, ControlledScreen {
         }
     }
 
+    public void goToPayment() {
+
+    }
 }
