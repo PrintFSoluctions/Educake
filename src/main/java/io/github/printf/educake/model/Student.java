@@ -26,10 +26,14 @@ public class Student implements Serializable {
     @Column
     private String rm;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Course course;
+
     public Student(){}
 
     public void generateRM(){
-       this.rm = new Generator().rm();
+        this.rm = new Generator().rm();
     }
 
     public Integer getIdStudent() {
@@ -56,8 +60,22 @@ public class Student implements Serializable {
         this.rm = rm;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     @Transient
     public String getName() {
         return this.getPerson().getName();
     }
+
+    @Transient
+    public String getCourseString(){
+        return getCourse().getCourse();
+    }
+
 }

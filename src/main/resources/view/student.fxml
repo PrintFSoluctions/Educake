@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import com.jfoenix.controls.*?>
+<?import io.github.printf.educake.util.components.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<?import io.github.printf.educake.util.components.MaskField?>
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.printf.educake.controller.StudentController">
    <content>
       <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-color: white;">
@@ -27,6 +25,17 @@
             <JFXTextField fx:id="houseNumberTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Número" />
             <JFXTextField fx:id="complementTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Complemento (Opcional)" />
 
+            <HBox alignment="CENTER" maxHeight="50.0" maxWidth="1.7976931348623157E308" prefHeight="50.0">
+               <children>
+                  <ToggleButton HBox.hgrow="ALWAYS" fx:id="EN" text="Inglês" maxWidth="1.7976931348623157E308">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="courses" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton HBox.hgrow="ALWAYS" fx:id="ES" toggleGroup="$courses" text="Espanhol" maxWidth="1.7976931348623157E308"/>
+                  <ToggleButton HBox.hgrow="ALWAYS" fx:id="PT" toggleGroup="$courses" text="Português" maxWidth="1.7976931348623157E308"/>
+               </children>
+            </HBox>
             <JFXButton fx:id="confirmationButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cadastrar" onAction="#persistStudent" />
          </children>
       </VBox>
