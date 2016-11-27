@@ -58,10 +58,7 @@ public class MaskField extends JFXTextField {
      */
     private StringProperty plainText;
 
-    @Override
-    public String getText(int start, int end) {
-        return getPlainText();
-    }
+
 
     public final String getPlainText() {
         return plainTextProperty().get();
