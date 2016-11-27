@@ -44,8 +44,8 @@ public class Validator {
 
     // CPF
     public String cpf(String cpf) throws Exception {
-//        if(!isValidCPF(cpf))
-//            throw new Exception("Cpf/Cnpj é inválido ou está vazio");
+        if(!isValidCPF(cpf))
+            throw new Exception("Cpf/Cnpj é inválido ou está vazio");
         
         return cpf;
     }
@@ -77,7 +77,7 @@ public class Validator {
     public String phone(String phone) throws Exception {
         phone.trim();
 
-        if (!phone.matches("\\(\\d{2}\\)\\d{4,5}-\\d{4}")) {
+        if (!phone.matches("\\d{10,11}")) {
             throw new Exception("Telefone informado é invalido! Padrão (DD)NNNN-NNNN");
         }
 
@@ -113,14 +113,12 @@ public class Validator {
     }
 
     public String cep(String cep) throws Exception {
-//        cep = cep.trim();
-//        String regx = "^\\d{8}$";
-//        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
-//        Matcher matcherCep = pattern.matcher(cep);
-//
-//        if (!matcherCep.find()) {
-//            throw new Exception("Cep é inválido ou está vazio");
-//        }
+        System.out.println(cep);
+        cep = cep.trim();
+
+        if (!cep.matches("\\d{8}")) {
+            throw new Exception("Cep é inválido ou está vazio");
+        }
 
         return cep;
     }
