@@ -78,7 +78,7 @@ public class Validator {
         phone.trim();
 
         if (!phone.matches("\\d{10,11}")) {
-            throw new Exception("Telefone informado é invalido! Padrão (DD)NNNN-NNNN");
+            throw new Exception("Telefone informado é invalido!");
         }
 
         return phone;
