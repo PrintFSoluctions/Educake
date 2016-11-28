@@ -40,6 +40,8 @@ public class LoginController implements Initializable, ControlledScreen {
         if(dao.tryLogin(username, password)){
             Educake.mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
             Educake.mainContainer.loadScreen(Educake.studentDashID, Educake.studentDashFile);
+            Educake.mainContainer.loadScreen(Educake.paymentID, Educake.paymentFile);
+            Educake.mainContainer.loadScreen(Educake.paymentDashID, Educake.paymentDashFile);
             Educake.mainContainer.setScreen(Educake.studentDashID);
 
             Scene scene = new Scene(Educake.mainContainer);

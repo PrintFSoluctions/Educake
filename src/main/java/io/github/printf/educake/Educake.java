@@ -22,6 +22,13 @@ public class Educake extends Application {
     public static String studentDashID = "studentDash";
     public static String studentDashFile = "studentDash.fxml";
 
+    public static String paymentID = "payment";
+    public static String paymentFile = "payment.fxml";
+
+    public static String paymentDashID = "paymentDash";
+    public static String paymentDashFile = "paymentDash.fxml";
+
+
     @Override
     public void start(Stage primaryStage) {
         FXMLLoader myLoader;

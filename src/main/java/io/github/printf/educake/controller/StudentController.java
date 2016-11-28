@@ -79,6 +79,8 @@ public class StudentController implements Initializable, ControlledScreen {
         } catch (Exception e) {
             new ModalErrorDialog("Erro de Validação", e.getMessage());
         }
+
+        Educake.mainContainer.setScreen(Educake.studentDashID);
     }
 
     @FXML
@@ -103,7 +105,7 @@ public class StudentController implements Initializable, ControlledScreen {
         Course course = student.getCourse();
 
         nameTextField.setText(name);
-        birthTextField.setPlainText(birth);
+        birthTextField.setText(birth);
         cpfTextField.setPlainText(cpf);
         phone1TextField.setPlainText(phones.get(0).getNumber());
         phone2TextField.setPlainText(phones.get(1).getNumber());
@@ -117,10 +119,7 @@ public class StudentController implements Initializable, ControlledScreen {
         courses.selectToggle(courses.getToggles().get(course.ordinal()));
 
         confirmationButton.setText("Atualizar");
-        confirmationButton.setOnAction(event -> {
-            updateStudent(student);
-            Educake.mainContainer.setScreen(Educake.studentDashID);
-        });
+        confirmationButton.setOnAction(event -> updateStudent(student));
     }
 
     public void updateStudent(Student student) {
@@ -168,6 +167,8 @@ public class StudentController implements Initializable, ControlledScreen {
         } catch (Exception e) {
             new ModalErrorDialog("Erro de Validação", e.getMessage());
         }
+
+        Educake.mainContainer.setScreen(Educake.studentDashID);
     }
 
     @FXML
@@ -205,10 +206,7 @@ public class StudentController implements Initializable, ControlledScreen {
             complementTextField.setText("");
 
             confirmationButton.setText("Cadastrar");
-            confirmationButton.setOnAction(event -> {
-                persistStudent();
-                Educake.mainContainer.setScreen(Educake.studentDashID);
-            });
+            confirmationButton.setOnAction(event -> persistStudent());
         }
 
     }
@@ -224,6 +222,9 @@ public class StudentController implements Initializable, ControlledScreen {
 
     public void goToPayment() {
         if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Student student = studentsTable.getSelectionModel().getSelectedItem();
+            myController.setScreen(Educake.paymentDashID);
+            ((PaymentController) myController.getControlledScreen(Educake.paymentDashID)).setStudent(student);
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar gerar qualquer boleto.");
         }

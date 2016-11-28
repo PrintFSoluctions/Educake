@@ -19,7 +19,7 @@
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToNewStudent" text="Novo Aluno" />
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToUpdateStudent" text="Editar" HBox.hgrow="ALWAYS" />
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#removeStudent" text="Excluir" HBox.hgrow="ALWAYS" />
-                                <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToPayment" text="Gerar Pendência" HBox.hgrow="ALWAYS" />
+                                <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToPayment" text="Pendências" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
                     </children>

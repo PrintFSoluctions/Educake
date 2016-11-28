@@ -28,6 +28,7 @@ public class EasyDate {
 	}
 
 	public static String toString(Date date){
+
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 		dateFormatter.setLenient(false);
 

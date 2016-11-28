@@ -16,7 +16,7 @@
 .vbox, .hbox{ -fx-background-color: white; }
 
 /* CAMPOS DE TEXTO */
-.text-field{
+.date-picker, .text-field{
     -fx-label-float: true;
     -fx-padding: 20 0 0 0;
     -fx-margin: 5 15 15 5;

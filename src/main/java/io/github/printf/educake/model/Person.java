@@ -40,6 +40,13 @@ public class Person implements Serializable {
       cascade = CascadeType.ALL)
   private List<Phone> phones = new ArrayList<Phone>();
 
+  @OneToMany(
+      mappedBy = "person",
+      targetEntity = Payment.class,
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL)
+  private List<Payment> payments = new ArrayList<>();
+
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
   private Address address;
 
@@ -77,7 +84,7 @@ public class Person implements Serializable {
   }
 
   public void setBirthdate(String birthdate) throws ParseException {
-    this.birthdate = validator.birthDate(birthdate);
+    this.birthdate = validator.date(birthdate);
   }
 
   public void setPhones(String phone1, String phone2) {
@@ -100,6 +107,15 @@ public class Person implements Serializable {
   public void addPhone(Phone phone) {
     phone.setPerson(this);
     phones.add(phone);
+  }
+
+  public void addPayment(Payment payment) {
+    payment.setPerson(this);
+    payments.add(payment);
+  }
+
+  public List<Payment> getPayments() {
+    return payments;
   }
 
   public Address getAddress() {

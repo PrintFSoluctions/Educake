@@ -1,5 +1,8 @@
 package io.github.printf.educake.model;
 
+import io.github.printf.educake.util.EasyDate;
+import io.github.printf.educake.util.validators.Validator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -31,9 +34,12 @@ public class Payment implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date due;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPerson", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idPerson", referencedColumnName = "idPerson", nullable = false)
     private Person person;
+
+    @Transient
+    private Validator validator = new Validator();
 
     public Integer getIdPayment() {
         return idPayment;
@@ -47,6 +53,17 @@ public class Payment implements Serializable {
         return paymentDate;
     }
 
+    public String getStringPaymentDate() {
+        if(paymentDate == null){
+            return "Pendente";
+        }
+
+        if(paymentDate.getTime() < System.currentTimeMillis()){
+            return EasyDate.toString(paymentDate)+ " (Em atraso)";
+        }
+        return EasyDate.toString(paymentDate);
+    }
+
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
@@ -55,16 +72,16 @@ public class Payment implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws Exception {
+        this.name = validator.name(name);
     }
 
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setValue(String value) throws Exception {
+        this.value = validator.money(value);
     }
 
     public Date getDue() {

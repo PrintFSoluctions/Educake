@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
  * @author Vitor Silvério de Souza On nov, 2016
  */
 public class Validator {
-    
 
-  /////////////
+
+    /////////////
     // PERSON //
-    public Date birthDate(String birthDate) throws ParseException {
+    public Date date(String birthDate) throws ParseException {
         Date date;
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         dateFormatter.setLenient(false);
@@ -46,10 +46,10 @@ public class Validator {
     public String cpf(String cpf) throws Exception {
         if(!isValidCPF(cpf))
             throw new Exception("Cpf/Cnpj é inválido ou está vazio");
-        
+
         return cpf;
     }
-    
+
     private static final int[] weightCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
     private static final int[] weightCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 
@@ -84,7 +84,7 @@ public class Validator {
         return phone;
     }
 
-  //////////////
+    //////////////
     // ADDRESS //
     public String city(String city) throws Exception {
         city = city.trim();
@@ -113,7 +113,6 @@ public class Validator {
     }
 
     public String cep(String cep) throws Exception {
-        System.out.println(cep);
         cep = cep.trim();
 
         if (!cep.matches("\\d{8}")) {
@@ -137,5 +136,28 @@ public class Validator {
         }
 
         return number;
+    }
+
+    public int integer(String integer) throws Exception{
+        integer.trim();
+        int newInteger;
+
+        try{
+            newInteger = Integer.parseInt(integer);
+        }catch(Exception e){
+            throw new Exception("O valor informado não é inteiro");
+        }
+
+        return newInteger;
+    }
+
+    public double money(String value) throws Exception {
+        value.trim();
+
+        if(!value.matches("([0-9]\\d*(,\\d{2})*)")){
+            throw new Exception("Valor inválido ou está vazio");
+        }
+
+        return Double.parseDouble(value.replaceAll(",", "."));
     }
 }
