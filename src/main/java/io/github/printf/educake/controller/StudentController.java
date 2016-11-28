@@ -1,6 +1,7 @@
 package io.github.printf.educake.controller;
 
 import io.github.printf.educake.Educake;
+import io.github.printf.educake.controller.base.ModalErrorDialog;
 import io.github.printf.educake.dao.StudentDAO;
 import io.github.printf.educake.model.*;
 import io.github.printf.educake.util.EasyDate;
@@ -14,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -63,7 +63,6 @@ public class StudentController implements Initializable, ControlledScreen {
         String complement = complementTextField.getText();
         Course course;
 
-
         try {
             try {
                 course = Course.valueOf(((ToggleButton) courses.getSelectedToggle()).getId());
@@ -78,7 +77,7 @@ public class StudentController implements Initializable, ControlledScreen {
             student.setCourse(course);
             studentDAO.persist(student);
         } catch (Exception e) {
-            e.printStackTrace();
+            new ModalErrorDialog("Erro de Validação", e.getMessage());
         }
     }
 
@@ -167,7 +166,7 @@ public class StudentController implements Initializable, ControlledScreen {
 
             studentDAO.update(student);
         } catch (Exception e) {
-            e.printStackTrace();
+            new ModalErrorDialog("Erro de Validação", e.getMessage());
         }
     }
 
@@ -178,7 +177,55 @@ public class StudentController implements Initializable, ControlledScreen {
             studentDAO.remove(studentDAO.getById(idStudent));
             initialize(null, null);
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um aluno");
+            new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar excluí-lo.");
+        }
+    }
+
+    public void goToNewStudent() {
+        Educake.activeScreen = "";
+
+        Educake.mainContainer.unloadScreen(Educake.studentID);
+        Educake.mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
+        Educake.mainContainer.setScreen(Educake.studentID);
+
+        myController.setScreen(Educake.studentID);
+
+        if (nameTextField != null) {
+            nameTextField.setText("");
+            birthTextField.setText("");
+            cpfTextField.setText("");
+            phone1TextField.setText("");
+            phone2TextField.setText("");
+            cepTextField.setText("");
+            stateTextField.setText("");
+            cityTextField.setText("");
+            districtTextField.setText("");
+            streetTextField.setText("");
+            houseNumberTextField.setText("");
+            complementTextField.setText("");
+
+            confirmationButton.setText("Cadastrar");
+            confirmationButton.setOnAction(event -> {
+                persistStudent();
+                Educake.mainContainer.setScreen(Educake.studentDashID);
+            });
+        }
+
+    }
+
+    public void goToUpdateStudent() {
+        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Student student = studentsTable.getSelectionModel().getSelectedItem();
+            ((StudentController) myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
+        } else {
+            new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar atualizá-lo.");
+        }
+    }
+
+    public void goToPayment() {
+        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+        } else {
+            new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar gerar qualquer boleto.");
         }
     }
 
@@ -231,48 +278,4 @@ public class StudentController implements Initializable, ControlledScreen {
         }
     }
 
-    public void goToNewStudent() {
-        Educake.activeScreen = "";
-
-        Educake.mainContainer.unloadScreen(Educake.studentID);
-        Educake.mainContainer.loadScreen(Educake.studentID, Educake.studentFile);
-        Educake.mainContainer.setScreen(Educake.studentID);
-
-        myController.setScreen(Educake.studentID);
-
-        if (nameTextField != null) {
-            nameTextField.setText("");
-            birthTextField.setText("");
-            cpfTextField.setText("");
-            phone1TextField.setText("");
-            phone2TextField.setText("");
-            cepTextField.setText("");
-            stateTextField.setText("");
-            cityTextField.setText("");
-            districtTextField.setText("");
-            streetTextField.setText("");
-            houseNumberTextField.setText("");
-            complementTextField.setText("");
-
-            confirmationButton.setText("Cadastrar");
-            confirmationButton.setOnAction(event -> {
-                persistStudent();
-                Educake.mainContainer.setScreen(Educake.studentDashID);
-            });
-        }
-
-    }
-
-    public void goToUpdateStudent() {
-        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
-            Student student = studentsTable.getSelectionModel().getSelectedItem();
-            ((StudentController) myController.getControlledScreen(Educake.studentID)).setStudentToForm(student);
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um aluno");
-        }
-    }
-
-    public void goToPayment() {
-
-    }
 }
