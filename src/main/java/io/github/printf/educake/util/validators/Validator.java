@@ -31,11 +31,8 @@ public class Validator {
     // FullName
     public String name(String name) throws Exception {
         name = name.trim();
-        String regx = "^[\\p{L} .'-]+$";
-        Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
-        Matcher matcherName = pattern.matcher(name);
 
-        if (!matcherName.find()) {
+        if (!name.matches("\\D+")) {
             throw new Exception("Nome é inválido ou está vazio");
         }
 

@@ -18,7 +18,7 @@
             <MaskField fx:id="phone2TextField" mask="(DD)DDDDD-DDDD" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Celular (Opcional)" />
             <Label id="title-label" text="Endereço" />
             <MaskField mask="DDDDD-DDD" fx:id="cepTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="CEP" />
-            <JFXTextField fx:id="stateTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Estado" />
+            <MaskField mask="AA" fx:id="stateTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Estado" />
             <JFXTextField fx:id="cityTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Cidade" />
             <JFXTextField fx:id="districtTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Bairro" />
             <JFXTextField fx:id="streetTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Rua" />

@@ -6,6 +6,7 @@ import io.github.printf.educake.dao.StudentDAO;
 import io.github.printf.educake.model.*;
 import io.github.printf.educake.util.EasyDate;
 import io.github.printf.educake.util.components.MaskField;
+import io.github.printf.educake.util.generators.WebServiceCep;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,8 @@ public class StudentController implements Initializable, ControlledScreen {
 
     Address address = new Address();
     private AddressController addressController = new AddressController();
+    private WebServiceCep addressByCEP;
+
 
     @FXML
     public void persistStudent() {
@@ -175,7 +178,11 @@ public class StudentController implements Initializable, ControlledScreen {
     public void removeStudent() {
         if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
             int idStudent = studentsTable.getSelectionModel().getSelectedItem().getIdStudent();
-            studentDAO.remove(studentDAO.getById(idStudent));
+
+            Student removed = studentDAO.getById(idStudent);
+            removed.setActivated(false);
+
+            studentDAO.update(removed);
             initialize(null, null);
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar excluí-lo.");
@@ -245,6 +252,7 @@ public class StudentController implements Initializable, ControlledScreen {
 
             searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
                 studentsFiltered.setPredicate(student -> {
+
                     // Se o texto do campo estiver vazio, mostra todos (tudo bate com o vazio)
                     if (newValue == null || newValue.isEmpty()) {
                         return true;
@@ -264,6 +272,7 @@ public class StudentController implements Initializable, ControlledScreen {
                 }));
 
             studentsTable.setItems(studentsFiltered);
+            studentsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
             if (studentsTable.getColumns().size() == 0) {
                 TableColumn<Student, String> rmColumn = new TableColumn<>("RM");
@@ -274,9 +283,29 @@ public class StudentController implements Initializable, ControlledScreen {
                 nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
                 courseColumn.setCellValueFactory(new PropertyValueFactory<>("courseString"));
 
+                rmColumn.setMaxWidth(500);
+                courseColumn.setMaxWidth(800);
+
+                rmColumn.setResizable(false);
+                courseColumn.setResizable(false);
+
                 studentsTable.getColumns().addAll(rmColumn, nameColumn, courseColumn);
             }
+        } else if (Educake.activeScreen.equals(Educake.studentID)){
+            cepTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if(!newValue){
+                    try {
+                        addressByCEP = WebServiceCep.searchCep(cepTextField.getPlainText().trim());
+                        stateTextField.setText(addressByCEP.getUf());
+                        cityTextField.setText(addressByCEP.getCidade());
+                        districtTextField.setText(addressByCEP.getBairro());
+                        streetTextField.setText(addressByCEP.getLogradouroFull());
+                        houseNumberTextField.requestFocus();
+                    }catch (Exception ignored){}
+                }
+            });
         }
+
     }
 
 }
