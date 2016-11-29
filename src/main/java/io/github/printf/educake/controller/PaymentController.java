@@ -156,7 +156,6 @@ public class PaymentController implements Initializable, ControlledScreen {
         Educake.mainContainer.unloadScreen(Educake.paymentID);
         Educake.mainContainer.loadScreen(Educake.paymentID, Educake.paymentFile);
         Educake.mainContainer.setScreen(Educake.paymentID);
-        myController.setScreen(Educake.paymentID);
 
         if (nameTextField != null) {
             nameTextField.setText("");
@@ -170,30 +169,29 @@ public class PaymentController implements Initializable, ControlledScreen {
         }
     }
 
-    public void goToUpdatePayment() {
-        Educake.activeScreen = "";
-
-        Educake.mainContainer.unloadScreen(Educake.paymentID);
-        Educake.mainContainer.loadScreen(Educake.paymentID, Educake.paymentFile);
-        Educake.mainContainer.setScreen(Educake.paymentID);
+    public void setPaymentToForm(Payment payment){
         myController.setScreen(Educake.paymentID);
 
+        String name = payment.getName();
+        String value = String.valueOf(payment.getValue()).replaceAll("\\.",",");
+        LocalDate due = EasyDate.toLocalDate(payment.getDue());
+
+        nameTextField.setText(name);
+        valueTextField.setText(value);
+        dueTextField.setValue(due);
+        dueTextField.setAccessibleText(due.getDayOfMonth()+"/"+due.getMonth()+"/"+due.getYear());
+        form.getChildren().remove(installments);
+
+        confirmationButton.setText("Atualizar");
+        confirmationButton.setOnAction(event -> updatePayment(payment));
+
+    }
+
+    public void goToUpdatePayment() {
         if (paymentsTable.getSelectionModel().getSelectedIndex() >= 0) {
             Payment payment = paymentsTable.getSelectionModel().getSelectedItem();
+            ((PaymentController) myController.getControlledScreen(Educake.paymentID)).setPaymentToForm(payment);
 
-            myController.setScreen(Educake.paymentID);
-
-            String name = payment.getName();
-            String value = String.valueOf(payment.getValue());
-            LocalDate due = payment.getDue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            nameTextField.setText(name);
-            valueTextField.setText(value);
-            dueTextField.setValue(due);
-            form.getChildren().remove(installments);
-
-            confirmationButton.setText("Atualizar");
-            confirmationButton.setOnAction(event -> updatePayment(payment));
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de tentar atualizá-la.");
         }

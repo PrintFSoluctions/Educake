@@ -1,6 +1,8 @@
 package io.github.printf.educake.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -33,5 +35,16 @@ public class EasyDate {
 		dateFormatter.setLenient(true);
 
 		return dateFormatter.format(date);
+	}
+
+	public static LocalDate toLocalDate(Date date) {
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+
+		day   = calendar.get(Calendar.DAY_OF_MONTH);
+		month = calendar.get(Calendar.MONTH);
+		year  = calendar.get(Calendar.YEAR);
+
+		return LocalDate.of(year, month, day);
 	}
 }
