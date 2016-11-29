@@ -132,8 +132,6 @@ public class PaymentController implements Initializable, ControlledScreen {
             paymentDateColumn.setResizable(false);
 
             paymentsTable.getColumns().addAll(typeColumn, dueColumn, paymentDateColumn);
-        }else{
-            paymentsTable.refresh();
         }
 
     }
