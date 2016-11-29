@@ -11,7 +11,7 @@ public class PaymentDAO extends DataAccessObject<Payment> {
 
     @Override
     public List findAll() {
-        return getSession().createQuery("FROM Payment").list();
+        return getSession().createQuery("FROM Payment WHERE activated = 1").list();
     }
 
     @Override

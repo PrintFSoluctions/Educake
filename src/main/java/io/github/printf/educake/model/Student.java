@@ -27,6 +27,9 @@ public class Student implements Serializable {
     private String rm;
 
     @Column
+    private boolean activated = true;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Course course;
 
@@ -66,6 +69,14 @@ public class Student implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     @Transient

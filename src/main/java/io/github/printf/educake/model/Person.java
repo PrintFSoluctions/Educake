@@ -127,4 +127,8 @@ public class Person implements Serializable {
     this.address = address;
   }
 
+  public void setPayment(int index, Payment payment) {
+    this.payments.set(index, payment);
+  }
+
 }
