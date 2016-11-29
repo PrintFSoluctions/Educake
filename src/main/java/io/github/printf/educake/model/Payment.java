@@ -38,6 +38,9 @@ public class Payment implements Serializable {
     @JoinColumn(name = "idPerson", referencedColumnName = "idPerson", nullable = false)
     private Person person;
 
+    @Column
+    private boolean activated = true;
+
     @Transient
     private Validator validator = new Validator();
 
@@ -88,6 +91,10 @@ public class Payment implements Serializable {
         return due;
     }
 
+    public String getStringDue() {
+        return EasyDate.toString(due);
+    }
+
     public void setDue(Date due) {
         this.due = due;
     }
@@ -100,4 +107,11 @@ public class Payment implements Serializable {
         this.person = person;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
 }

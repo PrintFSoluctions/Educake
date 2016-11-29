@@ -13,13 +13,11 @@
     -fx-padding: 10;
 }
 
-.vbox, .hbox{ -fx-background-color: white; }
-
 /* CAMPOS DE TEXTO */
 .date-picker, .text-field{
     -fx-label-float: true;
     -fx-padding: 20 0 0 0;
-    -fx-margin: 5 15 15 5;
+    -fx-margin: 5 15 15 10;
     -fx-label-float: true;
     -fx-font: 15px "Roboto";
     -fx-border: 0;
@@ -28,8 +26,6 @@
 
 /* BOTOES */
 .button{
-    -fx-margin: 10 0 0 0;
-    -fx-padding: 10;
     -fx-font: 18px "Roboto";
 }
 
