@@ -86,10 +86,8 @@ public class PaymentController implements Initializable, ControlledScreen {
 
             }
 
-            setStudent(student);
-            Educake.activeScreen="";
             Educake.mainContainer.setScreen(Educake.paymentDashID);
-            setStudent(student);
+            searchTextField.setText(" ");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,11 +161,7 @@ public class PaymentController implements Initializable, ControlledScreen {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar atualizá-lo.");
         }
 
-
-        setStudent(student);
-        Educake.activeScreen="";
-        Educake.mainContainer.setScreen(Educake.paymentDashID);
-        setStudent(student);
+            searchTextField.setText(" ");
     }
 
     public void goToNewPayment() {
@@ -204,7 +198,6 @@ public class PaymentController implements Initializable, ControlledScreen {
 
         confirmationButton.setText("Atualizar");
         confirmationButton.setOnAction(event -> updatePayment(payment));
-
     }
 
     public void goToUpdatePayment() {
@@ -238,10 +231,8 @@ public class PaymentController implements Initializable, ControlledScreen {
             e.printStackTrace();
         }
 
-        setStudent(student);
-        Educake.activeScreen="";
         Educake.mainContainer.setScreen(Educake.paymentDashID);
-        setStudent(student);
+            searchTextField.setText(" ");
     }
 
     public void removePayment() {
@@ -250,10 +241,8 @@ public class PaymentController implements Initializable, ControlledScreen {
             payment.setActivated(false);
             dao.update(payment);
 
-            setStudent(student);
-            Educake.activeScreen="";
             Educake.mainContainer.setScreen(Educake.paymentDashID);
-            setStudent(student);
+            searchTextField.setText(" ");
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de tentar excluí-la.");
         }
