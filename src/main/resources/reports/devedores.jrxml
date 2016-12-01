@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-01T20:14:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="devedores" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48e2ca46-602c-4918-b828-4a4d2ea7d407">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="IlBBWU1FTlQiICwxNSwxNSxiMTExNDdiMy1lNTJjLTQwM2ItOThjMy03ZjcwZjdlMDQwYmQ7IlBF&#xA;UlNPTiIgLDIwMCw2OSwzZDU5ZjI4Yi04MjZiLTQ2ZTMtODA4Yy02MGI1ZTczMTlhZmY7"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Educake"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="476"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="524"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT "PERSON"."NAME",
+	"PERSON"."CPF",
+	"PAYMENT"."DUE",
+	"PAYMENT"."name",
+	"PAYMENT"."VALUE"
+FROM "PAYMENT"
+	INNER JOIN "PERSON" ON 
+	 "PAYMENT"."IDPERSON" = "PERSON"."IDPERSON" 
+ WHERE "PAYMENT"."DUE" < TO_CHAR (SYSDATE) AND
+ "PAYMENT"."PAYMENTDATE" IS NULL ]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="CPF" class="java.lang.String"/>
+	<field name="DUE" class="java.sql.Timestamp"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="VALUE" class="java.lang.Double"/>
+	<group name="NAME">
+		<groupExpression><![CDATA[$F{NAME}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="792" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0d349f70-1c30-4d6f-9e9a-85f98aa6ec7c"/>
+				<box topPadding="10" leftPadding="20" bottomPadding="10" rightPadding="10"/>
+				<image>
+					<reportElement x="0" y="0" width="80" height="79" uuid="ec7f4367-c906-4103-aed7-84b3d5bf9f02"/>
+					<imageExpression><![CDATA["images/logo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement mode="Transparent" x="80" y="0" width="620" height="79" forecolor="#FFFFFF" uuid="26786171-0527-40fc-8bb9-22c0e0ec82c7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Lista de Devedores"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="152" height="30" uuid="b7484dd5-a908-4d5a-a33f-04705ca16374"/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="0" width="150" height="30" uuid="bddca3c9-0c8a-4bd9-8f26-0a15f821a91a"/>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="0" width="150" height="30" uuid="c39eeb58-1b39-4e6d-8acd-fa780e1abde9"/>
+				<text><![CDATA[DUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="0" width="150" height="30" uuid="66a90f1d-8e87-4fa7-932f-a7ab9ab8af5a"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="602" y="0" width="150" height="30" uuid="f52c46ac-d387-4051-931b-7c95b87bf496"/>
+				<text><![CDATA[VALUE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="31" width="152" height="30" uuid="3e249db5-3654-47a3-b20e-013099e78f26"/>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="31" width="150" height="30" uuid="e0456a88-81e8-4c10-aced-429781aa03d5"/>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="31" width="150" height="30" uuid="9e2f2aea-2cd7-4e9f-ac27-870bfd0945a2"/>
+				<textFieldExpression><![CDATA[$F{DUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="31" width="150" height="30" uuid="ad1c5cc7-901d-4ad5-91b1-bb2dc1b7ab94"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="603" y="31" width="150" height="30" uuid="060fae17-8a07-4627-a29e-975389dd07ec"/>
+				<textFieldExpression><![CDATA[$F{VALUE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
