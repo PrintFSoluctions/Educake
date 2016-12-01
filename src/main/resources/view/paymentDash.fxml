@@ -44,6 +44,11 @@
                                                 <Insets left="5.0" right="5.0" />
                                             </HBox.margin>
                                         </JFXButton>
+                                        <JFXButton maxWidth="1.7976931348623157E308" onAction="#updateTable" text="Atualizar" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
                                     </children>
                                 </HBox>
                             </children>

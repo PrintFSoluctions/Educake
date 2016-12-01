@@ -86,14 +86,20 @@ public class PaymentController implements Initializable, ControlledScreen {
 
             }
 
-            Educake.mainContainer.setScreen(Educake.paymentDashID);
-            searchTextField.setText(" ");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        myController.setScreen(Educake.paymentDashID);
+            
     }
 
 
+    public void updateTable(){
+        System.out.println(searchTextField.getText());
+    searchTextField.setText(" ");
+        searchTextField.setText("");
+    }
+    
     public void setStudent(Student student) {
         PaymentController.student = student;
 
@@ -105,6 +111,10 @@ public class PaymentController implements Initializable, ControlledScreen {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
             paymentsFiltered.setPredicate(payment -> {
 
+                if(!payment.isActivated()){
+                return false;
+                }
+                
                 // Se o texto do campo estiver vazio, mostra todos (tudo bate com o vazio)
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -160,8 +170,8 @@ public class PaymentController implements Initializable, ControlledScreen {
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar atualizá-lo.");
         }
-
-            searchTextField.setText(" ");
+updateTable();
+            
     }
 
     public void goToNewPayment() {
@@ -198,6 +208,7 @@ public class PaymentController implements Initializable, ControlledScreen {
 
         confirmationButton.setText("Atualizar");
         confirmationButton.setOnAction(event -> updatePayment(payment));
+        updateTable();
     }
 
     public void goToUpdatePayment() {
@@ -216,7 +227,7 @@ public class PaymentController implements Initializable, ControlledScreen {
 
             String name = nameTextField.getText();
             String value = valueTextField.getText();
-            Date due = validator.date(dueTextField.getPlainText());
+            Date due = validator.date(dueTextField.getText());
 
             payment.setName(name);
             payment.setValue(value);
@@ -232,7 +243,7 @@ public class PaymentController implements Initializable, ControlledScreen {
         }
 
         Educake.mainContainer.setScreen(Educake.paymentDashID);
-            searchTextField.setText(" ");
+            
     }
 
     public void removePayment() {
@@ -240,9 +251,7 @@ public class PaymentController implements Initializable, ControlledScreen {
             Payment payment = paymentsTable.getSelectionModel().getSelectedItem();
             payment.setActivated(false);
             dao.update(payment);
-
-            Educake.mainContainer.setScreen(Educake.paymentDashID);
-            searchTextField.setText(" ");
+            updateTable();
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de tentar excluí-la.");
         }
