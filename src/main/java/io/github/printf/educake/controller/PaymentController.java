@@ -274,7 +274,7 @@ public class PaymentController implements Initializable, ControlledScreen {
                 JasperViewer.viewReport(jp, false);
                 con.close();
             } catch (JRException | ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
+                e.printStackTrace(); 
             }
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de gerar o recibo.");
