@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-30T20:43:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b96b60d3-6ee7-4482-b895-0bf52331b30a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Educake"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="1000"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="0"/>
+	<parameter name="curso" class="java.lang.String"/>
+	<parameter name="COURSE" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT "STUDENT"."RM",
+	"STUDENT"."IDPERSON",
+	"ADDRESS"."CITY" as Cidade,
+	"ADDRESS"."DISTRICT" as Bairro,
+	"ADDRESS"."HOUSENUMBER" as "Nº",
+	"ADDRESS"."STREET" as Rua,
+	"PERSON"."NAME" as Nome,
+	"PERSON"."CPF",
+	"STUDENT"."COURSE" as Curso
+FROM "STUDENT"
+	inner join "PERSON" ON 
+	 "STUDENT"."IDPERSON" = "PERSON"."IDPERSON" 
+	inner join "ADDRESS" ON 
+	 "ADDRESS"."IDPERSON" = "PERSON"."IDPERSON"
+	 WHERE STUDENT.COURSE = $P{COURSE}]]>
+	</queryString>
+	<field name="RM" class="java.lang.String"/>
+	<field name="IDPERSON" class="java.math.BigDecimal"/>
+	<field name="CIDADE" class="java.lang.String"/>
+	<field name="BAIRRO" class="java.lang.String"/>
+	<field name="Nº" class="java.math.BigDecimal"/>
+	<field name="RUA" class="java.lang.String"/>
+	<field name="NOME" class="java.lang.String"/>
+	<field name="CPF" class="java.lang.String"/>
+	<field name="CURSO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="842" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0e02ccee-26a8-497e-bc26-5f310ac2cdc6"/>
+				<box topPadding="10" leftPadding="20" bottomPadding="10" rightPadding="10"/>
+				<image>
+					<reportElement x="0" y="0" width="80" height="79" uuid="054e7aae-7054-4546-aa14-532ff02f6ffa"/>
+					<imageExpression><![CDATA["images/logo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement mode="Transparent" x="80" y="0" width="722" height="79" forecolor="#FFFFFF" uuid="27c386d2-1ca1-424d-b8b0-1dde5280b8ec"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Lista de Alunos do curso "+$P{curso}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="33" uuid="eebde1ce-be87-4e8b-bc49-8f353664aedf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[RM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="180" height="33" uuid="0884d67b-8513-449b-96ab-d5c0dcf9b2b4"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="137" height="33" uuid="dbcfbe72-2dcc-4683-aaa9-0d9553b798ac"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[CIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="130" height="33" uuid="07d30bdc-0e55-4ddd-96c9-76458bce5ecf"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="547" y="0" width="55" height="33" uuid="3e57d2f5-593f-4909-9053-2ca7e5dc6724"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="0" width="100" height="33" uuid="6682db6c-1011-4c1f-b746-948864300808"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="100" height="33" uuid="f76a264c-c618-48d2-adad-070b93904f20">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="34" uuid="0f446b26-3793-44a0-9577-e25072128258">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{RM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="180" height="34" uuid="3a30857b-6f4d-4710-a070-110fa6ac5b92"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="133" height="34" uuid="4d01afa5-2e6e-45e8-a12f-1a4abd385f60"/>
+				<textFieldExpression><![CDATA[$F{CIDADE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="130" height="34" uuid="b16ea717-abf2-40c4-af6b-1ab53500325d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="550" y="0" width="50" height="34" uuid="9cbcb25e-ffed-4ef0-b11b-a4271187a4a4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CURSO}]]></textFieldExpression>
+			</textField>
+			<subreport overflowType="Stretch">
+				<reportElement x="602" y="0" width="200" height="34" uuid="06d3cd0d-c7ff-450e-ac55-e71ff0e801be">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="person">
+					<subreportParameterExpression><![CDATA[$F{IDPERSON}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["phones.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
