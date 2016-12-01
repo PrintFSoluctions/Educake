@@ -16,22 +16,29 @@
                             <children>
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToNewStudent" text="Novo Aluno" >
                                     <HBox.margin>
-                                        <Insets left="10.0" right="10.0" />
+                                        <Insets left="5.0" right="5.0" />
                                     </HBox.margin>
                                 </JFXButton>
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToUpdateStudent" text="Editar" HBox.hgrow="ALWAYS" >
                                     <HBox.margin>
-                                        <Insets left="10.0" right="10.0" />
+                                        <Insets left="5.0" right="5.0" />
                                     </HBox.margin>
                                 </JFXButton>
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#removeStudent" text="Excluir" HBox.hgrow="ALWAYS" >
                                     <HBox.margin>
-                                        <Insets left="10.0" right="10.0" />
+                                        <Insets left="5.0" right="5.0" />
                                     </HBox.margin>
                                 </JFXButton>
+
+                                <JFXButton maxWidth="1.7976931348623157E308" onAction="#generateProfile" text="Ficha Completa" HBox.hgrow="ALWAYS" >
+                                    <HBox.margin>
+                                        <Insets left="5.0" right="5.0" />
+                                    </HBox.margin>
+                                </JFXButton>
+
                                 <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToPayment" text="Pendências" HBox.hgrow="ALWAYS" >
                                     <HBox.margin>
-                                        <Insets left="10.0" right="10.0" />
+                                        <Insets left="5.0" right="5.0" />
                                     </HBox.margin>
                                 </JFXButton>
                             </children>

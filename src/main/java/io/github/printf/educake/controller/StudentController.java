@@ -15,9 +15,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -84,6 +91,7 @@ public class StudentController implements Initializable, ControlledScreen {
         }
 
         Educake.mainContainer.setScreen(Educake.studentDashID);
+        initialize(null,null);
     }
 
     @FXML
@@ -172,6 +180,7 @@ public class StudentController implements Initializable, ControlledScreen {
         }
 
         Educake.mainContainer.setScreen(Educake.studentDashID);
+        initialize(null,null);
     }
 
     @FXML
@@ -308,4 +317,27 @@ public class StudentController implements Initializable, ControlledScreen {
 
     }
 
+    public void generateProfile() {
+        if (studentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Student student = studentsTable.getSelectionModel().getSelectedItem();
+            try {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","EDUCAKE","root");
+
+                String path = "src/main/resources/reports/student.jrxml";
+                JasperReport jr = JasperCompileManager.compileReport(path);
+
+                Map<String, Object> param = new HashMap<>();
+                param.put("RM", student.getIdStudent());
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
+                JasperViewer.viewReport(jp, false);
+                con.close();
+            } catch (JRException | ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno para ver seus dados.");
+        }
+    }
 }

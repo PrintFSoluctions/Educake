@@ -48,7 +48,9 @@ public class LoginController implements Initializable, ControlledScreen {
             scene.getStylesheets().add("view/css/components.css");
             Educake.primaryStage.setScene(scene);
             Educake.primaryStage.centerOnScreen();
+            Educake.primaryStage.setMaximized(true);
             Educake.primaryStage.show();
+
         }
     }
 
@@ -59,7 +61,7 @@ public class LoginController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //
+
     }
 
 }

@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T22:01:52 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b96b60d3-6ee7-4482-b895-0bf52331b30a">
+<!-- 2016-12-01T12:42:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Student" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b96b60d3-6ee7-4482-b895-0bf52331b30a">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Educake"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="138"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="857"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="1000"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="RM" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT "STUDENT"."RM",
@@ -50,14 +59,14 @@ WHERE
 	<title>
 		<band height="79" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="842" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0e02ccee-26a8-497e-bc26-5f310ac2cdc6"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0e02ccee-26a8-497e-bc26-5f310ac2cdc6"/>
 				<box topPadding="10" leftPadding="20" bottomPadding="10" rightPadding="10"/>
 				<image>
 					<reportElement x="0" y="0" width="80" height="79" uuid="054e7aae-7054-4546-aa14-532ff02f6ffa"/>
 					<imageExpression><![CDATA["images/logo.png"]]></imageExpression>
 				</image>
 				<textField>
-					<reportElement mode="Transparent" x="80" y="0" width="722" height="79" forecolor="#FFFFFF" uuid="27c386d2-1ca1-424d-b8b0-1dde5280b8ec"/>
+					<reportElement mode="Transparent" x="80" y="0" width="475" height="79" forecolor="#FFFFFF" uuid="27c386d2-1ca1-424d-b8b0-1dde5280b8ec"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="SansSerif" size="24" isBold="true"/>
 					</textElement>
@@ -74,61 +83,60 @@ WHERE
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
-				<reportElement x="100" y="0" width="702" height="21" uuid="0f446b26-3793-44a0-9577-e25072128258">
+				<reportElement x="100" y="0" width="455" height="21" uuid="0f446b26-3793-44a0-9577-e25072128258">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{RM}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="21" width="702" height="16" uuid="3a30857b-6f4d-4710-a070-110fa6ac5b92"/>
+				<reportElement x="100" y="21" width="455" height="16" uuid="3a30857b-6f4d-4710-a070-110fa6ac5b92"/>
 				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="37" width="702" height="16" uuid="b16ea717-abf2-40c4-af6b-1ab53500325d">
+				<reportElement x="100" y="37" width="455" height="16" uuid="b16ea717-abf2-40c4-af6b-1ab53500325d">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="53" width="702" height="16" uuid="9cbcb25e-ffed-4ef0-b11b-a4271187a4a4">
+				<reportElement x="100" y="53" width="455" height="16" uuid="9cbcb25e-ffed-4ef0-b11b-a4271187a4a4">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[IF($F{CURSO}.equals("EN"),"Inglês",IF($F{CURSO}.equals("PT"),"Português",IF($F{CURSO}.equals("ES"),"Espanhol","Nenhum")))
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{CURSO}.equals("EN"))  ? "Inglês" : ($F{CURSO}.equals("PT")) ? "Portguês" : "Espanhol"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="69" width="702" height="16" uuid="ff667796-c152-4358-8ade-68ba4f8bf792"/>
+				<reportElement x="100" y="69" width="455" height="16" uuid="ff667796-c152-4358-8ade-68ba4f8bf792"/>
 				<textFieldExpression><![CDATA[$F{CEP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="85" width="702" height="16" uuid="4eea403a-caec-4ecd-848e-5b39e43db73c"/>
+				<reportElement x="100" y="85" width="455" height="16" uuid="4eea403a-caec-4ecd-848e-5b39e43db73c"/>
 				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="101" width="702" height="16" uuid="4d01afa5-2e6e-45e8-a12f-1a4abd385f60"/>
+				<reportElement x="100" y="101" width="455" height="16" uuid="4d01afa5-2e6e-45e8-a12f-1a4abd385f60"/>
 				<textFieldExpression><![CDATA[$F{CIDADE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="117" width="702" height="16" uuid="1246bd8e-e3b5-45a2-9a5f-5f739b4163ac"/>
+				<reportElement x="100" y="117" width="455" height="16" uuid="1246bd8e-e3b5-45a2-9a5f-5f739b4163ac"/>
 				<textFieldExpression><![CDATA[$F{BAIRRO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="133" width="702" height="16" uuid="39f047a6-a4c6-4ee7-a065-b3f90358b744"/>
+				<reportElement x="100" y="133" width="455" height="16" uuid="39f047a6-a4c6-4ee7-a065-b3f90358b744"/>
 				<textFieldExpression><![CDATA[$F{Nº}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="149" width="702" height="16" uuid="037553fa-10cf-4a42-b5b6-f95ff7789c1a"/>
+				<reportElement x="100" y="149" width="455" height="16" uuid="037553fa-10cf-4a42-b5b6-f95ff7789c1a"/>
 				<textFieldExpression><![CDATA[$F{COMPLEMENTO}]]></textFieldExpression>
 			</textField>
 			<subreport overflowType="Stretch">
-				<reportElement x="100" y="165" width="702" height="16" uuid="06d3cd0d-c7ff-450e-ac55-e71ff0e801be">
+				<reportElement x="100" y="165" width="455" height="16" uuid="06d3cd0d-c7ff-450e-ac55-e71ff0e801be">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<subreportParameter name="person">
 					<subreportParameterExpression><![CDATA[$F{IDPERSON}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["phones.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["src/main/resources/reports/sub/phones.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="16" uuid="eebde1ce-be87-4e8b-bc49-8f353664aedf">

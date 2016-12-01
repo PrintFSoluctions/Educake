@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import io.github.printf.educake.util.components.MaskField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<ScrollPane fx:controller="io.github.printf.educake.controller.PaymentController" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white;">
+<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: white;" stylesheets="@css/components.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.printf.educake.controller.PaymentController">
    <content>
-      <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-color: white;">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-background-color: white;">
          <children>
             <JFXTextField fx:id="nameTextField" focusColor="#9c27b0" labelFloat="true" promptText="Nome" />
             <JFXTextField fx:id="valueTextField" focusColor="#9c27b0" labelFloat="true" promptText="Valor" />
-            <JFXDatePicker fx:id="dueTextField" defaultColor="#9c27b0" maxWidth="1.7976931348623157E308" overLay="true" promptText="Vencimento" />
-            <HBox fx:id="form" prefHeight="100.0" prefWidth="200.0">
+            <MaskField mask="DD/DD/DDDD" fx:id="dueTextField" focusColor="#9c27b0" labelFloat="true" promptText="Vencimento" />
+            <HBox fx:id="form" fillHeight="false" prefWidth="200.0">
                <children>
-                  <JFXCheckBox fx:id="installmentsCheck" onAction="#activateInstallments" alignment="CENTER" checkedColor="#9c27b0" maxHeight="1.7976931348623157E308" text="Gerar Carne para " />
-                  <HBox fx:id="installments" disable="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <JFXCheckBox id="installment" fx:id="installmentsCheck" alignment="CENTER" checkedColor="#9c27b0" contentDisplay="BOTTOM" onAction="#activateInstallments" prefWidth="129.0" text="Gerar Carne para ">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+                  <HBox fx:id="installments" disable="true" maxHeight="36" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                      <children>
-                        <JFXTextField fx:id="monthsTextField" alignment="CENTER" focusColor="#9c27b0" labelFloat="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <Label maxHeight="1.7976931348623157E308" text=" meses" />
+                        <JFXTextField fx:id="monthsTextField" alignment="CENTER" focusColor="#9c27b0" labelFloat="true" maxHeight="36" maxWidth="1.7976931348623157E308" promptText="meses" HBox.hgrow="ALWAYS" />
                      </children>
+                     <Label alignment="CENTER" text="meses.">
+                        <HBox.margin>
+                           <Insets top="20.0" />
+                        </HBox.margin>
+                     </Label>
                   </HBox>
                </children>
             </HBox>
-            <JFXButton fx:id="confirmationButton" onAction="#persistPendencies" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cadastrar" />
+            <JFXButton fx:id="confirmationButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#persistPendencies" text="Cadastrar" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

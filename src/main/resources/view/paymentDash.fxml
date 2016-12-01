@@ -15,34 +15,39 @@
                 <HBox alignment="CENTER" maxHeight="50.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" VBox.vgrow="NEVER">
                     <children>
                         <JFXTextField fx:id="searchTextField" focusColor="#9c27b0" labelFloat="true" prefHeight="25.0" prefWidth="461.0" promptText="Buscar por Mês" HBox.hgrow="ALWAYS" />
-                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                     <children>
-                              <HBox id="white" alignment="CENTER">
-                                  <children>
-                                      <JFXButton layoutX="112.0" layoutY="23.0" maxWidth="1.7976931348623157E308" onAction="#pay" style="-fx-background-color: #AB47BC;" text="Pagar" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                                      <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToNewPayment" text="Nova Pendencia">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                                      <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToUpdatePayment" text="Editar" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                                      <JFXButton maxWidth="1.7976931348623157E308" onAction="#removePayment" text="Excluir" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                                  </children>
-                              </HBox>
-                     </children>
-                  </HBox>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                            <children>
+                                <HBox id="white" alignment="CENTER">
+                                    <children>
+                                        <JFXButton layoutX="112.0" layoutY="23.0" maxWidth="1.7976931348623157E308" onAction="#pay" style="-fx-background-color: #AB47BC;" text="Pagar" textFill="WHITE">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToNewPayment" text="Nova Pendencia">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton maxWidth="1.7976931348623157E308" onAction="#goToUpdatePayment" text="Editar" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton maxWidth="1.7976931348623157E308" onAction="#removePayment" text="Excluir" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton maxWidth="1.7976931348623157E308" onAction="#generateBill" text="Recibo" HBox.hgrow="ALWAYS">
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
                     </children>
                 </HBox>
                 <TableView fx:id="paymentsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />

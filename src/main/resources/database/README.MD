@@ -2,7 +2,9 @@
 Here comes the dice's bank! :squirrel:
 
 ### Entities:
-- [x] Person
-  - [x] Student
-- [x] Bill
+- [x] Student
+  - [x] Person
+    - [x] Phone
+    - [x] Login
+    - [x] Address
 - [x] Payment

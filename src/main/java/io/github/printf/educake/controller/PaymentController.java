@@ -2,7 +2,6 @@ package io.github.printf.educake.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import io.github.printf.educake.Educake;
 import io.github.printf.educake.controller.base.ModalErrorDialog;
@@ -10,6 +9,7 @@ import io.github.printf.educake.dao.PaymentDAO;
 import io.github.printf.educake.model.Payment;
 import io.github.printf.educake.model.Student;
 import io.github.printf.educake.util.EasyDate;
+import io.github.printf.educake.util.components.MaskField;
 import io.github.printf.educake.util.interfaces.ControlledScreen;
 import io.github.printf.educake.util.validators.Validator;
 import javafx.collections.FXCollections;
@@ -21,14 +21,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * @author Vitor Silvério de Souza
@@ -47,11 +47,13 @@ public class PaymentController implements Initializable, ControlledScreen {
     @FXML
     private JFXTextField nameTextField, valueTextField, monthsTextField;
     @FXML
-    private JFXDatePicker dueTextField;
+    private MaskField dueTextField;
     @FXML
     private HBox installments, form;
 
     private PaymentDAO dao = new PaymentDAO();
+    private PaymentDAO studentDAO = new PaymentDAO();
+    private FilteredList<Payment> paymentsFiltered;
 
     private static Student student;
     private ObservableList<Payment> payments;
@@ -68,7 +70,7 @@ public class PaymentController implements Initializable, ControlledScreen {
             String name = nameTextField.getText();
             String value = valueTextField.getText();
             int months = (installmentsCheck.isSelected())?validator.integer(monthsTextField.getText()) : 1;
-            Date due = Date.from(dueTextField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date due = validator.date(dueTextField.getText());
             gc.setTime(due);
 
             for (int i = 0; i < months; i++) {
@@ -81,8 +83,13 @@ public class PaymentController implements Initializable, ControlledScreen {
                 gc.set(Calendar.MONTH, gc.get(Calendar.MONTH)+1);
                 student.getPerson().addPayment(payment);
                 dao.persist(payment);
+
             }
 
+            setStudent(student);
+            Educake.activeScreen="";
+            Educake.mainContainer.setScreen(Educake.paymentDashID);
+            setStudent(student);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,9 +98,11 @@ public class PaymentController implements Initializable, ControlledScreen {
 
     public void setStudent(Student student) {
         PaymentController.student = student;
-        payments = FXCollections.observableArrayList(PaymentController.student.getPerson().getPayments());
 
-        FilteredList<Payment> paymentsFiltered = new FilteredList<>(payments, p -> true);
+        payments = FXCollections.observableArrayList(student.getPerson().getPayments());
+        paymentsTable.setItems(payments);
+        paymentsFiltered = new FilteredList<>(payments, p -> true);
+        paymentsFiltered.setPredicate(payment -> true);
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
             paymentsFiltered.setPredicate(payment -> {
@@ -125,11 +134,16 @@ public class PaymentController implements Initializable, ControlledScreen {
             dueColumn.setCellValueFactory(new PropertyValueFactory<>("stringDue"));
             paymentDateColumn.setCellValueFactory(new PropertyValueFactory<>("stringPaymentDate"));
 
-            dueColumn.setMaxWidth(2000);
-            paymentDateColumn.setMaxWidth(2000);
+            typeColumn.prefWidthProperty().bind(paymentsTable.widthProperty().multiply(0.1));
+            paymentDateColumn.prefWidthProperty().bind(paymentsTable.widthProperty().multiply(2));
+            dueColumn.prefWidthProperty().bind(paymentsTable.widthProperty().multiply(2));
 
-            dueColumn.setResizable(false);
-            paymentDateColumn.setResizable(false);
+            dueColumn.setMaxWidth(100);
+            paymentDateColumn.setMaxWidth(250);
+
+            dueColumn.setMinWidth(100);
+            paymentDateColumn.setMinWidth(250);
+
 
             paymentsTable.getColumns().addAll(typeColumn, dueColumn, paymentDateColumn);
         }
@@ -148,6 +162,12 @@ public class PaymentController implements Initializable, ControlledScreen {
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar atualizá-lo.");
         }
+
+
+        setStudent(student);
+        Educake.activeScreen="";
+        Educake.mainContainer.setScreen(Educake.paymentDashID);
+        setStudent(student);
     }
 
     public void goToNewPayment() {
@@ -160,9 +180,10 @@ public class PaymentController implements Initializable, ControlledScreen {
         if (nameTextField != null) {
             nameTextField.setText("");
             valueTextField.setText("");
-            dueTextField.setValue(null);
+            dueTextField.setText("");
             monthsTextField.setText("");
             installmentsCheck.setSelected(false);
+            activateInstallments();
 
             confirmationButton.setText("Cadastrar");
             confirmationButton.setOnAction(event -> persistPendencies());
@@ -174,12 +195,11 @@ public class PaymentController implements Initializable, ControlledScreen {
 
         String name = payment.getName();
         String value = String.valueOf(payment.getValue()).replaceAll("\\.",",");
-        LocalDate due = EasyDate.toLocalDate(payment.getDue());
+        String due = EasyDate.toString(payment.getDue());
 
         nameTextField.setText(name);
         valueTextField.setText(value);
-        dueTextField.setValue(due);
-        dueTextField.setAccessibleText(due.getDayOfMonth()+"/"+due.getMonth()+"/"+due.getYear());
+        dueTextField.setPlainText(due);
         form.getChildren().remove(installments);
 
         confirmationButton.setText("Atualizar");
@@ -203,7 +223,7 @@ public class PaymentController implements Initializable, ControlledScreen {
 
             String name = nameTextField.getText();
             String value = valueTextField.getText();
-            Date due = Date.from(dueTextField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date due = validator.date(dueTextField.getPlainText());
 
             payment.setName(name);
             payment.setValue(value);
@@ -212,9 +232,16 @@ public class PaymentController implements Initializable, ControlledScreen {
             student.getPerson().setPayment(index, payment);
 
             dao.update(payment);
+
+            initialize(null,null);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        setStudent(student);
+        Educake.activeScreen="";
+        Educake.mainContainer.setScreen(Educake.paymentDashID);
+        setStudent(student);
     }
 
     public void removePayment() {
@@ -222,6 +249,11 @@ public class PaymentController implements Initializable, ControlledScreen {
             Payment payment = paymentsTable.getSelectionModel().getSelectedItem();
             payment.setActivated(false);
             dao.update(payment);
+
+            setStudent(student);
+            Educake.activeScreen="";
+            Educake.mainContainer.setScreen(Educake.paymentDashID);
+            setStudent(student);
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de tentar excluí-la.");
         }
@@ -234,5 +266,29 @@ public class PaymentController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    public void generateBill() {
+        if (paymentsTable.getSelectionModel().getSelectedIndex() >= 0) {
+            Payment payment = paymentsTable.getSelectionModel().getSelectedItem();
+            try {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","EDUCAKE","root");
+
+                String path = "src/main/resources/reports/payment.jrxml";
+                JasperReport jr = JasperCompileManager.compileReport(path);
+
+                Map<String, Object> param = new HashMap<>();
+                param.put("bill", payment.getIdPayment());
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
+                JasperViewer.viewReport(jp, false);
+                con.close();
+            } catch (JRException | ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de gerar o recibo.");
+        }
     }
 }

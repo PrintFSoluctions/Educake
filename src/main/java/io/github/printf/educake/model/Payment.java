@@ -61,8 +61,8 @@ public class Payment implements Serializable {
             return "Pendente";
         }
 
-        if(paymentDate.getTime() < System.currentTimeMillis()){
-            return EasyDate.toString(paymentDate)+ " (Em atraso)";
+        if(this.getPaymentDate().getTime() > this.getDue().getTime() ){
+            return EasyDate.toString(paymentDate)+ " (Atrasado)";
         }
         return EasyDate.toString(paymentDate);
     }
