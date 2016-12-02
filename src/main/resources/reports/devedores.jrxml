@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-12-01T20:14:48 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="devedores" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48e2ca46-602c-4918-b828-4a4d2ea7d407">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="IlBBWU1FTlQiICwxNSwxNSxiMTExNDdiMy1lNTJjLTQwM2ItOThjMy03ZjcwZjdlMDQwYmQ7IlBF&#xA;UlNPTiIgLDIwMCw2OSwzZDU5ZjI4Yi04MjZiLTQ2ZTMtODA4Yy02MGI1ZTczMTlhZmY7"/>
+<!-- 2016-12-02T15:57:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b96b60d3-6ee7-4482-b895-0bf52331b30a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Educake"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="476"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="524"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="660"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="326"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT "PERSON"."NAME",
+		<![CDATA[SELECT DISTINCT "STUDENT"."RM",
+	"PERSON"."NAME" as Nome,
 	"PERSON"."CPF",
-	"PAYMENT"."DUE",
-	"PAYMENT"."name",
-	"PAYMENT"."VALUE"
-FROM "PAYMENT"
-	INNER JOIN "PERSON" ON 
-	 "PAYMENT"."IDPERSON" = "PERSON"."IDPERSON" 
- WHERE "PAYMENT"."DUE" < TO_CHAR (SYSDATE) AND
- "PAYMENT"."PAYMENTDATE" IS NULL ]]>
+	"STUDENT"."COURSE" as Curso,
+	"PAYMENT"."DUE" AS Vencimento,
+		"PAYMENT"."VALUE" as Valor
+FROM "STUDENT"
+	inner join "PERSON" ON 
+	 "STUDENT"."IDPERSON" = "PERSON"."IDPERSON" 
+	 inner join "PAYMENT" ON
+	 "PAYMENT"."IDPERSON" = "PERSON"."IDPERSON"
+	 WHERE
+	 "PAYMENT"."PAYMENTDATE" IS NULL
+	AND "STUDENT"."ACTIVATED" = 1]]>
 	</queryString>
-	<field name="NAME" class="java.lang.String"/>
+	<field name="RM" class="java.lang.String"/>
+	<field name="NOME" class="java.lang.String"/>
 	<field name="CPF" class="java.lang.String"/>
-	<field name="DUE" class="java.sql.Timestamp"/>
-	<field name="name" class="java.lang.String"/>
-	<field name="VALUE" class="java.lang.Double"/>
-	<group name="NAME">
-		<groupExpression><![CDATA[$F{NAME}]]></groupExpression>
-	</group>
+	<field name="CURSO" class="java.lang.String"/>
+	<field name="VENCIMENTO" class="java.sql.Timestamp"/>
+	<field name="VALOR" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="792" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0d349f70-1c30-4d6f-9e9a-85f98aa6ec7c"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="842" height="99" forecolor="#FFFFFF" backcolor="#7B1FA2" uuid="0e02ccee-26a8-497e-bc26-5f310ac2cdc6"/>
 				<box topPadding="10" leftPadding="20" bottomPadding="10" rightPadding="10"/>
 				<image>
-					<reportElement x="0" y="0" width="80" height="79" uuid="ec7f4367-c906-4103-aed7-84b3d5bf9f02"/>
+					<reportElement x="0" y="0" width="80" height="79" uuid="054e7aae-7054-4546-aa14-532ff02f6ffa"/>
 					<imageExpression><![CDATA["images/logo.png"]]></imageExpression>
 				</image>
 				<textField>
-					<reportElement mode="Transparent" x="80" y="0" width="620" height="79" forecolor="#FFFFFF" uuid="26786171-0527-40fc-8bb9-22c0e0ec82c7"/>
+					<reportElement mode="Transparent" x="80" y="0" width="722" height="79" forecolor="#FFFFFF" uuid="27c386d2-1ca1-424d-b8b0-1dde5280b8ec"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="SansSerif" size="24" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Lista de Devedores"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Pendências Atrasadas"]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -52,59 +56,77 @@ FROM "PAYMENT"
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="22" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
-				<reportElement x="0" y="0" width="152" height="30" uuid="b7484dd5-a908-4d5a-a33f-04705ca16374"/>
-				<text><![CDATA[NAME]]></text>
+				<reportElement x="0" y="0" width="100" height="22" uuid="eebde1ce-be87-4e8b-bc49-8f353664aedf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[RM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="152" y="0" width="150" height="30" uuid="bddca3c9-0c8a-4bd9-8f26-0a15f821a91a"/>
+				<reportElement x="100" y="0" width="260" height="18" uuid="0884d67b-8513-449b-96ab-d5c0dcf9b2b4"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="130" height="18" uuid="07d30bdc-0e55-4ddd-96c9-76458bce5ecf"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[CPF]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="302" y="0" width="150" height="30" uuid="c39eeb58-1b39-4e6d-8acd-fa780e1abde9"/>
-				<text><![CDATA[DUE]]></text>
+				<reportElement x="495" y="0" width="55" height="18" uuid="3e57d2f5-593f-4909-9053-2ca7e5dc6724"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[CURSO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="452" y="0" width="150" height="30" uuid="66a90f1d-8e87-4fa7-932f-a7ab9ab8af5a"/>
-				<text><![CDATA[name]]></text>
+				<reportElement x="554" y="1" width="100" height="15" uuid="d80620e9-0dd0-4cbf-90e1-61b6a9394a09"/>
+				<text><![CDATA[VALOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="602" y="0" width="150" height="30" uuid="f52c46ac-d387-4051-931b-7c95b87bf496"/>
-				<text><![CDATA[VALUE]]></text>
+				<reportElement x="654" y="1" width="148" height="15" uuid="54e5517e-2a15-45ad-ad6a-bc21d7ee1009"/>
+				<text><![CDATA[VENCIMENTO]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="1" y="31" width="152" height="30" uuid="3e249db5-3654-47a3-b20e-013099e78f26"/>
-				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="153" y="31" width="150" height="30" uuid="e0456a88-81e8-4c10-aced-429781aa03d5"/>
-				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="302" y="31" width="150" height="30" uuid="9e2f2aea-2cd7-4e9f-ac27-870bfd0945a2"/>
-				<textFieldExpression><![CDATA[$F{DUE}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="452" y="31" width="150" height="30" uuid="ad1c5cc7-901d-4ad5-91b1-bb2dc1b7ab94"/>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="603" y="31" width="150" height="30" uuid="060fae17-8a07-4627-a29e-975389dd07ec"/>
-				<textFieldExpression><![CDATA[$F{VALUE}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="27" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="22" uuid="0f446b26-3793-44a0-9577-e25072128258">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{RM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="260" height="22" uuid="3a30857b-6f4d-4710-a070-110fa6ac5b92"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="130" height="22" uuid="b16ea717-abf2-40c4-af6b-1ab53500325d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="-4" width="50" height="26" uuid="9cbcb25e-ffed-4ef0-b11b-a4271187a4a4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[($F{CURSO}.equals("EN"))  ? "Inglês" : ($F{CURSO}.equals("PT")) ? "Portguês" : "Espanhol"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="554" y="-2" width="100" height="24" uuid="cfb07c62-e90c-407d-a360-165bf1ac556a"/>
+				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="654" y="2" width="148" height="18" uuid="ee66dcf0-d454-4370-a9c9-05ffb1e9182b"/>
+				<textFieldExpression><![CDATA[$F{VENCIMENTO}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

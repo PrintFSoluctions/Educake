@@ -11,6 +11,7 @@ import io.github.printf.educake.util.interfaces.ControlledScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -292,8 +293,15 @@ public class StudentController implements Initializable, ControlledScreen {
                 nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
                 courseColumn.setCellValueFactory(new PropertyValueFactory<>("courseString"));
 
-                rmColumn.setMaxWidth(500);
-                courseColumn.setMaxWidth(800);
+                nameColumn.prefWidthProperty().bind(studentsTable.widthProperty().multiply(0.1));
+                rmColumn.prefWidthProperty().bind(studentsTable.widthProperty().multiply(2));
+                courseColumn.prefWidthProperty().bind(studentsTable.widthProperty().multiply(2));
+
+                rmColumn.setMaxWidth(100);
+                courseColumn.setMaxWidth(150);
+
+                rmColumn.setMinWidth(100);
+                courseColumn.setMinWidth(150);
 
                 rmColumn.setResizable(false);
                 courseColumn.setResizable(false);
@@ -339,5 +347,10 @@ public class StudentController implements Initializable, ControlledScreen {
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno para ver seus dados.");
         }
+    }
+
+    public void updateTable(ActionEvent actionEvent) {
+        searchTextField.setText(" ");
+        searchTextField.setText("");
     }
 }

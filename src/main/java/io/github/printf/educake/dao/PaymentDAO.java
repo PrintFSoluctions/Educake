@@ -16,7 +16,7 @@ public class PaymentDAO extends DataAccessObject<Payment> {
 
     @Override
     public Payment getById(Integer id) {
-        return getSession().load(Payment.class, id);
+        return (Payment) getSession().createQuery("FROM Payment WHERE activated = 1 AND idPayment = "+id).list().get(0);
     }
 
     @Override

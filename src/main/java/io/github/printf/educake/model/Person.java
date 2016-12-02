@@ -115,7 +115,15 @@ public class Person implements Serializable {
   }
 
   public List<Payment> getPayments() {
-    return payments;
+  List<Payment> ll = new ArrayList<>();
+
+    for (Payment payment : payments) {
+      if(payment.isActivated()){
+        ll.add(payment);
+      }
+    }
+
+    return ll;
   }
 
   public Address getAddress() {

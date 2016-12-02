@@ -90,16 +90,16 @@ public class PaymentController implements Initializable, ControlledScreen {
             e.printStackTrace();
         }
         myController.setScreen(Educake.paymentDashID);
-            
+
     }
 
 
     public void updateTable(){
         System.out.println(searchTextField.getText());
-    searchTextField.setText(" ");
+        searchTextField.setText(" ");
         searchTextField.setText("");
     }
-    
+
     public void setStudent(Student student) {
         PaymentController.student = student;
 
@@ -112,9 +112,9 @@ public class PaymentController implements Initializable, ControlledScreen {
             paymentsFiltered.setPredicate(payment -> {
 
                 if(!payment.isActivated()){
-                return false;
+                    return false;
                 }
-                
+
                 // Se o texto do campo estiver vazio, mostra todos (tudo bate com o vazio)
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -170,8 +170,8 @@ public class PaymentController implements Initializable, ControlledScreen {
         } else {
             new ModalErrorDialog("Selecione um aluno", "É necessário selecionar um aluno antes de tentar atualizá-lo.");
         }
-updateTable();
-            
+        updateTable();
+
     }
 
     public void goToNewPayment() {
@@ -243,7 +243,7 @@ updateTable();
         }
 
         Educake.mainContainer.setScreen(Educake.paymentDashID);
-            
+
     }
 
     public void removePayment() {
@@ -283,7 +283,7 @@ updateTable();
                 JasperViewer.viewReport(jp, false);
                 con.close();
             } catch (JRException | ClassNotFoundException | SQLException e) {
-                e.printStackTrace(); 
+                e.printStackTrace();
             }
         } else {
             new ModalErrorDialog("Selecione uma pendência", "É necessário selecionar uma pendência antes de gerar o recibo.");
